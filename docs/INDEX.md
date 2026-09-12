@@ -43,3 +43,4 @@ recommendation. Preserve the distinction between aggregate and quote-time tests.
 - [Consolidated Stage 0-4 report](findings/stage_0_to_4_report.md)
 - [Reproduction verification](../outputs/reports/verification.json)
 - [Output tables](../outputs/tables/) and [figures](../outputs/figures/)
+- [Final Stage 0-4 handoff](handoffs/2026-09-12-stage-0-to-4.md)

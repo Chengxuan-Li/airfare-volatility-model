@@ -62,10 +62,10 @@ shifter or full capacity model. See report for competing explanations and all fi
 3. Restore Git authentication if required and publish the committed branch safely.
 
 ## Blockers / Git publication
-The public origin was verified and fetch succeeded. An earlier push failed after
-an authentication dialog was cancelled. This run will attempt publication only
-noninteractively; see final handoff/history for that result. All work is committed
-locally regardless of remote authentication.
+The public origin was verified and fetch succeeded. Final noninteractive push
+failed (exit 128) because GitHub username credentials were unavailable. No login
+dialog was opened. All work remains committed locally on `codex/stage-0-to-4`.
+Restore Git authentication and push that branch; see the final handoff.
 
 ## Relevant commits
 - `bcb1b47` — Stage 0 research specification.
@@ -73,7 +73,8 @@ locally regardless of remote authentication.
 - `0641787` — source feasibility and data constraints.
 - `6e48581` — tested acquisition/analysis implementation.
 - `6465419` — real pilot, provenance, and quality audits.
-- See subsequent history for final analysis, verification, and handoff commits.
+- `65420ec` — final analysis, reports, and reproducibility verification.
+- See subsequent history for final handoff and Git publication status.
 
 ## Intentionally uncommitted local files
 - `.env`: ignored local key; never commit or print it.
