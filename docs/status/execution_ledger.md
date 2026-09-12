@@ -60,3 +60,20 @@ T_T100D_SEGMENT_ALL_CARRIER.csv. Raw files remain local and ignored.
 Nineteen offline tests pass at the implementation milestone. Raw fare rebuild
 and fitting are in progress. Worker tasks are bounded source verification and
 identification review; coordinator owns acquisition, integration, and commits.
+# Stage 5 final verification — 2026-09-12
+
+Completed all 62 predeclared attempts:54 estimates, eight saturated seasonal
+holdout failures.905 primary and873 one-way cells; no unmatched capacity/risk.
+The reviewed nuisance-QR fix preserves fixed-effect span and focal regressors.
+Twenty-one offline tests pass. Two raw builds reproduce 15 compact outputs
+byte-for-byte; all 30 consumed input paths, request identities, hashes and payloads
+verify. Original Stage0-4 outputs are unchanged. Plot visually inspected.
+Independent code and final numerical/interpretation review completed.
+
+Stop on the user-authorized strong-argument criterion: quarterly observables do
+not identify the original quote-time joint demand/risk mechanism. This is not a
+claim of causal zero or universal exhaustion. No additional paid service or FR24
+call/credit. Git fetch succeeded; noninteractive push of codex/stage-5-robustness
+failed exit 128 because GitHub username credentials are unavailable. No dialog.
+Research, outputs, structure and final verification are committed locally; the
+pre-existing user .env.example edit remains deliberately outside research commits.

@@ -52,3 +52,5 @@ recommendation. Preserve the distinction between aggregate and quote-time tests.
 - [Stage 5 expanded findings and stopping decision](findings/stage5_report.md)
 - [Stage 5 structure, dictionary and reproduction](methods/stage5_reproduction.md)
 - [Stage 5 outputs](../outputs/stage5/)
+- [Stage 5 final verification](../outputs/stage5/verification.json)
+- [Stage 5 handoff](handoffs/2026-09-12-stage5.md)

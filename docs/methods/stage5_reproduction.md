@@ -64,11 +64,11 @@ thread oversubscription; no model depends on parallel computation.
 - `coefficients.csv`: all focal estimates, SE, approximate intervals/p-values,
   sample and pair counts. No nuisance coefficients are treated as discoveries.
 - `model_status.csv`: every formula/attempt, estimated or explicit failure,
-  numerical rank/conditioning and observation counts. Matched and unmatched base
-  samples coincide here because every primary cell has valid capacity.
+  numerical rank/conditioning for estimated fits and observation counts. Matched and unmatched base
+  samples coincide here because every product cell has valid capacity.
 - `identifying_support.csv`: raw/within-FE risk standard deviation, fixed-risk
   residual maximum, groups and repeated groups. Absorption is not a causal null.
-- `same_season_changes.csv`: complete training route/carrier/season differences,
+- `same_season_changes.csv`: complete training route-carrier-season differences,
  2024 minus2023, for transparent inspection of the seasonal comparison.
 - `sample_summary.csv`, `analysis_metadata.json`: period/product size and fare
   range, training references, attempt totals and inference limitations.

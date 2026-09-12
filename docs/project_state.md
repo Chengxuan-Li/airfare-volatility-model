@@ -1,8 +1,9 @@
 # Project state
 
 ## Current stage
-Stage 5 analysis complete on `codex/stage-5-robustness`; final raw reproduction
-and handoff verification underway. Stage 0-4 results remain preserved. Original
+Stage 5 analysis and verification complete on `codex/stage-5-robustness`.
+Two full raw builds reproduce 15 derived outputs byte-for-byte; 21 tests pass.
+Stage 0-4 results remain preserved. Original
 quote-time H1/H2 and flexibility premiums remain unidentifiable from these sources.
 
 ## Last updated
@@ -24,13 +25,15 @@ quote-time H1/H2 and flexibility premiums remain unidentifiable from these sourc
 - Independent code/methodology and final report reviews completed; findings addressed.
 
 ## In progress
-Stage 5 extension authorized by the user and active on `codex/stage-5-robustness`.
+No research work remains in this pass. Strong identification-argument stopping
+criterion met; Git publication is blocked by unavailable credentials.
 The extension has 905 primary cells across 42 directions and 94 route/carrier groups,
 plus 873 one-way product cells. Four new fare archives, three annual capacity
 extracts and seven extended weather responses were acquired. All 1,778 product
 cells match risk and capacity. Of 62 declared fits, 54 estimate and eight seasonal
-holdout fits are saturated. Twenty-one offline tests pass; a second full raw
-rebuild and final report review are underway.
+holdout fits are saturated. Twenty-one offline tests pass; the second full raw
+rebuild and independent code/report reviews are complete. The 15 compared outputs
+are byte-identical, with all 30 consumed input identities/checksums/payloads verified.
 
 ## Key conclusions
 - Stage 5 expanded training interaction+50.58, approximate interval[-38.02,139.19];
@@ -70,16 +73,18 @@ shifter or full capacity model. See report for competing explanations and all fi
 
 ## Next actions
 1. Read docs/findings/stage5_report.md and docs/methods/stage5_reproduction.md.
-2. Finish final reproduction and publication checks; future research needs an
+2. Future research needs an
    aligned information/identification design. Do not spend FR24 credits to inflate
    sample size or relabel descriptive estimates as identified effects.
 3. Restore Git authentication if required and publish the committed branch safely.
 
 ## Blockers / Git publication
 The public origin was verified and fetch succeeded. Final noninteractive push
-failed (exit 128) because GitHub username credentials were unavailable. No login
-dialog was opened. All work remains committed locally on `codex/stage-0-to-4`.
-Restore Git authentication and push that branch; see the final handoff.
+failed (exit 128) because GitHub username credentials were unavailable. A Stage5
+fetch succeeded and noninteractive push failed for the same reason. No login
+dialog was opened. Research and verification are committed locally on
+`codex/stage-5-robustness`, which includes the prior Stage0-4 history.
+Restore Git authentication and push that branch; see the Stage5 handoff.
 
 ## Relevant commits
 - `bcb1b47` — Stage 0 research specification.
@@ -89,6 +94,9 @@ Restore Git authentication and push that branch; see the final handoff.
 - `6465419` — real pilot, provenance, and quality audits.
 - `65420ec` — final analysis, reports, and reproducibility verification.
 - See subsequent history for final handoff and Git publication status.
+- `e8c99f4` — predeclared Stage5 design.
+- `5201a91` — tested acquisition, products, capacity and identification.
+- `0738495` — expanded results, reviewed methods and durable outputs.
 
 ## Intentionally uncommitted local files
 - `.env`: ignored local key; never commit or print it.

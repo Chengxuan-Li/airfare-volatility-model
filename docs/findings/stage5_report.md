@@ -67,9 +67,9 @@ isolated small p-values are not treated as discoveries.
 
 | Primary specification | Interaction | Approximate95% interval |
 | --- | ---: | ---: |
-| Training, route/carrier and period effects | 50.58 | [-38.02,139.19] |
+| Training, route-carrier and period effects | 50.58 | [-38.02,139.19] |
 | Training, add log route seats | 55.82 | [-30.85,142.49] |
-| Training, route/carrier/season and period effects | 248.45 | [-90.09,587.00] |
+| Training, route-carrier-season and period effects | 248.45 | [-90.09,587.00] |
 | Training, seasonal effects plus seats | 112.90 | [-229.00,454.80] |
 | Holdout, standard effects | 33.88 | [-112.42,180.18] |
 | Full ten quarters, standard effects | 36.47 | [-39.47,112.41] |
@@ -86,7 +86,8 @@ one-way with seats produces+104.13 with an approximate interval[3.61,204.64], bu
 this isolated result is not stable under stronger seasonal controls or in the
 holdout. The whole-ticket check does not rescue the proposed negative interaction.
 
-Replacing sampled carrier traffic with T100 total-route passengers changes the
+Replacing sampled carrier traffic with T100 total-route passengers, while also
+controlling for log route seats, changes the
 quantity construct and gives a training standard-effect interaction+424.97
 [153.49,696.44]. Under seasonal effects it is +353.43[-568.19,1275.05]; the holdout
 is +219.92[-945.53,1385.36]. This sensitivity is evidence against treating an
@@ -103,14 +104,14 @@ a precise statement. Exposure is not a cancellation probability.
 ## What the seasonal test establishes
 
 Training risk has raw standard deviation 0.03616, falling to 0.02126 after standard
-effects and 0.005319 after route/carrier/season effects: a 75% further reduction in
+effects and 0.005319 after route-carrier-season effects: a 75% further reduction in
 standard deviation. There are only two training years, so the latter comparison
 uses changes from replacing one year in a three-year historical window.
 
 For a fixed 2020-22 climatology, the residual risk is exactly zero under
-route/carrier/season effects. This is algebraic absorption, not an estimated zero
+route-carrier-season effects. This is algebraic absorption, not an estimated zero
 weather effect. The rolling-risk coefficient uses a different, narrow source of
-variation. In the two-quarter 2025 holdout, each route/carrier/season occurs once;
+variation. In the two-quarter 2025 holdout, each route-carrier-season occurs once;
 all eight seasonal specifications are saturated and genuinely unestimable.
 
 The implementation initially rejected redundant nuisance dummy columns even in
@@ -141,4 +142,7 @@ source-to-output mapping, commands, audited assumptions, and verification record
 Stage0-4 tables and figures remain unchanged. The full coefficient table and every
 model status are retained under `outputs/stage5/`, together with input matching,
 product exclusions, seasonal support, same-season changes, and the comparison
-figure. The exact final rebuild verification is recorded separately after rerun.
+figure. Final verification: 21 offline tests pass; two full raw builds reproduce
+all 15 compared outputs byte-for-byte. All 30 consumed input manifests pass exact
+path/request identity, SHA-256 and payload validation. Independent code and report
+reviews are complete. See `outputs/stage5/verification.json` for output hashes.

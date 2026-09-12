@@ -1,0 +1,32 @@
+{
+  "date": "2026-09-12",
+  "offline_tests_passed": 21,
+  "full_raw_builds": 2,
+  "compared_output_files": 15,
+  "byte_identical": true,
+  "output_sha256": {
+    "analysis_metadata.json": "405cc7fb5dfb652db904c42ee2e328715e9c5c2048dc914282abfe53386fddbf",
+    "capacity.csv": "0d9d6055c0c682d36295e629c765bac6d55429d8e739218af9c4a911f938cf43",
+    "capacity_audit.json": "471e16bf28be62fafec5fabf745bf3611073e540b5b079bfc00a70cc8a6bf685",
+    "coefficients.csv": "7ecfcee9b048aecefe79a2f4fcaaf24b4f2e2ed8bb389f808a92e2a54995c8a0",
+    "fare_audit.json": "4cb9d0a7fecf5dcfb9788fd857da19e68d8f2ed091412bc75947595cd5d37497",
+    "fare_cells.csv": "8dcaaec2db3fce489fe85722ea1a97e1e8ff39c1f61593a70d9130bf40c32b42",
+    "identifying_support.csv": "3b507c9f9a15304bc9ec63e78ef309e7ba671316274c3ea10ba3f7b2fc8bee30",
+    "interaction_sensitivity.png": "9df901d04265c1f28c57806a49e238a02de1764ad198dfafd9f90e70ca21832a",
+    "matching_audit.json": "85f95ae9243ee3b4c36b4757370ed21eab676c7ef80dddc6ad3206d97d246fd9",
+    "model_status.csv": "ddd160663c7be35f463919f181c96cd5a1d886339e01505e9dbcc9bdfa85bb66",
+    "panel.csv": "e2337a0adf578c73a55687e93238c0f55976ebb931e31af20ab98613e262d4d7",
+    "same_season_changes.csv": "74ea44ca7f6e4a18e9f4749fbfc49e389b5683a83503b909c487def9fbb95fb7",
+    "sample_summary.csv": "0019963f06fa05da744b552e090049257ded4b96eafd82c746ca9f7f4b8acdb2",
+    "unmatched_capacity_keys.csv": "3084cb1a895c46b0bceffb2c1f04ee320c108f4d42bfce1524a915fc19548527",
+    "weather.csv": "a3d7a9f589855e3a477e1a1553277bc68e37fa1af2baaa18a07dffc6858b93f6"
+  },
+  "verified_input_manifests": 30,
+  "models_attempted": 62,
+  "models_estimated": 54,
+  "saturated_holdout_models": 8,
+  "independent_code_review": "completed; material findings corrected",
+  "figure_visual_review": "completed; labels and intervals legible",
+  "prior_stage_outputs_unchanged": true,
+  "independent_report_review": "completed; numerical and identification claims reconciled; full suite independently rerun"
+}

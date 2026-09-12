@@ -48,15 +48,21 @@ transaction aggregates cannot identify quote-time weather/demand interactions.
 
 ## Execution and verification
 
-- [ ] Verify endpoints and acquire bounded cached inputs, with checksums.
-- [ ] Implement offline tests for product restrictions, capacity aggregation,
+- [x] Verify endpoints and acquire bounded cached inputs, with checksums.
+- [x] Implement offline tests for product restrictions, capacity aggregation,
       absorbed effects, and coefficient equivalence to explicit dummy regression.
-- [ ] Stream raw records; save exclusion/join/coverage audits and compact panels.
-- [ ] Run every declared model and temporal/product/seasonal sensitivity.
-- [ ] Independently review identification and implementation; address findings.
-- [ ] Reproduce outputs, document results/structure/limitations, commit milestones,
+- [x] Stream raw records; save exclusion/join/coverage audits and compact panels.
+- [x] Run every declared model and temporal/product/seasonal sensitivity.
+- [x] Independently review identification and implementation; address findings.
+- [x] Reproduce outputs, document results/structure/limitations, commit milestones,
       and attempt safe noninteractive publication.
 
 Stopping requires substantive evidence or a rigorous identification argument,
 not merely a favorable p-value. Expanded descriptive evidence cannot turn the
 original quote-time mechanism into an identified causal claim.
+
+Final verification: 21 offline tests pass; two full raw builds reproduce 15 derived
+outputs byte-for-byte.62 attempts yield 54 estimates and eight saturated holdout
+failures. Independent code and report reviews completed. Publication was attempted
+noninteractively and failed because GitHub credentials are unavailable; all work
+is committed locally. See the Stage5 report for the strong-argument stopping ruling.
