@@ -11,7 +11,7 @@ demand signals, and forecast vintages available at those timestamps. DB1B lacks
 the timestamps, so the original test is not identified by the selected data.
 
 The executable pilot asks a narrower descriptive question: across quarterly
-route/carrier cells, how do passenger-weighted transaction fares covary with
+route/carrier cells, how do passenger-weighted prorated DB1B market fares covary with
 sampled passenger traffic and historical seasonal airport weather exposure?
 This is an aggregate association, not a causal demand curve or quote-time test.
 

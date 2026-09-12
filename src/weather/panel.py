@@ -16,6 +16,12 @@ def summarize_delay(frame):
         raise ValueError('missing delay counts')
     if (df[columns] < 0).any().any():
         raise ValueError('negative delay counts')
+    if (df.arr_del15 > df.arr_flights).any() or (df.weather_ct > df.arr_del15 + .05).any():
+        raise ValueError('impossible delay counts')
+    causes = ['carrier_ct', 'weather_ct', 'nas_ct', 'security_ct', 'late_aircraft_ct']
+    if all(c in df for c in causes):
+        if df[causes].isna().any().any() or (df[causes].sum(axis=1) - df.arr_del15).abs().max() > .05:
+            raise ValueError('delay cause counts do not reconcile within .05 rounding tolerance')
     result = df.groupby(['year', 'Quarter', 'airport'])[columns].sum().reset_index()
     if (result.arr_flights <= 0).any() or (result.arr_cancelled > result.arr_flights).any():
         raise ValueError('invalid flight denominator')
@@ -55,6 +61,13 @@ def build_weather_panel():
         raise ValueError('duplicate delay-cause airport/carrier/month rows')
     outcomes = summarize_delay(delay)
     result = weather.merge(outcomes, on=['airport', 'Year', 'Quarter'], how='left', validate='one_to_one')
+    causes = ['carrier_ct', 'weather_ct', 'nas_ct', 'security_ct', 'late_aircraft_ct']
+    audit = {'selected_delay_rows': len(delay), 'duplicate_keys': 0,
+             'maximum_cause_count_reconciliation_error': float((delay[causes].sum(axis=1)-delay.arr_del15).abs().max()),
+             'missing_airport_quarter_outcomes': int(result.arr_flights.isna().sum()),
+             'missing_risk': int(result.risk.isna().sum()),
+             'minimum_source_year_weather_coverage': float(result.minimum_year_coverage.min())}
+    (TABLES/'weather_matching_audit.json').write_text(json.dumps(audit, indent=2)+'\n', encoding='utf-8')
     result.to_csv(TABLES/'airport_weather_validation.csv', index=False)
     return result
 

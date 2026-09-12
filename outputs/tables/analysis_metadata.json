@@ -1,0 +1,14 @@
+{
+  "demand_log_reference": 7.600288833544482,
+  "reference_sampled_passengers": 1998.7731244646588,
+  "risk_q25": 0.05615942028985507,
+  "risk_q75": 0.10256410256410256,
+  "primary_cells": 222,
+  "routes": 12,
+  "route_carriers": 29,
+  "periods": 8,
+  "sampled_passengers": 618324.0,
+  "route_carriers_covering_both_risk_references": 8,
+  "original_H1_H2": "not estimable from quarterly DB1B",
+  "inference_caution": "Few clusters (12 routes; 7 airports); approximate intervals, not confirmatory tests."
+}

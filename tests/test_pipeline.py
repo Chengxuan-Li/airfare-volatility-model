@@ -174,3 +174,12 @@ def test_cancel_rate_uses_flight_weighted_counts_not_mean_rates():
     assert result.cancellation_rate == .01
     assert result.delay_rate == .11
     assert result.weather_delay_rate == .014
+
+
+@pytest.mark.parametrize('column,value', [('arr_del15',101), ('weather_ct',21)])
+def test_impossible_delay_counts_are_rejected(column, value):
+    row = {'year': [2024], 'month': [1], 'airport': ['ORD'], 'arr_flights': [100],
+           'arr_cancelled': [1], 'arr_del15': [20], 'weather_ct': [5]}
+    row[column] = [value]
+    with pytest.raises(ValueError, match='delay'):
+        summarize_delay(pd.DataFrame(row))

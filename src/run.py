@@ -28,7 +28,11 @@ def main():
         if 'local_path' in record and 'sha256' in record:
             if digest(record['local_path']) != record['sha256']:
                 raise ValueError(f'Raw input checksum mismatch: {manifest.name}')
-    cells = pd.read_csv(TABLES/'fare_cells.csv') if args.analysis_only else build_cells()
+    if not args.analysis_only:
+        build_cells()
+    # One canonical representation for both full and analysis-only execution.
+    # Round-trip parsing preserves serialized binary64 values without parser drift.
+    cells = pd.read_csv(TABLES/'fare_cells.csv', float_precision='round_trip')
     weather = build_weather_panel()
     panel = attach_weather(cells, weather)
     metadata = analyze(panel, weather)

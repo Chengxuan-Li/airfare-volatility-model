@@ -1,67 +1,81 @@
 # Project state
 
 ## Current stage
-Stages 0-3 complete; Stage 4 results, review, and reproducibility verification underway
-on branch `codex/stage-0-to-4`. Literature contains 22 verified studies.
+Stage 0-4 assessment complete on `codex/stage-0-to-4`. The real aggregate pilot and
+all feasible Stage 4 analyses ran. Original quote-time H1/H2 and flexibility
+premiums are explicitly not estimable, as permitted by the execution addendum.
 
 ## Last updated
 2026-09-12
 
 ## Completed
-- Local credential store and tracked empty template created.
-- User-approved execution defaults added to the research task.
-- Mandatory repository governance, overview, and navigation established.
-- BTS DB1B selected; direct pre-zipped Market downloads verified for 2024 Q1/Q2.
-- Both archives passed full ZIP CRC checks; SHA-256 and schemas recorded.
-- Documented Python recipe rerun successfully against the cached files.
-- Ticket and Coupon 2024 Q1 endpoints passed HEAD checks; not fully downloaded.
+- Stage 0 charter, original hypotheses, aggregate redesign, and falsification rules.
+- Stage 1 primary-source map: 22 studies, fifteen required areas, cautious novelty B
+  for the original aligned design and substantially weaker aggregate novelty.
+- Stage 2 fare/demand/weather/outcome feasibility and public-data access matrix.
+- Stage 3: sixteen DB1B Market/Ticket ZIPs (2023-24), seven ERA5 responses,
+  OurAirports registry and BTS Delay Causes; 25 provenance manifests, ~1.59 GB raw.
+- 222 primary route/carrier/quarter cells on twelve routes; 618,324 sampled passenger
+  weights, 211,651 Market records. No synthetic research data.
+- Stage 4: thirteen fare specifications, external airport-quarter validation,
+  marginal-effect intervals, support/quality audits, four figures, consolidated report.
+- Sixteen offline tests pass. Final full raw rebuild reproduces 19 table/figure
+  outputs byte-for-byte after canonical float parsing; three raw builds total.
+- Independent code/methodology and final report reviews completed; findings addressed.
 
 ## In progress
-- Literature and source research with two workers; tested acquisition/analysis code.
+No research work remains in this authorized pass. Git publication status below.
 
-## Key conclusions and important assumptions
-- DB1B supplies quarterly sampled fares/traffic, not flight quote timestamps.
-  An aggregate redesign cannot be presented as the original ex-ante pricing test.
-- No additional paid services. Flightradar24 initial-pass cap is 6,000 credits
-  within the reported 60,000 monthly allocation. Zero credits used by this task.
-- At most two worker agents authorized; coordinator controls all API spending.
-- Finish with currently available data; prospective scheduling is deferred.
-- Report unidentifiable hypotheses explicitly rather than fabricate substitutes.
+## Key conclusions
+- Decision C: interesting empirical observation, weak paper.
+- Aggregate risk effect at reference log traffic: -20.52 USD per 10pp exposure;
+  interaction +227.55 USD per log-traffic point per unit risk fraction. Both point
+  signs oppose the proposed aggregate signs; interaction interval crosses zero.
+- Original mechanism remains untested: DB1B has no quote timestamps or aligned
+  forecast/inventory information. Traffic and fares are jointly determined.
+- Only eight of 29 route/carrier groups cover both reference risk quartiles.
+  Twelve route clusters and seven validation clusters yield fragile inference.
+- Historical weather exposure is not a calibrated cancellation probability.
+
+## Important assumptions and budget
+No additional paid services. Flightradar24: zero calls, zero credits used; initial
+cap remains 6,000 within a reported 60,000 monthly allocation. Reset date and live
+remaining balance remain unknown. At most two worker agents were active; the
+coordinator controlled acquisition. No prospective collection was scheduled.
 
 ## Data status
-Two original BTS Market ZIPs (2024 Q1/Q2; 205,026,619 total bytes) are local and
-ignored under `data/raw/bts_db1b/`. Slow Python Q2 transfer was interrupted;
-bounded curl GET completed successfully, and temporary probes were removed.
-Provenance manifests are tracked under `data/manifests/`.
-No cleaned pilot or estimated models exist yet.
+Raw sources are ignored under `data/raw/`; intermediate quarterly aggregates are
+ignored under `data/processed/`. Compact outputs and manifests are Git-controlled.
+Run `python -m src.acquisition.batch --kind all` to acquire and `python -m src.run`
+to rebuild from raw after installing pinned requirements. See README for Windows
+commands, full source attribution, and failed-download recovery details.
 
 ## Known limitations and open questions
-- Flightradar24 reset date and live remaining balance are unknown.
-- Demand proxy validity and an aggregate ex-ante risk measure require Stage 0/2 work.
-- Selected time range remains a research decision; 2024 Q1/Q2 are access checks.
+Endogenous quantity; prorated fares and product composition; quarterly timing;
+retrospective ERA5 vintage; sparse joint support; few clusters; no external demand
+shifter or full capacity model. See report for competing explanations and all fits.
 
 ## Next actions
-1. Read the committed batch-download recipe and manifests before research execution.
-2. Begin Stage 0 when the user starts the research run; preserve original hypotheses
-   and define the DB1B aggregate design separately.
-3. Follow staged literature, feasibility, acquisition, analysis, and Git checkpoints.
+1. Read docs/findings/stage_0_to_4_report.md and the quality/methods documents.
+2. For Stage 5, first establish a demand-identification strategy or aligned quote
+   data. Do not scale this specification or spend FR24 credits to inflate sample size.
+3. Restore Git authentication if required and publish the committed branch safely.
 
-## Blockers
-No blocker to the download verification. Original quote-time identification is
-not supplied by DB1B alone.
-Public remote was verified through GitHub's API, and fetch succeeded. Push failed
-with `User cancelled dialog` followed by a credential-prompt error; the stalled
-attempt was interrupted. Commits remain local. Restore Git authentication and
-push `main` when ready; no further authentication dialogs were requested.
+## Blockers / Git publication
+The public origin was verified and fetch succeeded. An earlier push failed after
+an authentication dialog was cancelled. This run will attempt publication only
+noninteractively; see final handoff/history for that result. All work is committed
+locally regardless of remote authentication.
 
 ## Relevant commits
-- `072408b` — API credential template and initial budget notes.
-- `1e42de6` — execution addendum, mandatory governance, and repository rules.
-- `a1269dd` — verified BTS downloads, reproduction recipe, and provenance.
+- `bcb1b47` — Stage 0 research specification.
+- `9e594d1` — verified literature and novelty.
+- `0641787` — source feasibility and data constraints.
+- `6e48581` — tested acquisition/analysis implementation.
+- `6465419` — real pilot, provenance, and quality audits.
+- See subsequent history for final analysis, verification, and handoff commits.
 
-## Intentionally uncommitted files
-- `.env` is ignored local credential configuration and must never be committed.
-- `.env.example` was already modified by the user at session start. Preserve that
-  change and exclude it from this session's commits; do not print credential values.
-- Raw BTS ZIP files remain ignored; manifests and reproduction instructions are
-  committed instead.
+## Intentionally uncommitted local files
+- `.env`: ignored local key; never commit or print it.
+- `.env.example`: pre-existing user edit, intentionally preserved outside commits.
+- Raw/intermediate data, `.venv`, and temporary verification snapshot are ignored.

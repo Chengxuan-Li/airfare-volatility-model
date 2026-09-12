@@ -1,0 +1,6 @@
+effect,reference,risk,estimate,se,ci_low,ci_high,p_value,inference_note,demand_c
+fare_per_log_traffic,low_q25,0.05615942028985507,-18.261971104249106,11.702600948044333,-44.019222125369026,7.495279916870814,0.14693085885986854,"Approximate CR1 t inference; few clusters; exploratory, not confirmatory",
+fare_per_log_traffic,high_q75,0.10256410256410256,-7.702645811857337,11.938363488974964,-33.978806686871074,18.5735150631564,0.5320234033520351,"Approximate CR1 t inference; few clusters; exploratory, not confirmatory",
+fare_per_10pp_risk,low_traffic_q10,,-40.61786634761547,11.394771914539342,-65.69759023414555,-15.538142461085386,0.004436852965941076,"Approximate CR1 t inference; few clusters; exploratory, not confirmatory",-0.8834522219370764
+fare_per_10pp_risk,mean_log_traffic,,-20.51502556834164,7.55879336503381,-37.151817592980194,-3.8782335437030824,0.02014415419509945,"Approximate CR1 t inference; few clusters; exploratory, not confirmatory",0.0
+fare_per_10pp_risk,high_traffic_q90,,3.321728680175024,15.897273138100589,-31.667933582707807,38.31139094305786,0.838306633313389,"Approximate CR1 t inference; few clusters; exploratory, not confirmatory",1.0475451572163716

@@ -1,0 +1,3 @@
+risk_group,cell_mean_variance,average_within_cell_fare_variance,cells
+high,1538.6706991159986,14022.090297485385,109
+low,1854.7938437081968,17088.615360664273,113

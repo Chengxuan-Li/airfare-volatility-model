@@ -1,0 +1,14 @@
+model,status,nobs,parameters,rank,condition_number,route_clusters,route_carriers,r_squared,formula,covariance,inference_df
+baseline_pooled,estimated,222,2,2,1.0258592815132574,12,29,0.05365433289667676,fare_mean ~ demand_c,route-clustered; finite-sample correction; t inference,11.0
+baseline_fe,estimated,222,37,37,55.70322634569743,12,29,0.8438861018526554,fare_mean ~ demand_c + C(route_carrier) + C(period),route-clustered; finite-sample correction; t inference,11.0
+benign_baseline_fe,estimated,113,35,35,65.89790771011536,11,27,0.9389407265276629,fare_mean ~ demand_c + C(route_carrier) + C(period),route-clustered; finite-sample correction; t inference,10.0
+risk_additive_fe,estimated,222,38,38,62.47174523837362,12,29,0.8521456683327508,fare_mean ~ demand_c + risk + C(route_carrier) + C(period),route-clustered; finite-sample correction; t inference,11.0
+core_interaction_fe,estimated,222,39,39,77.12631280691524,12,29,0.8591881477202817,fare_mean ~ demand_c * risk + C(route_carrier) + C(period),route-clustered; finite-sample correction; t inference,11.0
+passenger_weighted,estimated,222,39,39,77.12631280691524,12,29,0.8981394345546319,fare_mean ~ demand_c * risk + C(route_carrier) + C(period),route-clustered; finite-sample correction; t inference,11.0
+log_fare,estimated,222,39,39,77.12631280691524,12,29,0.8694531665290572,log_fare ~ demand_c * risk + C(route_carrier) + C(period),route-clustered; finite-sample correction; t inference,11.0
+broad_fare_bounds,estimated,222,39,39,77.58276670479611,12,29,0.8582596628651942,fare_mean ~ demand_c * risk + C(route_carrier) + C(period),route-clustered; finite-sample correction; t inference,11.0
+max_endpoint_risk,estimated,222,39,39,63.96381635830468,12,29,0.8568081790175097,fare_mean ~ demand_c * risk + C(route_carrier) + C(period),route-clustered; finite-sample correction; t inference,11.0
+balanced_support,estimated,216,37,37,87.77764490048862,12,27,0.8670399828745817,fare_mean ~ demand_c * risk + C(route_carrier) + C(period),route-clustered; finite-sample correction; t inference,11.0
+exclude_ORD,estimated,138,28,28,94.36880638633616,8,18,0.8613265485444461,fare_mean ~ demand_c * risk + C(route_carrier) + C(period),route-clustered; finite-sample correction; t inference,7.0
+exclude_DEN,estimated,142,29,29,74.9908624925442,8,19,0.8082056855216428,fare_mean ~ demand_c * risk + C(route_carrier) + C(period),route-clustered; finite-sample correction; t inference,7.0
+exclude_DFW,estimated,164,31,31,78.84943429025574,8,21,0.9037084258467123,fare_mean ~ demand_c * risk + C(route_carrier) + C(period),route-clustered; finite-sample correction; t inference,7.0

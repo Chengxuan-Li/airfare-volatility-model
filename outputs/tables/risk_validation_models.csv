@@ -1,0 +1,9 @@
+outcome,specification,status,estimate,se,ci_low,ci_high,p_value,inference_note,nobs,clusters
+cancellation_rate,pooled,estimated,0.0025296597927466167,0.0024546378137449295,-0.0034766225639744517,0.008535942149467686,0.34248553280536004,"Approximate CR1 t inference; few clusters; exploratory, not confirmatory",56,7
+cancellation_rate,airport_calendar_fe,estimated,0.006723206792481582,0.0037401723484357737,-0.002428665252230659,0.015875078837193822,0.12236417518054955,"Approximate CR1 t inference; few clusters; exploratory, not confirmatory",56,7
+delay_rate,pooled,estimated,-0.014065877560636101,0.011611009587681593,-0.04247699452449216,0.01434523940321996,0.2712742175014844,"Approximate CR1 t inference; few clusters; exploratory, not confirmatory",56,7
+delay_rate,airport_calendar_fe,estimated,0.0032603703369749855,0.002103738679111726,-0.0018872927686555798,0.008408033442605552,0.1721657569071928,"Approximate CR1 t inference; few clusters; exploratory, not confirmatory",56,7
+weather_delay_rate,pooled,estimated,0.0006442669659071161,0.0005519886025144894,-0.0007064004872825429,0.001994934419096775,0.28742277243368103,"Approximate CR1 t inference; few clusters; exploratory, not confirmatory",56,7
+weather_delay_rate,airport_calendar_fe,estimated,0.0029598754942711148,0.0008585955076329845,0.0008589679713041261,0.005060783017238103,0.01367735037577841,"Approximate CR1 t inference; few clusters; exploratory, not confirmatory",56,7
+realized_adverse_share,pooled,estimated,0.07596598393936622,0.004800155376288618,0.06422042686178832,0.08771154101694413,4.0376026160680255e-06,"Approximate CR1 t inference; few clusters; exploratory, not confirmatory",56,7
+realized_adverse_share,airport_calendar_fe,estimated,0.0686002991660724,0.008921976800598605,0.04676900839704711,0.09043158993509767,0.0002533853622355224,"Approximate CR1 t inference; few clusters; exploratory, not confirmatory",56,7

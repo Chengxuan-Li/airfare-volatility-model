@@ -1,0 +1,11 @@
+{
+  "date": "2026-09-12",
+  "offline_tests": 16,
+  "full_raw_pipeline_runs": 3,
+  "canonical_reproduced_outputs": 19,
+  "changed_outputs": [],
+  "raw_manifests": 25,
+  "paid_api_calls": 0,
+  "fr24_credits": 0,
+  "notes": "Final full raw rebuild includes SHA256 input verification. All 19 table/figure files byte-identical to canonical analysis-only output. Earlier float-parser mismatch was corrected before final verification."
+}

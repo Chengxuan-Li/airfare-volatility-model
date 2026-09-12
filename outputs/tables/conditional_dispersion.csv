@@ -1,0 +1,3 @@
+risk_reference,risk,demand_slope,fixed_reference_log_traffic_variance,fitted_demand_component_variance_usd2,ci_low,ci_high,inference_note
+low_q25,0.05615942028985507,-18.261971104249106,0.9502205441039286,316.8981605497389,0.0,1841.2346672238682,"Approximate CR1 t inference; few clusters; exploratory, not confirmatory; squared-slope confidence-set image, fixed empirical Var(D)"
+high_q75,0.10256410256410256,-7.702645811857337,0.9502205441039286,56.37729992542338,0.0,1097.0859699176697,"Approximate CR1 t inference; few clusters; exploratory, not confirmatory; squared-slope confidence-set image, fixed empirical Var(D)"
