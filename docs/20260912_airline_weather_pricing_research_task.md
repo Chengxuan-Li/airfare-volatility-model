@@ -10,6 +10,44 @@
 
 # 1. Mission
 
+## Execution addendum agreed 2026-09-12
+
+This addendum records subsequent user instructions and takes precedence where
+it narrows the original execution scope.
+
+- First document and verify a batch-download method for the user-selected BTS
+  DB1B fare dataset before starting the research stages:
+  https://www.transtats.bts.gov/tables.asp?QO_VQ=EFI&QO_anzr=Nv4yv0r
+- No additional paid services, purchases, or upgrades. No fare API credentials
+  or private booking/inventory dataset are available from the user.
+- Flightradar24 Explorer: reported 60,000 credits for one month. Cap this initial
+  research pass at 6,000 credits, subject to verified remaining balance; preserve
+  the rest. Billing/reset date and actual balance remain unknown. Check endpoint
+  costs before use, keep a usage ledger, cache permitted results, and centralize
+  acquisition so subagents cannot duplicate spending.
+- Finish the initial assessment with currently obtainable data. Prepare a
+  prospective collector only if justified; multiweek scheduling is a later decision.
+- If aligned fare, demand, and ex-ante risk data cannot be obtained, deliver the
+  strongest real partial pilot and explicitly mark the original pricing hypotheses
+  not estimable. Do not claim every Stage 4 empirical test was completed.
+- Use DB1B as the selected fare source. Its quarterly ticket records must not be
+  relabeled as timestamped quotes. Document any aggregate research redesign and
+  its identification limits before estimating it.
+- Model preference: GPT-6 Astra with high reasoning for coordination, methodology,
+  integration, and conclusions; GPT-5.6 Sol with medium reasoning for bounded
+  worker tasks where available. This preference does not assert the active model
+  setting has been changed.
+- Subagents are authorized, with at most two workers concurrently. Delegate
+  independent literature/source checks and review; the coordinator owns API
+  spending, integration, and Git commits.
+- Follow this document's repository rules and commit at meaningful milestones
+  throughout the work. Preserve user changes and configured Git identity.
+- Credentials belong only in ignored local `.env`; keep `.env.example` empty
+  of secrets. See `docs/data/api_credentials.md`.
+
+Batch-download findings and reproduction instructions are recorded in
+`docs/data/bts_db1b_batch_download.md`.
+
 Build and execute a reproducible research repository investigating whether ex-ante weather / operational disruption risk changes the relationship between airline ticket prices and demand.
 
 The central empirical hypothesis is:

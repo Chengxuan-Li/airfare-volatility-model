@@ -19,6 +19,11 @@ Never print the key, include it in logs or manifests, or commit it.
 
 - No API calls were made during credential setup.
 - Treat 60,000 as the total planning ceiling, not evidence of remaining credits.
+- User accepted a 6,000-credit initial-pass ceiling on 2026-09-12; preserve the
+  remainder. Actual remaining balance and reset date are still unknown.
+- No additional paid services, purchases, or upgrades are authorized.
+- Only the coordinator may spend API credits; workers must request acquisition
+  through the coordinator so usage is not duplicated.
 - Before acquisition, verify current endpoint credit costs and available balance,
   estimate the proposed batch cost, and document a budget with a reserve.
 - Start with a small validation request, cache reusable results where permitted,
