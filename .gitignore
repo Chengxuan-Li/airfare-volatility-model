@@ -1,0 +1,12 @@
+# Local credentials; only the empty example is version controlled.
+.env
+.env.*
+!.env.example
+
+# Local Python environments and caches.
+.venv/
+venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+.ipynb_checkpoints/
