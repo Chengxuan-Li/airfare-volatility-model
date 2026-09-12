@@ -30,3 +30,5 @@ status/history; follow the stage-specific next actions. No empirical findings ye
 - [Data access and reuse](data/09_data_legal_technical_constraints.md)
 - [Source matrix](data/source_matrix.csv)
 - [Delay Causes request metadata](data/delay_causes_request.json)
+
+- [Execution and API usage ledger](status/execution_ledger.md)

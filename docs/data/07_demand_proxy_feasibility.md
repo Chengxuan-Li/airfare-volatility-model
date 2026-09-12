@@ -55,4 +55,3 @@ The interaction coefficient in this pilot describes how the fare-traffic
 association varies with predetermined operational climate. Causal demand-to-
 price transmission remains unidentified without a defensible demand shifter or
 inventory/booking data.
-

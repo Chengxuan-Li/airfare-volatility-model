@@ -76,4 +76,3 @@ access would require source-specific terms review and potentially access-control
 issues. Commercial fare feeds would add cost and still require historical
 coverage verification. The task prohibits new purchases. These are reasons to
 bound the conclusion, not reasons to relabel DB1B.
-

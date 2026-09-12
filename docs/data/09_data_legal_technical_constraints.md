@@ -75,4 +75,3 @@ Use "observed passenger quantity," "retrospectively retrieved reanalysis," and
 "strictly lagged seasonal risk proxy." Reserve "quote," "demand shock," and
 "ex-ante forecast" for data that actually carry those meanings. Publish negative
 access findings and identification limits alongside any result.
-
