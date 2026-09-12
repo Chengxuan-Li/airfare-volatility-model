@@ -1,0 +1,8 @@
+{
+  "training_log_traffic_reference": 7.699812359193471,
+  "training_log_t100_reference": 12.183540308797529,
+  "models_attempted": 62,
+  "models_estimated": 54,
+  "holdout": "2025Q1-Q2, no tuning; coefficients refit, not out-of-time prediction",
+  "inference_limit": "At most 21 pairs and seven connected airports; intervals are descriptive approximations"
+}

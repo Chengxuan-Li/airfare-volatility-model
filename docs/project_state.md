@@ -1,9 +1,9 @@
 # Project state
 
 ## Current stage
-Stage 0-4 assessment complete on `codex/stage-0-to-4`. The real aggregate pilot and
-all feasible Stage 4 analyses ran. Original quote-time H1/H2 and flexibility
-premiums are explicitly not estimable, as permitted by the execution addendum.
+Stage 5 analysis complete on `codex/stage-5-robustness`; final raw reproduction
+and handoff verification underway. Stage 0-4 results remain preserved. Original
+quote-time H1/H2 and flexibility premiums remain unidentifiable from these sources.
 
 ## Last updated
 2026-09-12
@@ -25,13 +25,21 @@ premiums are explicitly not estimable, as permitted by the execution addendum.
 
 ## In progress
 Stage 5 extension authorized by the user and active on `codex/stage-5-robustness`.
-The predeclared extension adds all directions among the seven original airports,
-2025 Q1/Q2 holdout fares, one-way single-coupon products, T100 capacity controls,
-and stronger seasonal effects. Four new fare archives, three annual capacity
-extracts and seven extended weather responses have been acquired. Raw rebuild
-and model validation are in progress; Stage 0-4 results remain preserved.
+The extension has 905 primary cells across 42 directions and 94 route/carrier groups,
+plus 873 one-way product cells. Four new fare archives, three annual capacity
+extracts and seven extended weather responses were acquired. All 1,778 product
+cells match risk and capacity. Of 62 declared fits, 54 estimate and eight seasonal
+holdout fits are saturated. Twenty-one offline tests pass; a second full raw
+rebuild and final report review are underway.
 
 ## Key conclusions
+- Stage 5 expanded training interaction+50.58, approximate interval[-38.02,139.19];
+  holdout+33.88[-112.42,180.18]. Standard-effect leave-ORD-out estimate is-1.19.
+  Seasonal controls reduce residual weather-risk SD by 75% and fixed climatology
+  is exactly absorbed. No baseline primary/one-way interaction interval excludes 0.
+- Strong stopping argument: quarterly purchases and marginal proxies lack the
+  quote-time joint demand/risk moment. This is non-identification, not a causal null
+  or a claim that all possible datasets/methods have been exhausted.
 - Decision C: interesting empirical observation, weak paper.
 - Aggregate risk effect at reference log traffic: -20.52 USD per 10pp exposure;
   interaction +227.55 USD per log-traffic point per unit risk fraction. Both point
@@ -61,10 +69,10 @@ retrospective ERA5 vintage; sparse joint support; few clusters; no external dema
 shifter or full capacity model. See report for competing explanations and all fits.
 
 ## Next actions
-1. Read docs/findings/stage_0_to_4_report.md and the quality/methods documents.
-2. Complete the predeclared Stage 5 stress tests and identification assessment.
-   New capacity data are diagnostics, not an instrument. Do not spend FR24 credits
-   to inflate sample size or relabel descriptive estimates as identified effects.
+1. Read docs/findings/stage5_report.md and docs/methods/stage5_reproduction.md.
+2. Finish final reproduction and publication checks; future research needs an
+   aligned information/identification design. Do not spend FR24 credits to inflate
+   sample size or relabel descriptive estimates as identified effects.
 3. Restore Git authentication if required and publish the committed branch safely.
 
 ## Blockers / Git publication

@@ -4,6 +4,9 @@ import pytest
 import statsmodels.formula.api as smf
 
 from src.stage5.pipeline import one_way, capacity_cells, residualize
+from src.stage5.analyze import fit_effects
+from src.stage5.acquire import verify_record
+from src.acquisition.download import digest
 
 
 def test_single_coupon_product_and_proration_audit():
@@ -13,16 +16,18 @@ def test_single_coupon_product_and_proration_audit():
     assert selected.index.tolist() == [0, 3]
     assert audit['max_absolute_proration_gap'] == 0
     rows.loc[3, 'ItinFare'] = 111
-    assert one_way(rows)[1]['max_absolute_proration_gap'] == 1
+    with pytest.raises(ValueError, match='itinerary fare'):
+        one_way(rows)
 
 
 def test_capacity_sums_operators_and_excludes_nonpassenger_service():
     rows = pd.DataFrame({'YEAR': [2024]*4, 'QUARTER': [1]*4,
         'ORIGIN': ['ORD']*4, 'DEST': ['LAX']*4, 'CLASS': ['F', 'F', 'G', 'F'],
         'PASSENGERS': [50, 40, 500, 0], 'SEATS': [80, 60, 999, 0],
-        'DEPARTURES_PERFORMED': [1, 1, 10, 0]})
+        'DEPARTURES_PERFORMED': [1, 1, 10, 0], 'DEPARTURES_SCHEDULED': [2, 2, 12, 0]})
     cell = capacity_cells(rows).iloc[0]
     assert cell.seats == 140 and cell.t100_passengers == 90 and cell.departures == 2
+    assert cell.scheduled_departures == 4
     rows.loc[0, 'SEATS'] = -1
     with pytest.raises(ValueError, match='capacity'):
         capacity_cells(rows)
@@ -36,3 +41,33 @@ def test_absorption_matches_dummy_residuals_on_unbalanced_panel():
     np.testing.assert_allclose(actual, expected, atol=1e-9)
     fixed = df.a.map({'A': .2, 'B': .4, 'C': .8}).to_numpy()[:, None]
     assert np.max(np.abs(residualize(fixed, [df.a, df.b]))) < 1e-10
+
+
+def test_redundant_nuisance_effects_preserve_estimable_slopes():
+    rng = np.random.default_rng(815)
+    rows = [(g, y, q) for g in range(5) for y in (2023, 2024, 2025) for q in (1, 2)]
+    df = pd.DataFrame(rows, columns=['group', 'year', 'quarter'])
+    df['season'] = df.group.astype(str)+'_'+df.quarter.astype(str)
+    df['period'] = df.year.astype(str)+'_'+df.quarter.astype(str)
+    df['pair'] = df.group
+    df['demand_c'] = rng.normal(size=len(df))
+    df['risk'] = rng.uniform(size=len(df))
+    df['fare_mean'] = 30+2*df.demand_c+3*df.risk-4*df.demand_c*df.risk+rng.normal(size=len(df))
+    expected = smf.ols('fare_mean ~ demand_c*risk+C(season)+C(period)', df).fit()
+    actual = fit_effects(df, 'season')
+    np.testing.assert_allclose(actual.params[['demand_c','risk','demand_c:risk']],
+        expected.params[['demand_c','risk','demand_c:risk']], atol=1e-9)
+    with pytest.raises(ValueError, match='focal'):
+        fit_effects(df.loc[df.year.eq(2025)], 'season')
+
+
+def test_manifest_validates_actual_consumed_path(tmp_path):
+    a, b = tmp_path/'a.json', tmp_path/'b.json'
+    a.write_text('{"daily": {}}', encoding='utf-8')
+    b.write_text('{"daily": {}}', encoding='utf-8')
+    record = {'local_path': str(a), 'url': 'https://example.test', 'query_parameters': {}, 'sha256': digest(a)}
+    verify_record(record, a, record['url'], {})
+    with pytest.raises(ValueError, match='path'):
+        verify_record(record, b, record['url'], {})
+    with pytest.raises(ValueError, match='identity'):
+        verify_record(record, a, record['url'], {'year': 2025})

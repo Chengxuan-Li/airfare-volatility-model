@@ -1,8 +1,8 @@
 # Documentation index
 
 Purpose: investigate operational/weather risk and demand-to-fare transmission.
-Current phase: Stage 0-4 assessment complete; aggregate pilot verified, original
-quote-time hypotheses not estimable. Recommendation C.
+Current phase: Stage 5 extension and identification assessment; original quote-time
+hypotheses remain unidentifiable from the quarterly sources. Recommendation C.
 
 - [Project state and next actions](project_state.md)
 - [Research specification and agreed execution addendum](20260912_airline_weather_pricing_research_task.md)
@@ -47,3 +47,8 @@ recommendation. Preserve the distinction between aggregate and quote-time tests.
 
 - [Stage 5 extension plan](methods/stage5_plan.md)
 - [Stage 5 identification assessment](methods/stage5_identification.md)
+- [Stage 5 source extensions](data/stage5_source_extensions.md)
+- [Stage 5 exact request recipes](data/stage5_requests.json)
+- [Stage 5 expanded findings and stopping decision](findings/stage5_report.md)
+- [Stage 5 structure, dictionary and reproduction](methods/stage5_reproduction.md)
+- [Stage 5 outputs](../outputs/stage5/)

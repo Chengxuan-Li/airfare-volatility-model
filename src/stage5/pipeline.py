@@ -24,6 +24,8 @@ def save_json(name, obj):
 def one_way(frame):
     selected = frame.loc[frame.RoundTrip.eq(0) & frame.Coupons.eq(1)].copy()
     gap = (selected.MktFare - selected.ItinFare).abs()
+    if selected.ItinFare.isna().any() or (gap > .0100001).any():
+        raise ValueError('single-coupon itinerary fare does not match market fare')
     return selected, {'rows': len(selected), 'max_absolute_proration_gap': float(gap.max()) if len(gap) else None,
                       'rows_gap_above_cent': int((gap > .0100001).sum()),
                       'missing_itinerary_fare': int(selected.ItinFare.isna().sum())}
@@ -31,12 +33,13 @@ def one_way(frame):
 
 def capacity_cells(frame):
     df = frame.loc[frame.CLASS.astype(str).str.strip().eq('F')].copy()
-    values = ['PASSENGERS', 'SEATS', 'DEPARTURES_PERFORMED']
+    values = ['PASSENGERS', 'SEATS', 'DEPARTURES_PERFORMED', 'DEPARTURES_SCHEDULED']
     if not np.isfinite(df[values]).all().all() or (df[values] < 0).any().any():
         raise ValueError('invalid capacity counts')
     result = df.groupby(['YEAR', 'QUARTER', 'ORIGIN', 'DEST'])[values].sum().reset_index()
     return result.rename(columns={'YEAR': 'Year', 'QUARTER': 'Quarter', 'ORIGIN': 'Origin',
-        'DEST': 'Dest', 'PASSENGERS': 't100_passengers', 'SEATS': 'seats', 'DEPARTURES_PERFORMED': 'departures'})
+        'DEST': 'Dest', 'PASSENGERS': 't100_passengers', 'SEATS': 'seats', 'DEPARTURES_PERFORMED': 'departures',
+        'DEPARTURES_SCHEDULED': 'scheduled_departures'})
 
 
 def residualize(values, groups, tolerance=1e-12, max_iterations=10000):
@@ -120,7 +123,7 @@ def build_weather():
             row['fixed_risk'] = prior_season_risk(daily, 2023, quarter)['risk']
             rows.append(row)
     result = pd.DataFrame(rows)
-    if result.risk.isna().any():
+    if result[['risk', 'fixed_risk']].isna().any().any():
         raise ValueError('missing weather risk')
     result.to_csv(OUT/'weather.csv', index=False)
     return result
@@ -140,12 +143,20 @@ def build_capacity():
             raise ValueError('capacity year mismatch')
         if 'QUARTER' not in df:
             df['QUARTER'] = (df.MONTH-1)//3+1
+        if not df.QUARTER.eq((df.MONTH-1)//3+1).all() or set(df.MONTH) != set(range(1, 13)):
+            raise ValueError('capacity month/quarter coverage mismatch')
         selected = df.loc[df.ORIGIN.isin(AIRPORTS) & df.DEST.isin(AIRPORTS) & df.ORIGIN.ne(df.DEST)]
         audits.append({'year': year, 'raw_rows': len(df), 'selected_rows': len(selected),
                        'months': sorted(int(v) for v in df.MONTH.unique()),
-                       'service_classes': sorted(str(v) for v in selected.CLASS.unique())})
+                       'service_classes': sorted(str(v) for v in selected.CLASS.unique()),
+                       'rows_by_month_class': selected.groupby(['MONTH', 'CLASS']).size().rename('rows').reset_index().to_dict('records')})
         results.append(capacity_cells(selected))
     result = pd.concat(results, ignore_index=True)
+    result['load_factor'] = result.t100_passengers / result.seats.where(result.seats.gt(0))
+    result['scheduled_minus_performed'] = result.scheduled_departures-result.departures
+    result['performed_scheduled_ratio'] = result.departures/result.scheduled_departures.where(result.scheduled_departures.gt(0))
+    if (result.t100_passengers > result.seats).any():
+        raise ValueError('route passenger count exceeds seats')
     result.to_csv(OUT/'capacity.csv', index=False)
     save_json('capacity_audit.json', audits)
     return result
@@ -170,6 +181,12 @@ def build_panel():
     panel['pair'] = ['-'.join(sorted([o, d])) for o, d in zip(panel.Origin, panel.Dest)]
     save_json('matching_audit.json', {'rows': len(panel), 'missing_risk': int(panel.risk.isna().sum()),
         'missing_capacity': int(panel.seats.isna().sum()), 'nonpositive_capacity': int(panel.seats.le(0).sum())})
+    keys = ['Year', 'Quarter', 'Origin', 'Dest']
+    in_period = [(int(y), int(q)) in PERIODS for y, q in zip(capacity.Year, capacity.Quarter)]
+    key_audit = fare[keys].drop_duplicates().merge(capacity.loc[in_period, keys], on=keys, how='outer', indicator=True)
+    key_audit.loc[key_audit._merge.ne('both')].to_csv(OUT/'unmatched_capacity_keys.csv', index=False)
+    if panel.seats.isna().any() or panel[['risk', 'fixed_risk']].isna().any().any():
+        raise ValueError('missing expected panel capacity/weather key; see matching audit')
     panel.to_csv(OUT/'panel.csv', index=False)
 
 

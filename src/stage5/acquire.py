@@ -3,6 +3,7 @@ import argparse
 from concurrent.futures import ThreadPoolExecutor
 from html.parser import HTMLParser
 import json
+from pathlib import Path
 from urllib.parse import urlencode
 
 import pandas as pd
@@ -10,7 +11,7 @@ import requests
 
 from src.acquisition.batch import acquire_bts
 from src.acquisition.download import fetch, digest, validate_zip
-from src.config import AIRPORTS, RAW, MANIFESTS
+from src.config import AIRPORTS, RAW, MANIFESTS, bts_path
 
 T100_URL = 'https://www.transtats.bts.gov/DL_SelectFields.aspx?QO_fu146_anzr=Nv4+Pn44vr45&gnoyr_VQ=GEE'
 FIELDS = ['UNIQUE_CARRIER', 'ORIGIN', 'DEST', 'YEAR', 'QUARTER', 'MONTH', 'CLASS',
@@ -83,17 +84,49 @@ def weather():
               source='Open-Meteo ERA5 reanalysis, CC BY 4.0', params=params)
 
 
+def verify_record(record, target, url, params):
+    target = Path(target)
+    if Path(record['local_path']).resolve() != target.resolve():
+        raise ValueError('manifest path differs from consumed input')
+    recorded_params = record.get('query_parameters')
+    # Two pre-pipeline DB1B manifests store the same identity as top-level fields.
+    if recorded_params is None and 'year' in record and 'quarter' in record:
+        recorded_params = {'year': record['year'], 'quarter': record['quarter']}
+    if record['url'] != url or recorded_params != params:
+        raise ValueError('manifest request identity differs')
+    if digest(target) != record['sha256']:
+        raise ValueError('input checksum mismatch')
+    if target.suffix == '.zip':
+        validate_zip(target)
+    elif target.suffix == '.json':
+        payload = json.loads(target.read_text(encoding='utf-8'))
+        if payload.get('error') or 'daily' not in payload:
+            raise ValueError('invalid weather payload')
+
+
 def verify_inputs():
-    names = [f'bts_db1b_{table}_{year}_q{quarter}.json'
-             for year in (2023, 2024, 2025) for quarter in ((1, 2) if year == 2025 else (1, 2, 3, 4))
-             for table in ('market', 'ticket')]
-    names += [f't100_{year}.json' for year in (2023, 2024, 2025)]
-    names += [f'weather_{a}_2020_2025.json' for a in AIRPORTS]
-    for name in names:
+    expected = []
+    for year in (2023, 2024, 2025):
+        for quarter in ((1, 2) if year == 2025 else (1, 2, 3, 4)):
+            for table in ('Market', 'Ticket'):
+                target = bts_path(table, year, quarter)
+                expected.append((f'bts_db1b_{table.lower()}_{year}_q{quarter}.json', target,
+                    'https://transtats.bts.gov/PREZIP/'+target.name, {'year': year, 'quarter': quarter}))
+        expected.append((f't100_{year}.json', RAW/'t100'/f'T_100_Domestic_Segment_All_Carrier_{year}.zip',
+            T100_URL, {'method': 'ASP.NET three-step POST', 'year': year, 'period': 'All', 'fields': FIELDS}))
+    airports = pd.read_csv(RAW/'ourairports.csv', low_memory=False)
+    for a in AIRPORTS:
+        row = airports.loc[airports.ident.eq('K'+a)].iloc[0]
+        p = {'latitude': float(row.latitude_deg), 'longitude': float(row.longitude_deg),
+             'start_date': '2020-01-01', 'end_date': '2025-12-31',
+             'daily': 'precipitation_sum,snowfall_sum,wind_speed_10m_max',
+             'wind_speed_unit': 'ms', 'timezone': 'auto', 'models': 'era5'}
+        expected.append((f'weather_{a}_2020_2025.json', RAW/'weather'/f'{a}_2020_2025.json',
+                         'https://archive-api.open-meteo.com/v1/archive?'+urlencode(p), p))
+    for name, target, url, params in expected:
         record = json.loads((MANIFESTS/name).read_text(encoding='utf-8'))
-        if digest(record['local_path']) != record['sha256']:
-            raise ValueError(f'Input checksum mismatch: {name}')
-    print(f'Verified {len(names)} Stage5 input checksums', flush=True)
+        verify_record(record, target, url, params)
+    print(f'Verified {len(expected)} Stage5 input identities, checksums and payloads', flush=True)
 
 
 def main():

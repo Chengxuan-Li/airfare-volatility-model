@@ -1,0 +1,306 @@
+{
+  "schema_version": 1,
+  "checked_at_utc": "2026-09-12T11:02:00Z",
+  "acquisition_constraints": {
+    "credentials_used": false,
+    "paid_services_used": false,
+    "archives_persisted_by_probe": false,
+    "flightradar24_calls": 0,
+    "flightradar24_credits_used": 0,
+    "flightradar24_credit_cap": 6000
+  },
+  "t100_domestic_segment_all_carriers": {
+    "table_code": "GEE",
+    "form_url": "https://www.transtats.bts.gov/DL_SelectFields.aspx?QO_fu146_anzr=Nv4+Pn44vr45&gnoyr_VQ=GEE",
+    "fields_url": "https://www.transtats.bts.gov/Fields.asp?gnoyr_VQ=GEE",
+    "service_class_lookup_url": "https://www.transtats.bts.gov/Download_Lookup.asp?Y11x72=Y_fReiVPR_PYNff",
+    "service_class_lookup_probe": {
+      "method": "GET",
+      "status": 200,
+      "content_length": 744,
+      "content_disposition": "attachment; filename=L_SERVICE_CLASS.csv",
+      "selected_code": "F",
+      "selected_description": "Scheduled Passenger/ Cargo Service F"
+    },
+    "years": [
+      2023,
+      2024,
+      2025
+    ],
+    "period": "All",
+    "selected_form_fields": [
+      "UNIQUE_CARRIER",
+      "ORIGIN_AIRPORT_ID",
+      "ORIGIN",
+      "DEST_AIRPORT_ID",
+      "DEST",
+      "YEAR",
+      "QUARTER",
+      "MONTH",
+      "CLASS",
+      "PASSENGERS",
+      "SEATS",
+      "DEPARTURES_SCHEDULED",
+      "DEPARTURES_PERFORMED"
+    ],
+    "expected_csv_labels": {
+      "UNIQUE_CARRIER": "UniqueCarrier",
+      "ORIGIN_AIRPORT_ID": "OriginAirportID",
+      "ORIGIN": "Origin",
+      "DEST_AIRPORT_ID": "DestAirportID",
+      "DEST": "Dest",
+      "YEAR": "Year",
+      "QUARTER": "Quarter",
+      "MONTH": "Month",
+      "CLASS": "Class",
+      "PASSENGERS": "Passengers",
+      "SEATS": "Seats",
+      "DEPARTURES_SCHEDULED": "DepScheduled",
+      "DEPARTURES_PERFORMED": "DepPerformed"
+    },
+    "aspnet_request_sequence": [
+      {
+        "step": 1,
+        "method": "GET",
+        "url": "https://www.transtats.bts.gov/DL_SelectFields.aspx?QO_fu146_anzr=Nv4+Pn44vr45&gnoyr_VQ=GEE",
+        "same_session": true,
+        "capture_hidden_fields": [
+          "__VIEWSTATE",
+          "__VIEWSTATEGENERATOR",
+          "__EVENTVALIDATION"
+        ]
+      },
+      {
+        "step": 2,
+        "method": "POST",
+        "same_session": true,
+        "form": {
+          "__EVENTTARGET": "chkDownloadZip",
+          "__EVENTARGUMENT": "",
+          "cboYear": "{year}",
+          "cboPeriod": "All",
+          "chkDownloadZip": "on"
+        },
+        "include_hidden_fields_from_step": 1,
+        "capture_hidden_fields": [
+          "__VIEWSTATE",
+          "__VIEWSTATEGENERATOR",
+          "__EVENTVALIDATION"
+        ]
+      },
+      {
+        "step": 3,
+        "method": "POST",
+        "same_session": true,
+        "stream_response": true,
+        "form": {
+          "cboYear": "{year}",
+          "cboPeriod": "All",
+          "chkDownloadZip": "on",
+          "btnDownload": "Download",
+          "UNIQUE_CARRIER": "on",
+          "ORIGIN_AIRPORT_ID": "on",
+          "ORIGIN": "on",
+          "DEST_AIRPORT_ID": "on",
+          "DEST": "on",
+          "YEAR": "on",
+          "QUARTER": "on",
+          "MONTH": "on",
+          "CLASS": "on",
+          "PASSENGERS": "on",
+          "SEATS": "on",
+          "DEPARTURES_SCHEDULED": "on",
+          "DEPARTURES_PERFORMED": "on"
+        },
+        "include_hidden_fields_from_step": 2
+      }
+    ],
+    "verified_response_probes": [
+      {
+        "year": 2023,
+        "status": 200,
+        "content_type": "application/zip",
+        "content_length": 3657693,
+        "content_disposition": "attachment; filename=T_T100D_SEGMENT_ALL_CARRIER_20260912_070133.zip",
+        "sha256": null,
+        "sha256_status": "Not computed because the metadata probe did not consume or persist the response body.",
+        "body_persisted": false
+      },
+      {
+        "year": 2024,
+        "status": 200,
+        "content_type": "application/zip",
+        "content_length": 3782321,
+        "content_disposition": "attachment; filename=T_T100D_SEGMENT_ALL_CARRIER_20260912_070151.zip",
+        "sha256": null,
+        "sha256_status": "Not computed because the metadata probe did not consume or persist the response body.",
+        "body_persisted": false
+      },
+      {
+        "year": 2025,
+        "status": 200,
+        "content_type": "application/zip",
+        "content_length": 3938181,
+        "content_disposition": "attachment; filename=T_T100D_SEGMENT_ALL_CARRIER_20260912_065742.zip",
+        "sha256": null,
+        "sha256_status": "Not computed because the metadata probe did not consume or persist the response body.",
+        "body_persisted": false
+      }
+    ],
+    "failed_static_url_probes": [
+      {
+        "url": "https://transtats.bts.gov/PREZIP/T_100_Domestic_Segment_All_Carrier_2023.zip",
+        "method": "HEAD",
+        "status": 404
+      },
+      {
+        "url": "https://transtats.bts.gov/PREZIP/T_100_Domestic_Segment_All_Carrier_2024.zip",
+        "method": "HEAD",
+        "status": 404
+      },
+      {
+        "url": "https://transtats.bts.gov/PREZIP/T_100_Domestic_Segment_All_Carrier_2025.zip",
+        "method": "HEAD",
+        "status": 404
+      }
+    ],
+    "filter": {
+      "airports": [
+        "ATL",
+        "DEN",
+        "DFW",
+        "JFK",
+        "LAX",
+        "ORD",
+        "SEA"
+      ],
+      "both_endpoints_in_airports": true,
+      "exclude_same_airport": true,
+      "expected_direction_count_before_data_support_checks": 42,
+      "class_equals": "F",
+      "months_for_2025_extension": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ]
+    },
+    "aggregation": {
+      "keys": [
+        "Origin",
+        "Dest",
+        "Year",
+        "Quarter"
+      ],
+      "sum_across": [
+        "UniqueCarrier",
+        "AircraftType",
+        "Month"
+      ],
+      "sum_fields": [
+        "Seats",
+        "Passengers",
+        "DepScheduled",
+        "DepPerformed"
+      ],
+      "derived_after_sum": {
+        "t100_load_factor": "Passengers / Seats",
+        "t100_completion_rate": "DepPerformed / DepScheduled"
+      },
+      "carrier_join_rule": "Do not join T-100 UniqueCarrier to DB1B RPCarrier. Aggregate all T-100 operators first and join route-quarter keys only."
+    },
+    "full_download_validation": [
+      "Require status 200 and application/zip.",
+      "Compute SHA-256 while streaming and record final byte count and Content-Disposition.",
+      "Run ZIP CRC validation and record archive member names and uncompressed sizes.",
+      "Assert the requested CSV labels before filtering.",
+      "Record row counts by Year, Month, Class, Origin, and Dest before aggregation.",
+      "Assert 2025 months 1 through 6 are present.",
+      "Write unmatched DB1B and T-100 route-quarter keys to a quality audit."
+    ]
+  },
+  "db1b_head_probes": [
+    {
+      "table": "DB1BMarket",
+      "year": 2025,
+      "quarter": 1,
+      "url": "https://transtats.bts.gov/PREZIP/Origin_and_Destination_Survey_DB1BMarket_2025_1.zip",
+      "method": "HEAD",
+      "status": 200,
+      "content_length": 94587240,
+      "content_type": "application/x-zip-compressed",
+      "last_modified": "Fri, 27 Jun 2025 20:19:03 GMT",
+      "etag": "\"801578b9a0e7db1:0\""
+    },
+    {
+      "table": "DB1BMarket",
+      "year": 2025,
+      "quarter": 2,
+      "url": "https://transtats.bts.gov/PREZIP/Origin_and_Destination_Survey_DB1BMarket_2025_2.zip",
+      "method": "HEAD",
+      "status": 200,
+      "content_length": 110296405,
+      "content_type": "application/x-zip-compressed",
+      "last_modified": "Mon, 06 Oct 2025 12:49:08 GMT",
+      "etag": "\"0baea9abf36dc1:0\""
+    },
+    {
+      "table": "DB1BTicket",
+      "year": 2025,
+      "quarter": 1,
+      "url": "https://transtats.bts.gov/PREZIP/Origin_and_Destination_Survey_DB1BTicket_2025_1.zip",
+      "method": "HEAD",
+      "status": 200,
+      "content_length": 90024798,
+      "content_type": "application/x-zip-compressed",
+      "last_modified": "Fri, 27 Jun 2025 20:20:54 GMT",
+      "etag": "\"057a1fba0e7db1:0\""
+    },
+    {
+      "table": "DB1BTicket",
+      "year": 2025,
+      "quarter": 2,
+      "url": "https://transtats.bts.gov/PREZIP/Origin_and_Destination_Survey_DB1BTicket_2025_2.zip",
+      "method": "HEAD",
+      "status": 200,
+      "content_length": 103345558,
+      "content_type": "application/x-zip-compressed",
+      "last_modified": "Mon, 06 Oct 2025 12:51:14 GMT",
+      "etag": "\"0cd4e6bf36dc1:0\""
+    },
+    {
+      "table": "DB1BCoupon",
+      "year": 2024,
+      "quarter": 1,
+      "url": "https://transtats.bts.gov/PREZIP/Origin_and_Destination_Survey_DB1BCoupon_2024_1.zip",
+      "method": "HEAD",
+      "status": 200,
+      "content_length": 223500145,
+      "content_type": "application/x-zip-compressed",
+      "last_modified": "Fri, 28 Jun 2024 14:38:53 GMT",
+      "etag": "\"803ccce568c9da1:0\""
+    }
+  ],
+  "db1b_coupon": {
+    "fields_url": "https://www.transtats.bts.gov/Fields.asp?gnoyr_VQ=FLM",
+    "record_description_url": "https://www.bts.gov/sites/bts.dot.gov/files/DB1B_Record_Description_Product%20for%20bookstore.pdf",
+    "documented_fare_class_codes": {
+      "F": "Unrestricted First Class",
+      "G": "Restricted First Class",
+      "C": "Unrestricted Business Class",
+      "D": "Restricted Business Class",
+      "Y": "Unrestricted Coach Class",
+      "X": "Restricted Coach Class",
+      "U": "Unknown"
+    },
+    "official_current_warning": "Value Is Defined By Carriers And May Not Follow The Same Standard. Not Recommended For Analysis.",
+    "permitted_role": "Descriptive schema and carrier-role audit only; do not interpret FareClass as comparable Basic/Standard/Flex products or estimate a flexibility premium.",
+    "join_rule": "Join Coupon to Market/Ticket only within Year and Quarter on audited ItinID and MktID cardinality; retain OpCarrier, TkCarrier, and RPCarrier as distinct roles."
+  },
+  "price_level_control": {
+    "bls_request_included": false,
+    "reason": "Year-quarter fixed effects absorb common national inflation in the model; route-level capacity and carrier-role alignment are the priority."
+  }
+}

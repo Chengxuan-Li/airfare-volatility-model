@@ -4,9 +4,34 @@ import pandas as pd
 import matplotlib
 matplotlib.use('Agg')
 import matplotlib.pyplot as plt
+import patsy
+from scipy.linalg import qr
+from scipy.stats import t
+import statsmodels.api as sm
 
-from src.analysis.models import fit_checked
 from src.stage5.pipeline import OUT, residualize, save_json
+
+
+def fit_effects(data, fe, demand='demand_c', capacity=False):
+    nuisance = patsy.dmatrix(f'0+C({fe})+C(period)', data, return_type='dataframe')
+    _, triangular, pivots = qr(nuisance.to_numpy(), mode='economic', pivoting=True)
+    rank = np.linalg.matrix_rank(triangular)
+    basis = nuisance.iloc[:, pivots[:rank]]
+    focal = data[[demand, 'risk']].copy()
+    focal[demand+':risk'] = data[demand]*data.risk
+    if capacity:
+        focal['log_seats'] = data.log_seats
+    within = residualize(focal.to_numpy(), [data[fe], data.period])
+    # Absolute tolerance also rejects fully absorbed columns with rounding noise.
+    if np.linalg.matrix_rank(within, tol=1e-9) != focal.shape[1]:
+        raise ValueError('focal regressors absorbed or collinear after fixed effects')
+    design = pd.concat([focal, basis], axis=1)
+    if not np.isfinite(design).all().all() or len(data) <= design.shape[1]:
+        raise ValueError('invalid design or no residual degrees of freedom')
+    if np.linalg.matrix_rank(design) != design.shape[1] or np.linalg.cond(design) > 1e12:
+        raise ValueError('full design rank/conditioning failure')
+    return sm.OLS(data.fare_mean, design, missing='raise').fit(
+        cov_type='cluster', cov_kwds={'groups': data.pair}, use_t=True)
 
 
 def main():
@@ -25,24 +50,34 @@ def main():
         if data.empty:
             statuses.append({**status, 'status': 'not_estimable', 'reason': 'empty sample'})
             return
-        residuals = residualize(data[['risk', 'fixed_risk']].to_numpy(), [data[fe], data.period])
-        support.append({'model': name, 'risk_raw_sd': float(data.risk.std()),
-            'risk_residual_sd': float(residuals[:, 0].std(ddof=1)),
-            'fixed_risk_residual_max_abs': float(np.abs(residuals[:, 1]).max()),
-            'groups': data[fe].nunique(), 'repeated_groups': int(data.groupby(fe).size().gt(1).sum())})
         try:
-            result = fit_checked(formula, data, cluster='pair')
+            residuals = residualize(data[['risk', 'fixed_risk']].to_numpy(), [data[fe], data.period])
+            support.append({'model': name, 'risk_raw_sd': float(data.risk.std()),
+                'risk_residual_sd': float(residuals[:, 0].std(ddof=1)),
+                'fixed_risk_residual_max_abs': float(np.abs(residuals[:, 1]).max()),
+                'groups': data[fe].nunique(), 'repeated_groups': int(data.groupby(fe).size().gt(1).sum())})
+            result = fit_effects(data, fe, demand, capacity)
             status.update(status='estimated', rank=int(result.model.exog.shape[1]),
                           condition=float(np.linalg.cond(result.model.exog)))
             terms = {demand: 'traffic', 'risk': 'risk', demand+':risk': 'interaction'}
             if capacity:
                 terms['log_seats'] = 'log_seats'
+            local_coefficients = []
+            df = data.pair.nunique()-1
+            if df <= 0:
+                raise ValueError('insufficient pair clusters')
             for term, label in terms.items():
-                interval = result.conf_int().loc[term]
-                coefficients.append({'model': name, 'term': label, 'estimate': float(result.params[term]),
-                    'se': float(result.bse[term]), 'ci_low': float(interval.iloc[0]), 'ci_high': float(interval.iloc[1]),
-                    'p_value': float(result.pvalues[term]), 'n': len(data), 'pairs': data.pair.nunique(),
+                variance = float(result.cov_params().loc[term, term])
+                if not np.isfinite(variance) or variance <= 0:
+                    raise ValueError('invalid focal covariance')
+                se = np.sqrt(variance)
+                estimate = float(result.params[term])
+                half = t.ppf(.975, df)*se
+                local_coefficients.append({'model': name, 'term': label, 'estimate': float(result.params[term]),
+                    'se': float(se), 'ci_low': float(estimate-half), 'ci_high': float(estimate+half),
+                    'p_value': float(2*t.sf(abs(estimate/se), df)), 'n': len(data), 'pairs': data.pair.nunique(),
                     'inference': 'Approximate CR1 t; undirected pairs; shared-airport dependence remains'})
+            coefficients.extend(local_coefficients)
         except (ValueError, np.linalg.LinAlgError) as exc:
             status.update(status='not_estimable', reason=str(exc))
         statuses.append(status)

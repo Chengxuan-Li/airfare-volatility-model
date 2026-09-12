@@ -1,0 +1,252 @@
+[
+  {
+    "year": 2023,
+    "quarter": 1,
+    "market_scanned": 6714113,
+    "scoped": 96262,
+    "unmatched": 0,
+    "unreliable_or_missing": 808,
+    "primary_exclusions": {
+      "input_rows": 95454,
+      "excluded_missing_or_invalid_quantity": 0,
+      "excluded_missing_fare": 0,
+      "excluded_fare_bounds": 3552,
+      "excluded_bulk_or_unknown": 0,
+      "excluded_connecting_or_unknown": 13161,
+      "kept_rows": 78741
+    },
+    "one_way_product": {
+      "rows": 15862,
+      "max_absolute_proration_gap": 0.0,
+      "rows_gap_above_cent": 0,
+      "missing_itinerary_fare": 0
+    },
+    "primary_cells_below_30": 26,
+    "one_way_cells_below_30": 7
+  },
+  {
+    "year": 2023,
+    "quarter": 2,
+    "market_scanned": 7616858,
+    "scoped": 110673,
+    "unmatched": 0,
+    "unreliable_or_missing": 967,
+    "primary_exclusions": {
+      "input_rows": 109706,
+      "excluded_missing_or_invalid_quantity": 0,
+      "excluded_missing_fare": 0,
+      "excluded_fare_bounds": 3937,
+      "excluded_bulk_or_unknown": 0,
+      "excluded_connecting_or_unknown": 15225,
+      "kept_rows": 90544
+    },
+    "one_way_product": {
+      "rows": 18006,
+      "max_absolute_proration_gap": 0.0,
+      "rows_gap_above_cent": 0,
+      "missing_itinerary_fare": 0
+    },
+    "primary_cells_below_30": 31,
+    "one_way_cells_below_30": 14
+  },
+  {
+    "year": 2023,
+    "quarter": 3,
+    "market_scanned": 7349871,
+    "scoped": 107021,
+    "unmatched": 0,
+    "unreliable_or_missing": 686,
+    "primary_exclusions": {
+      "input_rows": 106335,
+      "excluded_missing_or_invalid_quantity": 0,
+      "excluded_missing_fare": 0,
+      "excluded_fare_bounds": 4261,
+      "excluded_bulk_or_unknown": 0,
+      "excluded_connecting_or_unknown": 14805,
+      "kept_rows": 87269
+    },
+    "one_way_product": {
+      "rows": 17805,
+      "max_absolute_proration_gap": 0.0,
+      "rows_gap_above_cent": 0,
+      "missing_itinerary_fare": 0
+    },
+    "primary_cells_below_30": 30,
+    "one_way_cells_below_30": 15
+  },
+  {
+    "year": 2023,
+    "quarter": 4,
+    "market_scanned": 7754181,
+    "scoped": 111611,
+    "unmatched": 0,
+    "unreliable_or_missing": 1179,
+    "primary_exclusions": {
+      "input_rows": 110432,
+      "excluded_missing_or_invalid_quantity": 0,
+      "excluded_missing_fare": 0,
+      "excluded_fare_bounds": 4142,
+      "excluded_bulk_or_unknown": 0,
+      "excluded_connecting_or_unknown": 13476,
+      "kept_rows": 92814
+    },
+    "one_way_product": {
+      "rows": 18127,
+      "max_absolute_proration_gap": 0.0,
+      "rows_gap_above_cent": 0,
+      "missing_itinerary_fare": 0
+    },
+    "primary_cells_below_30": 20,
+    "one_way_cells_below_30": 9
+  },
+  {
+    "year": 2024,
+    "quarter": 1,
+    "market_scanned": 7409931,
+    "scoped": 108880,
+    "unmatched": 0,
+    "unreliable_or_missing": 1013,
+    "primary_exclusions": {
+      "input_rows": 107867,
+      "excluded_missing_or_invalid_quantity": 0,
+      "excluded_missing_fare": 0,
+      "excluded_fare_bounds": 3697,
+      "excluded_bulk_or_unknown": 0,
+      "excluded_connecting_or_unknown": 12115,
+      "kept_rows": 92055
+    },
+    "one_way_product": {
+      "rows": 18784,
+      "max_absolute_proration_gap": 0.0,
+      "rows_gap_above_cent": 0,
+      "missing_itinerary_fare": 0
+    },
+    "primary_cells_below_30": 25,
+    "one_way_cells_below_30": 9
+  },
+  {
+    "year": 2024,
+    "quarter": 2,
+    "market_scanned": 8533978,
+    "scoped": 122871,
+    "unmatched": 0,
+    "unreliable_or_missing": 1223,
+    "primary_exclusions": {
+      "input_rows": 121648,
+      "excluded_missing_or_invalid_quantity": 0,
+      "excluded_missing_fare": 0,
+      "excluded_fare_bounds": 4135,
+      "excluded_bulk_or_unknown": 0,
+      "excluded_connecting_or_unknown": 14495,
+      "kept_rows": 103018
+    },
+    "one_way_product": {
+      "rows": 20536,
+      "max_absolute_proration_gap": 0.0,
+      "rows_gap_above_cent": 0,
+      "missing_itinerary_fare": 0
+    },
+    "primary_cells_below_30": 26,
+    "one_way_cells_below_30": 10
+  },
+  {
+    "year": 2024,
+    "quarter": 3,
+    "market_scanned": 8297869,
+    "scoped": 119657,
+    "unmatched": 0,
+    "unreliable_or_missing": 884,
+    "primary_exclusions": {
+      "input_rows": 118773,
+      "excluded_missing_or_invalid_quantity": 0,
+      "excluded_missing_fare": 0,
+      "excluded_fare_bounds": 4236,
+      "excluded_bulk_or_unknown": 0,
+      "excluded_connecting_or_unknown": 13631,
+      "kept_rows": 100906
+    },
+    "one_way_product": {
+      "rows": 20676,
+      "max_absolute_proration_gap": 0.0,
+      "rows_gap_above_cent": 0,
+      "missing_itinerary_fare": 0
+    },
+    "primary_cells_below_30": 18,
+    "one_way_cells_below_30": 10
+  },
+  {
+    "year": 2024,
+    "quarter": 4,
+    "market_scanned": 8525077,
+    "scoped": 122415,
+    "unmatched": 0,
+    "unreliable_or_missing": 1237,
+    "primary_exclusions": {
+      "input_rows": 121178,
+      "excluded_missing_or_invalid_quantity": 0,
+      "excluded_missing_fare": 0,
+      "excluded_fare_bounds": 4397,
+      "excluded_bulk_or_unknown": 0,
+      "excluded_connecting_or_unknown": 12879,
+      "kept_rows": 103902
+    },
+    "one_way_product": {
+      "rows": 20679,
+      "max_absolute_proration_gap": 0.0,
+      "rows_gap_above_cent": 0,
+      "missing_itinerary_fare": 0
+    },
+    "primary_cells_below_30": 25,
+    "one_way_cells_below_30": 7
+  },
+  {
+    "year": 2025,
+    "quarter": 1,
+    "market_scanned": 7297028,
+    "scoped": 97839,
+    "unmatched": 0,
+    "unreliable_or_missing": 844,
+    "primary_exclusions": {
+      "input_rows": 96995,
+      "excluded_missing_or_invalid_quantity": 0,
+      "excluded_missing_fare": 0,
+      "excluded_fare_bounds": 3479,
+      "excluded_bulk_or_unknown": 0,
+      "excluded_connecting_or_unknown": 10024,
+      "kept_rows": 83492
+    },
+    "one_way_product": {
+      "rows": 16977,
+      "max_absolute_proration_gap": 0.0,
+      "rows_gap_above_cent": 0,
+      "missing_itinerary_fare": 0
+    },
+    "primary_cells_below_30": 24,
+    "one_way_cells_below_30": 10
+  },
+  {
+    "year": 2025,
+    "quarter": 2,
+    "market_scanned": 8450420,
+    "scoped": 119035,
+    "unmatched": 0,
+    "unreliable_or_missing": 1564,
+    "primary_exclusions": {
+      "input_rows": 117471,
+      "excluded_missing_or_invalid_quantity": 0,
+      "excluded_missing_fare": 0,
+      "excluded_fare_bounds": 4291,
+      "excluded_bulk_or_unknown": 0,
+      "excluded_connecting_or_unknown": 12533,
+      "kept_rows": 100647
+    },
+    "one_way_product": {
+      "rows": 20148,
+      "max_absolute_proration_gap": 0.0,
+      "rows_gap_above_cent": 0,
+      "missing_itinerary_fare": 0
+    },
+    "primary_cells_below_30": 18,
+    "one_way_cells_below_30": 7
+  }
+]

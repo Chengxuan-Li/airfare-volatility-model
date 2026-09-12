@@ -12,6 +12,15 @@ weak paper**. Endogenous traffic, few clusters, and limited joint support preven
 causal or confirmatory claims. See the [consolidated report](docs/findings/stage_0_to_4_report.md)
 and [project state](docs/project_state.md) for verification status and limitations.
 
+The [Stage 5 extension](docs/findings/stage5_report.md) adds 2025 Q1/Q2, all 42
+directions among the same seven airports, whole one-way single-coupon fares, and
+independent BTS T100 route capacity. It contains 905 primary cells and 873 one-way
+cells. The expanded training interaction is +50.58 (approximate 95% interval
+[-38.02,139.19]); the holdout and stronger seasonal checks remain inconclusive.
+The firm conclusion is an identification boundary: quarterly transaction data do
+not determine the original quote-time interaction without additional assumptions
+and aligned information. See the [extension reproduction guide](docs/methods/stage5_reproduction.md).
+
 ## Reproduce
 
 Python 3.13 was used on Windows. Run from the repository root with curl installed.

@@ -1,0 +1,803 @@
+[
+  {
+    "year": 2023,
+    "raw_rows": 427426,
+    "selected_rows": 7374,
+    "months": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12
+    ],
+    "service_classes": [
+      "F",
+      "G",
+      "L",
+      "P"
+    ],
+    "rows_by_month_class": [
+      {
+        "MONTH": 1,
+        "CLASS": "F",
+        "rows": 558
+      },
+      {
+        "MONTH": 1,
+        "CLASS": "G",
+        "rows": 58
+      },
+      {
+        "MONTH": 1,
+        "CLASS": "L",
+        "rows": 26
+      },
+      {
+        "MONTH": 1,
+        "CLASS": "P",
+        "rows": 16
+      },
+      {
+        "MONTH": 2,
+        "CLASS": "F",
+        "rows": 512
+      },
+      {
+        "MONTH": 2,
+        "CLASS": "G",
+        "rows": 46
+      },
+      {
+        "MONTH": 2,
+        "CLASS": "L",
+        "rows": 14
+      },
+      {
+        "MONTH": 2,
+        "CLASS": "P",
+        "rows": 17
+      },
+      {
+        "MONTH": 3,
+        "CLASS": "F",
+        "rows": 530
+      },
+      {
+        "MONTH": 3,
+        "CLASS": "G",
+        "rows": 48
+      },
+      {
+        "MONTH": 3,
+        "CLASS": "L",
+        "rows": 15
+      },
+      {
+        "MONTH": 3,
+        "CLASS": "P",
+        "rows": 15
+      },
+      {
+        "MONTH": 4,
+        "CLASS": "F",
+        "rows": 492
+      },
+      {
+        "MONTH": 4,
+        "CLASS": "G",
+        "rows": 49
+      },
+      {
+        "MONTH": 4,
+        "CLASS": "L",
+        "rows": 19
+      },
+      {
+        "MONTH": 4,
+        "CLASS": "P",
+        "rows": 15
+      },
+      {
+        "MONTH": 5,
+        "CLASS": "F",
+        "rows": 532
+      },
+      {
+        "MONTH": 5,
+        "CLASS": "G",
+        "rows": 47
+      },
+      {
+        "MONTH": 5,
+        "CLASS": "L",
+        "rows": 22
+      },
+      {
+        "MONTH": 5,
+        "CLASS": "P",
+        "rows": 17
+      },
+      {
+        "MONTH": 6,
+        "CLASS": "F",
+        "rows": 555
+      },
+      {
+        "MONTH": 6,
+        "CLASS": "G",
+        "rows": 45
+      },
+      {
+        "MONTH": 6,
+        "CLASS": "L",
+        "rows": 15
+      },
+      {
+        "MONTH": 6,
+        "CLASS": "P",
+        "rows": 19
+      },
+      {
+        "MONTH": 7,
+        "CLASS": "F",
+        "rows": 526
+      },
+      {
+        "MONTH": 7,
+        "CLASS": "G",
+        "rows": 49
+      },
+      {
+        "MONTH": 7,
+        "CLASS": "L",
+        "rows": 10
+      },
+      {
+        "MONTH": 7,
+        "CLASS": "P",
+        "rows": 17
+      },
+      {
+        "MONTH": 8,
+        "CLASS": "F",
+        "rows": 534
+      },
+      {
+        "MONTH": 8,
+        "CLASS": "G",
+        "rows": 44
+      },
+      {
+        "MONTH": 8,
+        "CLASS": "L",
+        "rows": 26
+      },
+      {
+        "MONTH": 8,
+        "CLASS": "P",
+        "rows": 25
+      },
+      {
+        "MONTH": 9,
+        "CLASS": "F",
+        "rows": 550
+      },
+      {
+        "MONTH": 9,
+        "CLASS": "G",
+        "rows": 43
+      },
+      {
+        "MONTH": 9,
+        "CLASS": "L",
+        "rows": 26
+      },
+      {
+        "MONTH": 9,
+        "CLASS": "P",
+        "rows": 14
+      },
+      {
+        "MONTH": 10,
+        "CLASS": "F",
+        "rows": 536
+      },
+      {
+        "MONTH": 10,
+        "CLASS": "G",
+        "rows": 43
+      },
+      {
+        "MONTH": 10,
+        "CLASS": "L",
+        "rows": 32
+      },
+      {
+        "MONTH": 10,
+        "CLASS": "P",
+        "rows": 15
+      },
+      {
+        "MONTH": 11,
+        "CLASS": "F",
+        "rows": 512
+      },
+      {
+        "MONTH": 11,
+        "CLASS": "G",
+        "rows": 43
+      },
+      {
+        "MONTH": 11,
+        "CLASS": "L",
+        "rows": 17
+      },
+      {
+        "MONTH": 11,
+        "CLASS": "P",
+        "rows": 19
+      },
+      {
+        "MONTH": 12,
+        "CLASS": "F",
+        "rows": 522
+      },
+      {
+        "MONTH": 12,
+        "CLASS": "G",
+        "rows": 48
+      },
+      {
+        "MONTH": 12,
+        "CLASS": "L",
+        "rows": 23
+      },
+      {
+        "MONTH": 12,
+        "CLASS": "P",
+        "rows": 18
+      }
+    ]
+  },
+  {
+    "year": 2024,
+    "raw_rows": 440930,
+    "selected_rows": 7903,
+    "months": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12
+    ],
+    "service_classes": [
+      "F",
+      "G",
+      "L",
+      "P"
+    ],
+    "rows_by_month_class": [
+      {
+        "MONTH": 1,
+        "CLASS": "F",
+        "rows": 572
+      },
+      {
+        "MONTH": 1,
+        "CLASS": "G",
+        "rows": 44
+      },
+      {
+        "MONTH": 1,
+        "CLASS": "L",
+        "rows": 10
+      },
+      {
+        "MONTH": 1,
+        "CLASS": "P",
+        "rows": 23
+      },
+      {
+        "MONTH": 2,
+        "CLASS": "F",
+        "rows": 523
+      },
+      {
+        "MONTH": 2,
+        "CLASS": "G",
+        "rows": 49
+      },
+      {
+        "MONTH": 2,
+        "CLASS": "L",
+        "rows": 11
+      },
+      {
+        "MONTH": 2,
+        "CLASS": "P",
+        "rows": 19
+      },
+      {
+        "MONTH": 3,
+        "CLASS": "F",
+        "rows": 558
+      },
+      {
+        "MONTH": 3,
+        "CLASS": "G",
+        "rows": 35
+      },
+      {
+        "MONTH": 3,
+        "CLASS": "L",
+        "rows": 17
+      },
+      {
+        "MONTH": 3,
+        "CLASS": "P",
+        "rows": 17
+      },
+      {
+        "MONTH": 4,
+        "CLASS": "F",
+        "rows": 527
+      },
+      {
+        "MONTH": 4,
+        "CLASS": "G",
+        "rows": 32
+      },
+      {
+        "MONTH": 4,
+        "CLASS": "L",
+        "rows": 19
+      },
+      {
+        "MONTH": 4,
+        "CLASS": "P",
+        "rows": 16
+      },
+      {
+        "MONTH": 5,
+        "CLASS": "F",
+        "rows": 580
+      },
+      {
+        "MONTH": 5,
+        "CLASS": "G",
+        "rows": 43
+      },
+      {
+        "MONTH": 5,
+        "CLASS": "L",
+        "rows": 21
+      },
+      {
+        "MONTH": 5,
+        "CLASS": "P",
+        "rows": 9
+      },
+      {
+        "MONTH": 6,
+        "CLASS": "F",
+        "rows": 572
+      },
+      {
+        "MONTH": 6,
+        "CLASS": "G",
+        "rows": 40
+      },
+      {
+        "MONTH": 6,
+        "CLASS": "L",
+        "rows": 18
+      },
+      {
+        "MONTH": 6,
+        "CLASS": "P",
+        "rows": 14
+      },
+      {
+        "MONTH": 7,
+        "CLASS": "F",
+        "rows": 577
+      },
+      {
+        "MONTH": 7,
+        "CLASS": "G",
+        "rows": 37
+      },
+      {
+        "MONTH": 7,
+        "CLASS": "L",
+        "rows": 24
+      },
+      {
+        "MONTH": 7,
+        "CLASS": "P",
+        "rows": 17
+      },
+      {
+        "MONTH": 8,
+        "CLASS": "F",
+        "rows": 612
+      },
+      {
+        "MONTH": 8,
+        "CLASS": "G",
+        "rows": 35
+      },
+      {
+        "MONTH": 8,
+        "CLASS": "L",
+        "rows": 35
+      },
+      {
+        "MONTH": 8,
+        "CLASS": "P",
+        "rows": 13
+      },
+      {
+        "MONTH": 9,
+        "CLASS": "F",
+        "rows": 576
+      },
+      {
+        "MONTH": 9,
+        "CLASS": "G",
+        "rows": 38
+      },
+      {
+        "MONTH": 9,
+        "CLASS": "L",
+        "rows": 36
+      },
+      {
+        "MONTH": 9,
+        "CLASS": "P",
+        "rows": 12
+      },
+      {
+        "MONTH": 10,
+        "CLASS": "F",
+        "rows": 587
+      },
+      {
+        "MONTH": 10,
+        "CLASS": "G",
+        "rows": 40
+      },
+      {
+        "MONTH": 10,
+        "CLASS": "L",
+        "rows": 31
+      },
+      {
+        "MONTH": 10,
+        "CLASS": "P",
+        "rows": 17
+      },
+      {
+        "MONTH": 11,
+        "CLASS": "F",
+        "rows": 604
+      },
+      {
+        "MONTH": 11,
+        "CLASS": "G",
+        "rows": 48
+      },
+      {
+        "MONTH": 11,
+        "CLASS": "L",
+        "rows": 30
+      },
+      {
+        "MONTH": 11,
+        "CLASS": "P",
+        "rows": 18
+      },
+      {
+        "MONTH": 12,
+        "CLASS": "F",
+        "rows": 659
+      },
+      {
+        "MONTH": 12,
+        "CLASS": "G",
+        "rows": 49
+      },
+      {
+        "MONTH": 12,
+        "CLASS": "L",
+        "rows": 24
+      },
+      {
+        "MONTH": 12,
+        "CLASS": "P",
+        "rows": 15
+      }
+    ]
+  },
+  {
+    "year": 2025,
+    "raw_rows": 458791,
+    "selected_rows": 8392,
+    "months": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12
+    ],
+    "service_classes": [
+      "F",
+      "G",
+      "L",
+      "P"
+    ],
+    "rows_by_month_class": [
+      {
+        "MONTH": 1,
+        "CLASS": "F",
+        "rows": 623
+      },
+      {
+        "MONTH": 1,
+        "CLASS": "G",
+        "rows": 45
+      },
+      {
+        "MONTH": 1,
+        "CLASS": "L",
+        "rows": 15
+      },
+      {
+        "MONTH": 1,
+        "CLASS": "P",
+        "rows": 21
+      },
+      {
+        "MONTH": 2,
+        "CLASS": "F",
+        "rows": 569
+      },
+      {
+        "MONTH": 2,
+        "CLASS": "G",
+        "rows": 37
+      },
+      {
+        "MONTH": 2,
+        "CLASS": "L",
+        "rows": 8
+      },
+      {
+        "MONTH": 2,
+        "CLASS": "P",
+        "rows": 22
+      },
+      {
+        "MONTH": 3,
+        "CLASS": "F",
+        "rows": 616
+      },
+      {
+        "MONTH": 3,
+        "CLASS": "G",
+        "rows": 38
+      },
+      {
+        "MONTH": 3,
+        "CLASS": "L",
+        "rows": 20
+      },
+      {
+        "MONTH": 3,
+        "CLASS": "P",
+        "rows": 19
+      },
+      {
+        "MONTH": 4,
+        "CLASS": "F",
+        "rows": 572
+      },
+      {
+        "MONTH": 4,
+        "CLASS": "G",
+        "rows": 37
+      },
+      {
+        "MONTH": 4,
+        "CLASS": "L",
+        "rows": 29
+      },
+      {
+        "MONTH": 4,
+        "CLASS": "P",
+        "rows": 16
+      },
+      {
+        "MONTH": 5,
+        "CLASS": "F",
+        "rows": 625
+      },
+      {
+        "MONTH": 5,
+        "CLASS": "G",
+        "rows": 39
+      },
+      {
+        "MONTH": 5,
+        "CLASS": "L",
+        "rows": 31
+      },
+      {
+        "MONTH": 5,
+        "CLASS": "P",
+        "rows": 17
+      },
+      {
+        "MONTH": 6,
+        "CLASS": "F",
+        "rows": 637
+      },
+      {
+        "MONTH": 6,
+        "CLASS": "G",
+        "rows": 37
+      },
+      {
+        "MONTH": 6,
+        "CLASS": "L",
+        "rows": 25
+      },
+      {
+        "MONTH": 6,
+        "CLASS": "P",
+        "rows": 19
+      },
+      {
+        "MONTH": 7,
+        "CLASS": "F",
+        "rows": 626
+      },
+      {
+        "MONTH": 7,
+        "CLASS": "G",
+        "rows": 42
+      },
+      {
+        "MONTH": 7,
+        "CLASS": "L",
+        "rows": 33
+      },
+      {
+        "MONTH": 7,
+        "CLASS": "P",
+        "rows": 20
+      },
+      {
+        "MONTH": 8,
+        "CLASS": "F",
+        "rows": 620
+      },
+      {
+        "MONTH": 8,
+        "CLASS": "G",
+        "rows": 37
+      },
+      {
+        "MONTH": 8,
+        "CLASS": "L",
+        "rows": 38
+      },
+      {
+        "MONTH": 8,
+        "CLASS": "P",
+        "rows": 16
+      },
+      {
+        "MONTH": 9,
+        "CLASS": "F",
+        "rows": 566
+      },
+      {
+        "MONTH": 9,
+        "CLASS": "G",
+        "rows": 32
+      },
+      {
+        "MONTH": 9,
+        "CLASS": "L",
+        "rows": 45
+      },
+      {
+        "MONTH": 9,
+        "CLASS": "P",
+        "rows": 17
+      },
+      {
+        "MONTH": 10,
+        "CLASS": "F",
+        "rows": 639
+      },
+      {
+        "MONTH": 10,
+        "CLASS": "G",
+        "rows": 40
+      },
+      {
+        "MONTH": 10,
+        "CLASS": "L",
+        "rows": 28
+      },
+      {
+        "MONTH": 10,
+        "CLASS": "P",
+        "rows": 20
+      },
+      {
+        "MONTH": 11,
+        "CLASS": "F",
+        "rows": 611
+      },
+      {
+        "MONTH": 11,
+        "CLASS": "G",
+        "rows": 35
+      },
+      {
+        "MONTH": 11,
+        "CLASS": "L",
+        "rows": 25
+      },
+      {
+        "MONTH": 11,
+        "CLASS": "P",
+        "rows": 15
+      },
+      {
+        "MONTH": 12,
+        "CLASS": "F",
+        "rows": 675
+      },
+      {
+        "MONTH": 12,
+        "CLASS": "G",
+        "rows": 39
+      },
+      {
+        "MONTH": 12,
+        "CLASS": "L",
+        "rows": 39
+      },
+      {
+        "MONTH": 12,
+        "CLASS": "P",
+        "rows": 17
+      }
+    ]
+  }
+]
