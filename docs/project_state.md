@@ -1,8 +1,8 @@
 # Project state
 
 ## Current stage
-Pre-execution checkpoint complete: operating constraints committed and BTS
-batch-download method verified. Research Stages 0-4 have not started.
+Stages 0 and 1 complete; Stage 2 reviewed, acquisition/implementation underway
+on branch `codex/stage-0-to-4`. Literature contains 22 verified studies.
 
 ## Last updated
 2026-09-12
@@ -17,7 +17,7 @@ batch-download method verified. Research Stages 0-4 have not started.
 - Ticket and Coupon 2024 Q1 endpoints passed HEAD checks; not fully downloaded.
 
 ## In progress
-- No research-stage execution in progress; ready for the user to start the run.
+- Literature and source research with two workers; tested acquisition/analysis code.
 
 ## Key conclusions and important assumptions
 - DB1B supplies quarterly sampled fares/traffic, not flight quote timestamps.

@@ -18,3 +18,7 @@ status/history; follow the stage-specific next actions. No empirical findings ye
 - [Hypotheses and estimands](research/01_hypotheses.md)
 - [Falsification criteria](research/02_falsification_criteria.md)
 - [Execution plan](methods/execution_plan.md)
+
+- [Literature review](research/03_literature_review.md)
+- [Novelty assessment](research/04_novelty_assessment.md)
+- [Literature evidence table](../literature/literature_master.csv)
