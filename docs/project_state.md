@@ -49,11 +49,15 @@ No cleaned pilot or estimated models exist yet.
 ## Blockers
 No blocker to the download verification. Original quote-time identification is
 not supplied by DB1B alone.
+Public remote was verified through GitHub's API, and fetch succeeded. Push failed
+with `User cancelled dialog` followed by a credential-prompt error; the stalled
+attempt was interrupted. Commits remain local. Restore Git authentication and
+push `main` when ready; no further authentication dialogs were requested.
 
 ## Relevant commits
 - `072408b` — API credential template and initial budget notes.
 - `1e42de6` — execution addendum, mandatory governance, and repository rules.
-- See Git history for the subsequent verified BTS download checkpoint.
+- `a1269dd` — verified BTS downloads, reproduction recipe, and provenance.
 
 ## Intentionally uncommitted files
 - `.env` is ignored local credential configuration and must never be committed.
