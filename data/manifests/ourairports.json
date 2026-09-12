@@ -1,0 +1,11 @@
+{
+  "source": "OurAirports public domain",
+  "url": "https://davidmegginson.github.io/ourairports-data/airports.csv",
+  "query_parameters": null,
+  "retrieved_at_utc": "2026-09-12T10:15:38.743962+00:00",
+  "local_path": "data/raw/ourairports.csv",
+  "bytes": 12721713,
+  "sha256": "8c9ccbdf132213042cb7b4ed64d3383ea29541972584c2878a4e17fd111843c2",
+  "transformations": "None; original response retained.",
+  "license_notes": "See docs/data/09_data_legal_technical_constraints.md; raw files not committed."
+}

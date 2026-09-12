@@ -1,0 +1,119 @@
+{
+  "source": "BTS Airline On-Time Statistics and Delay Causes",
+  "url": "https://transtats.bts.gov/OT_Delay/ot_delaycause1_DL.aspx?8n4=9ur4r%20Brn4z106u%20or69rr0%20FHFJI%20NaQ%20FHGDD%20n0q%20Nv42146%20v0%20(%25MENgY%25ME,%25MENhf%25ME,%25MEOjV%25ME,%25MEObf%25ME,%25MEPYg%25ME,%25MEZQj%25ME,%25MEbeQ%25ME,%25MEQSj%25ME,%25MEQRa%25ME,%25MEQgj%25ME,%25MESYY%25ME,%25MEVNU%25ME,%25MEYNf%25ME,%25MEYNk%25ME,%25MEZVN%25ME,%25MEZfc%25ME,%25MEOaN%25ME,%25MEWSX%25ME,%25MEYTN%25ME,%25MERje%25ME,%25MEZPb%25ME,%25MEcUY%25ME,%25MEcUk%25ME,%25MEfYP%25ME,%25MEfNa%25ME,%25MEfSb%25ME,%25MEfRN%25ME,%25MEgcN%25ME,%25MEQPN%25ME,%25MEVNQ%25ME)",
+  "query_parameters": {
+    "source": "BTS Airline On-Time Statistics and Delay Causes",
+    "landing_page": "https://transtats.bts.gov/OT_Delay/ot_delaycause1.asp",
+    "form_url": "https://transtats.bts.gov/OT_Delay/ot_delaycause1.asp?20=E",
+    "form_method": "POST",
+    "form_fields": {
+      "Carrier": "All",
+      "Airport": "All31",
+      "PeriodFrom": "24265",
+      "PeriodTo": "24300"
+    },
+    "period_meaning": {
+      "PeriodFrom": "January 2022",
+      "PeriodTo": "December 2024"
+    },
+    "request_generation": "Submit the normal HTML form, then extract and resolve the Download Raw Data href. The href contains an obfuscated server query and should be regenerated if the saved URL stops working.",
+    "verified_download_url": "https://transtats.bts.gov/OT_Delay/ot_delaycause1_DL.aspx?8n4=9ur4r%20Brn4z106u%20or69rr0%20FHFJI%20NaQ%20FHGDD%20n0q%20Nv42146%20v0%20(%25MENgY%25ME,%25MENhf%25ME,%25MEOjV%25ME,%25MEObf%25ME,%25MEPYg%25ME,%25MEZQj%25ME,%25MEbeQ%25ME,%25MEQSj%25ME,%25MEQRa%25ME,%25MEQgj%25ME,%25MESYY%25ME,%25MEVNU%25ME,%25MEYNf%25ME,%25MEYNk%25ME,%25MEZVN%25ME,%25MEZfc%25ME,%25MEOaN%25ME,%25MEWSX%25ME,%25MEYTN%25ME,%25MERje%25ME,%25MEZPb%25ME,%25MEcUY%25ME,%25MEcUk%25ME,%25MEfYP%25ME,%25MEfNa%25ME,%25MEfSb%25ME,%25MEfRN%25ME,%25MEgcN%25ME,%25MEQPN%25ME,%25MEVNQ%25ME)",
+    "verified_at_utc_date": "2026-09-12",
+    "access_test": {
+      "http_status": 200,
+      "content_type": "application/zip",
+      "compressed_bytes": 504707,
+      "sha256": null,
+      "persistent_download_created": false,
+      "inspection_method": "Anonymous HEAD followed by an anonymous GET into memory. The outer ZIP and CSV/XLSX members were read from memory only. The coordinator will perform and manifest the persistent acquisition."
+    },
+    "archive_members": [
+      {
+        "name": "Airline_Delay_Cause.csv",
+        "uncompressed_bytes": 2329091,
+        "data_rows": 13252
+      },
+      {
+        "name": "Download_Column_Definitions.xlsx",
+        "uncompressed_bytes": 11215
+      }
+    ],
+    "csv_columns": [
+      "year",
+      "month",
+      "carrier",
+      "carrier_name",
+      "airport",
+      "airport_name",
+      "arr_flights",
+      "arr_del15",
+      "carrier_ct",
+      "weather_ct",
+      "nas_ct",
+      "security_ct",
+      "late_aircraft_ct",
+      "arr_cancelled",
+      "arr_diverted",
+      "arr_delay",
+      "carrier_delay",
+      "weather_delay",
+      "nas_delay",
+      "security_delay",
+      "late_aircraft_delay"
+    ],
+    "coverage_verified": {
+      "years": [
+        2022,
+        2023,
+        2024
+      ],
+      "airport_count": 31,
+      "pilot_airports_present": [
+        "ATL",
+        "LAX",
+        "JFK",
+        "SEA",
+        "ORD",
+        "DEN",
+        "DFW"
+      ]
+    },
+    "selected_uses": {
+      "cancellation_rate": "sum(arr_cancelled) / sum(arr_flights), after denominator and missingness checks",
+      "other_validation_outcomes": [
+        "arr_diverted",
+        "arr_del15",
+        "weather_ct",
+        "weather_delay",
+        "nas_ct",
+        "nas_delay"
+      ]
+    },
+    "definition_notes": {
+      "arr_flights": "Arrival Flights",
+      "arr_del15": "Arrival delay indicator, 15 minutes or more; a flight is on time when it arrives less than 15 minutes after published arrival time.",
+      "arr_cancelled": "flight cancelled",
+      "weather_ct": "Weather Count for airline cause of delay",
+      "weather_delay": "Weather Delay, in Minutes",
+      "attribution_caution": "The BTS page states that when multiple causes are assigned to one delayed flight, causes are prorated by responsible delayed minutes. weather_ct describes delayed-flight attribution and does not identify weather-caused cancellations."
+    },
+    "provenance_note": "No credentials, account, paid service, browser cookies, or persistent raw file were used during validation."
+  },
+  "retrieved_at_utc": "2026-09-12T10:18:02.276734+00:00",
+  "local_path": "data/raw/bts_delay_causes_2022_2024.zip",
+  "bytes": 504707,
+  "sha256": "2afb333239ca7fd16131aa78e0097418ac3cc819dc775892451dbc8ab08a4647",
+  "transformations": "None; original response retained.",
+  "license_notes": "See docs/data/09_data_legal_technical_constraints.md; raw files not committed.",
+  "members": [
+    {
+      "name": "Airline_Delay_Cause.csv",
+      "uncompressed_bytes": 2329091
+    },
+    {
+      "name": "Download_Column_Definitions.xlsx",
+      "uncompressed_bytes": 11215
+    }
+  ],
+  "zip_crc_valid": true
+}

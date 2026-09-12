@@ -1,0 +1,20 @@
+{
+  "source": "Open-Meteo ERA5 reanalysis, CC BY 4.0",
+  "url": "https://archive-api.open-meteo.com/v1/archive?latitude=32.896801&longitude=-97.038002&start_date=2020-01-01&end_date=2024-12-31&daily=precipitation_sum%2Csnowfall_sum%2Cwind_speed_10m_max&wind_speed_unit=ms&timezone=auto&models=era5",
+  "query_parameters": {
+    "latitude": 32.896801,
+    "longitude": -97.038002,
+    "start_date": "2020-01-01",
+    "end_date": "2024-12-31",
+    "daily": "precipitation_sum,snowfall_sum,wind_speed_10m_max",
+    "wind_speed_unit": "ms",
+    "timezone": "auto",
+    "models": "era5"
+  },
+  "retrieved_at_utc": "2026-09-12T10:15:41.860353+00:00",
+  "local_path": "data/raw/weather/DFW_2020_2024.json",
+  "bytes": 51714,
+  "sha256": "3e25076966d1731ef1c37cb5861d40eb42e45ecad6749652a5ac842de7739fb3",
+  "transformations": "None; original response retained.",
+  "license_notes": "See docs/data/09_data_legal_technical_constraints.md; raw files not committed."
+}

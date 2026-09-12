@@ -1,0 +1,8 @@
+{
+  "selected_delay_rows": 3000,
+  "duplicate_keys": 0,
+  "maximum_cause_count_reconciliation_error": 0.01999999999998181,
+  "missing_airport_quarter_outcomes": 0,
+  "missing_risk": 0,
+  "minimum_source_year_weather_coverage": 1.0
+}

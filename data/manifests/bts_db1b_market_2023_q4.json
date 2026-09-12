@@ -1,0 +1,25 @@
+{
+  "source": "BTS DB1BMarket",
+  "url": "https://transtats.bts.gov/PREZIP/Origin_and_Destination_Survey_DB1BMarket_2023_4.zip",
+  "query_parameters": {
+    "year": 2023,
+    "quarter": 4
+  },
+  "retrieved_at_utc": "2026-09-12T10:18:34.721245+00:00",
+  "local_path": "data/raw/bts_db1b/Origin_and_Destination_Survey_DB1BMarket_2023_4.zip",
+  "bytes": 99892180,
+  "sha256": "c4487b5e4c40ec86534fe3cb0077d09eb39b1f75f32088cbcff1fe7836423973",
+  "transformations": "None; original response retained.",
+  "license_notes": "See docs/data/09_data_legal_technical_constraints.md; raw files not committed.",
+  "members": [
+    {
+      "name": "Origin_and_Destination_Survey_DB1BMarket_2023_4.csv",
+      "uncompressed_bytes": 1957181933
+    },
+    {
+      "name": "readme.html",
+      "uncompressed_bytes": 4649
+    }
+  ],
+  "zip_crc_valid": true
+}

@@ -1,0 +1,338 @@
+[
+  {
+    "year": 2023,
+    "quarter": 1,
+    "market_rows_scanned": 6714113,
+    "scope_rows": 26184,
+    "out_of_scope_rows": 6687929,
+    "raw_missing_grouping_rows": 0,
+    "market_duplicate_keys": 0,
+    "ticket_rows_scanned": 4109793,
+    "ticket_matched_rows": 26174,
+    "join": {
+      "market_rows": 26184,
+      "joined_rows": 26184,
+      "unmatched_rows": 0
+    },
+    "ticket_unreliable_rows": 120,
+    "ticket_missing_credibility_rows": 0,
+    "primary": {
+      "input_rows": 26064,
+      "excluded_missing_or_invalid_quantity": 0,
+      "excluded_missing_fare": 0,
+      "excluded_fare_bounds": 936,
+      "excluded_bulk_or_unknown": 0,
+      "excluded_connecting_or_unknown": 3257,
+      "kept_rows": 21871,
+      "roundtrip_passenger_share": 0.7070088325831052,
+      "cells_before_min_passengers": 32,
+      "cells_below_30_passengers": 5
+    },
+    "broad_fare_bounds": {
+      "input_rows": 26064,
+      "excluded_missing_or_invalid_quantity": 0,
+      "excluded_missing_fare": 0,
+      "excluded_fare_bounds": 839,
+      "excluded_bulk_or_unknown": 0,
+      "excluded_connecting_or_unknown": 3283,
+      "kept_rows": 21942,
+      "roundtrip_passenger_share": 0.7084115023835152,
+      "cells_before_min_passengers": 32,
+      "cells_below_30_passengers": 5
+    }
+  },
+  {
+    "year": 2023,
+    "quarter": 2,
+    "market_rows_scanned": 7616858,
+    "scope_rows": 30694,
+    "out_of_scope_rows": 7586164,
+    "raw_missing_grouping_rows": 0,
+    "market_duplicate_keys": 0,
+    "ticket_rows_scanned": 4677541,
+    "ticket_matched_rows": 30686,
+    "join": {
+      "market_rows": 30694,
+      "joined_rows": 30694,
+      "unmatched_rows": 0
+    },
+    "ticket_unreliable_rows": 106,
+    "ticket_missing_credibility_rows": 0,
+    "primary": {
+      "input_rows": 30588,
+      "excluded_missing_or_invalid_quantity": 0,
+      "excluded_missing_fare": 0,
+      "excluded_fare_bounds": 1047,
+      "excluded_bulk_or_unknown": 0,
+      "excluded_connecting_or_unknown": 4010,
+      "kept_rows": 25531,
+      "roundtrip_passenger_share": 0.6933412295961802,
+      "cells_before_min_passengers": 34,
+      "cells_below_30_passengers": 6
+    },
+    "broad_fare_bounds": {
+      "input_rows": 30588,
+      "excluded_missing_or_invalid_quantity": 0,
+      "excluded_missing_fare": 0,
+      "excluded_fare_bounds": 927,
+      "excluded_bulk_or_unknown": 0,
+      "excluded_connecting_or_unknown": 4052,
+      "kept_rows": 25609,
+      "roundtrip_passenger_share": 0.6944642287005428,
+      "cells_before_min_passengers": 34,
+      "cells_below_30_passengers": 6
+    }
+  },
+  {
+    "year": 2023,
+    "quarter": 3,
+    "market_rows_scanned": 7349871,
+    "scope_rows": 29808,
+    "out_of_scope_rows": 7320063,
+    "raw_missing_grouping_rows": 0,
+    "market_duplicate_keys": 0,
+    "ticket_rows_scanned": 4516894,
+    "ticket_matched_rows": 29794,
+    "join": {
+      "market_rows": 29808,
+      "joined_rows": 29808,
+      "unmatched_rows": 0
+    },
+    "ticket_unreliable_rows": 100,
+    "ticket_missing_credibility_rows": 0,
+    "primary": {
+      "input_rows": 29708,
+      "excluded_missing_or_invalid_quantity": 0,
+      "excluded_missing_fare": 0,
+      "excluded_fare_bounds": 1180,
+      "excluded_bulk_or_unknown": 0,
+      "excluded_connecting_or_unknown": 3735,
+      "kept_rows": 24793,
+      "roundtrip_passenger_share": 0.6921657747476969,
+      "cells_before_min_passengers": 34,
+      "cells_below_30_passengers": 6
+    },
+    "broad_fare_bounds": {
+      "input_rows": 29708,
+      "excluded_missing_or_invalid_quantity": 0,
+      "excluded_missing_fare": 0,
+      "excluded_fare_bounds": 1069,
+      "excluded_bulk_or_unknown": 0,
+      "excluded_connecting_or_unknown": 3770,
+      "kept_rows": 24869,
+      "roundtrip_passenger_share": 0.693408209653697,
+      "cells_before_min_passengers": 34,
+      "cells_below_30_passengers": 6
+    }
+  },
+  {
+    "year": 2023,
+    "quarter": 4,
+    "market_rows_scanned": 7754181,
+    "scope_rows": 31055,
+    "out_of_scope_rows": 7723126,
+    "raw_missing_grouping_rows": 0,
+    "market_duplicate_keys": 0,
+    "ticket_rows_scanned": 4713030,
+    "ticket_matched_rows": 31046,
+    "join": {
+      "market_rows": 31055,
+      "joined_rows": 31055,
+      "unmatched_rows": 0
+    },
+    "ticket_unreliable_rows": 137,
+    "ticket_missing_credibility_rows": 0,
+    "primary": {
+      "input_rows": 30918,
+      "excluded_missing_or_invalid_quantity": 0,
+      "excluded_missing_fare": 0,
+      "excluded_fare_bounds": 1116,
+      "excluded_bulk_or_unknown": 0,
+      "excluded_connecting_or_unknown": 3673,
+      "kept_rows": 26129,
+      "roundtrip_passenger_share": 0.7118630604869137,
+      "cells_before_min_passengers": 31,
+      "cells_below_30_passengers": 3
+    },
+    "broad_fare_bounds": {
+      "input_rows": 30918,
+      "excluded_missing_or_invalid_quantity": 0,
+      "excluded_missing_fare": 0,
+      "excluded_fare_bounds": 1014,
+      "excluded_bulk_or_unknown": 0,
+      "excluded_connecting_or_unknown": 3700,
+      "kept_rows": 26204,
+      "roundtrip_passenger_share": 0.7128324065044935,
+      "cells_before_min_passengers": 31,
+      "cells_below_30_passengers": 3
+    }
+  },
+  {
+    "year": 2024,
+    "quarter": 1,
+    "market_rows_scanned": 7409931,
+    "scope_rows": 29519,
+    "out_of_scope_rows": 7380412,
+    "raw_missing_grouping_rows": 0,
+    "market_duplicate_keys": 0,
+    "ticket_rows_scanned": 4533056,
+    "ticket_matched_rows": 29511,
+    "join": {
+      "market_rows": 29519,
+      "joined_rows": 29519,
+      "unmatched_rows": 0
+    },
+    "ticket_unreliable_rows": 151,
+    "ticket_missing_credibility_rows": 0,
+    "primary": {
+      "input_rows": 29368,
+      "excluded_missing_or_invalid_quantity": 0,
+      "excluded_missing_fare": 0,
+      "excluded_fare_bounds": 968,
+      "excluded_bulk_or_unknown": 0,
+      "excluded_connecting_or_unknown": 3144,
+      "kept_rows": 25256,
+      "roundtrip_passenger_share": 0.7092180546726001,
+      "cells_before_min_passengers": 35,
+      "cells_below_30_passengers": 8
+    },
+    "broad_fare_bounds": {
+      "input_rows": 29368,
+      "excluded_missing_or_invalid_quantity": 0,
+      "excluded_missing_fare": 0,
+      "excluded_fare_bounds": 868,
+      "excluded_bulk_or_unknown": 0,
+      "excluded_connecting_or_unknown": 3165,
+      "kept_rows": 25335,
+      "roundtrip_passenger_share": 0.7099200380017417,
+      "cells_before_min_passengers": 35,
+      "cells_below_30_passengers": 8
+    }
+  },
+  {
+    "year": 2024,
+    "quarter": 2,
+    "market_rows_scanned": 8533978,
+    "scope_rows": 34017,
+    "out_of_scope_rows": 8499961,
+    "raw_missing_grouping_rows": 0,
+    "market_duplicate_keys": 0,
+    "ticket_rows_scanned": 5231861,
+    "ticket_matched_rows": 34010,
+    "join": {
+      "market_rows": 34017,
+      "joined_rows": 34017,
+      "unmatched_rows": 0
+    },
+    "ticket_unreliable_rows": 185,
+    "ticket_missing_credibility_rows": 0,
+    "primary": {
+      "input_rows": 33832,
+      "excluded_missing_or_invalid_quantity": 0,
+      "excluded_missing_fare": 0,
+      "excluded_fare_bounds": 1050,
+      "excluded_bulk_or_unknown": 0,
+      "excluded_connecting_or_unknown": 3741,
+      "kept_rows": 29041,
+      "roundtrip_passenger_share": 0.6990558755418325,
+      "cells_before_min_passengers": 33,
+      "cells_below_30_passengers": 6
+    },
+    "broad_fare_bounds": {
+      "input_rows": 33832,
+      "excluded_missing_or_invalid_quantity": 0,
+      "excluded_missing_fare": 0,
+      "excluded_fare_bounds": 944,
+      "excluded_bulk_or_unknown": 0,
+      "excluded_connecting_or_unknown": 3765,
+      "kept_rows": 29123,
+      "roundtrip_passenger_share": 0.6999101208637858,
+      "cells_before_min_passengers": 33,
+      "cells_below_30_passengers": 6
+    }
+  },
+  {
+    "year": 2024,
+    "quarter": 3,
+    "market_rows_scanned": 8297869,
+    "scope_rows": 33712,
+    "out_of_scope_rows": 8264157,
+    "raw_missing_grouping_rows": 0,
+    "market_duplicate_keys": 0,
+    "ticket_rows_scanned": 5114707,
+    "ticket_matched_rows": 33703,
+    "join": {
+      "market_rows": 33712,
+      "joined_rows": 33712,
+      "unmatched_rows": 0
+    },
+    "ticket_unreliable_rows": 144,
+    "ticket_missing_credibility_rows": 0,
+    "primary": {
+      "input_rows": 33568,
+      "excluded_missing_or_invalid_quantity": 0,
+      "excluded_missing_fare": 0,
+      "excluded_fare_bounds": 1104,
+      "excluded_bulk_or_unknown": 0,
+      "excluded_connecting_or_unknown": 3257,
+      "kept_rows": 29207,
+      "roundtrip_passenger_share": 0.6951708869517089,
+      "cells_before_min_passengers": 33,
+      "cells_below_30_passengers": 4
+    },
+    "broad_fare_bounds": {
+      "input_rows": 33568,
+      "excluded_missing_or_invalid_quantity": 0,
+      "excluded_missing_fare": 0,
+      "excluded_fare_bounds": 973,
+      "excluded_bulk_or_unknown": 0,
+      "excluded_connecting_or_unknown": 3283,
+      "kept_rows": 29312,
+      "roundtrip_passenger_share": 0.6961180195475611,
+      "cells_before_min_passengers": 33,
+      "cells_below_30_passengers": 4
+    }
+  },
+  {
+    "year": 2024,
+    "quarter": 4,
+    "market_rows_scanned": 8525077,
+    "scope_rows": 34611,
+    "out_of_scope_rows": 8490466,
+    "raw_missing_grouping_rows": 0,
+    "market_duplicate_keys": 0,
+    "ticket_rows_scanned": 5186452,
+    "ticket_matched_rows": 34600,
+    "join": {
+      "market_rows": 34611,
+      "joined_rows": 34611,
+      "unmatched_rows": 0
+    },
+    "ticket_unreliable_rows": 155,
+    "ticket_missing_credibility_rows": 0,
+    "primary": {
+      "input_rows": 34456,
+      "excluded_missing_or_invalid_quantity": 0,
+      "excluded_missing_fare": 0,
+      "excluded_fare_bounds": 1137,
+      "excluded_bulk_or_unknown": 0,
+      "excluded_connecting_or_unknown": 3308,
+      "kept_rows": 30011,
+      "roundtrip_passenger_share": 0.7042307032379832,
+      "cells_before_min_passengers": 34,
+      "cells_below_30_passengers": 6
+    },
+    "broad_fare_bounds": {
+      "input_rows": 34456,
+      "excluded_missing_or_invalid_quantity": 0,
+      "excluded_missing_fare": 0,
+      "excluded_fare_bounds": 994,
+      "excluded_bulk_or_unknown": 0,
+      "excluded_connecting_or_unknown": 3341,
+      "kept_rows": 30121,
+      "roundtrip_passenger_share": 0.7051639873733988,
+      "cells_before_min_passengers": 34,
+      "cells_below_30_passengers": 6
+    }
+  }
+]

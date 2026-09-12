@@ -32,3 +32,7 @@ status/history; follow the stage-specific next actions. No empirical findings ye
 - [Delay Causes request metadata](data/delay_causes_request.json)
 
 - [Execution and API usage ledger](status/execution_ledger.md)
+
+- [Pilot data dictionary](data/data_dictionary.md)
+- [Pilot quality and matching report](data/pilot_quality_report.md)
+- [Aggregate methods](methods/aggregate_analysis.md)

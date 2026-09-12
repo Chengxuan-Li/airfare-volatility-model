@@ -1,0 +1,20 @@
+{
+  "source": "Open-Meteo ERA5 reanalysis, CC BY 4.0",
+  "url": "https://archive-api.open-meteo.com/v1/archive?latitude=33.6367&longitude=-84.428101&start_date=2020-01-01&end_date=2024-12-31&daily=precipitation_sum%2Csnowfall_sum%2Cwind_speed_10m_max&wind_speed_unit=ms&timezone=auto&models=era5",
+  "query_parameters": {
+    "latitude": 33.6367,
+    "longitude": -84.428101,
+    "start_date": "2020-01-01",
+    "end_date": "2024-12-31",
+    "daily": "precipitation_sum,snowfall_sum,wind_speed_10m_max",
+    "wind_speed_unit": "ms",
+    "timezone": "auto",
+    "models": "era5"
+  },
+  "retrieved_at_utc": "2026-09-12T10:15:42.789407+00:00",
+  "local_path": "data/raw/weather/ATL_2020_2024.json",
+  "bytes": 51765,
+  "sha256": "3f4f6b03bd5327957b8608df49b148dc5956bb4c8dc722ead438e1b8dcb218df",
+  "transformations": "None; original response retained.",
+  "license_notes": "See docs/data/09_data_legal_technical_constraints.md; raw files not committed."
+}
