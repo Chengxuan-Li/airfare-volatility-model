@@ -1,8 +1,11 @@
 # Project state
 
 ## Current stage
-Stage 5 analysis and verification complete on `codex/stage-5-robustness`.
-Two full raw builds reproduce 15 derived outputs byte-for-byte; 21 tests pass.
+Stage 5 assessment is complete on `codex/stage-5-robustness`; the repository review
+found two open acquisition/reproduction defects. The earlier execution recorded
+two full raw builds reproducing 15 derived outputs byte-for-byte. This review
+reran 21 passing tests and reproduced the Stage 5 estimates from the saved panel;
+raw inputs are absent in this checkout, so a full raw build was not repeated.
 Stage 0-4 results remain preserved. Original
 quote-time H1/H2 and flexibility premiums remain unidentifiable from these sources.
 
@@ -25,8 +28,12 @@ quote-time H1/H2 and flexibility premiums remain unidentifiable from these sourc
 - Independent code/methodology and final report reviews completed; findings addressed.
 
 ## In progress
-No research work remains in this pass. Strong identification-argument stopping
-criterion met; Git publication is blocked by unavailable credentials.
+No additional research acquisition is proposed. The identification-argument
+stopping criterion remains met. Two reproduction defects require follow-up; see
+[repository review](reviews/2026-09-12-repository-review.md).
+The review also found two scope gaps between the broader identification note and
+the narrower executed plan: departure/supply-channel models and CR2/bootstrap
+inference need explicit deferred status or a separately declared follow-up.
 The extension has 905 primary cells across 42 directions and 94 route/carrier groups,
 plus 873 one-way product cells. Four new fare archives, three annual capacity
 extracts and seven extended weather responses were acquired. All 1,778 product
@@ -62,9 +69,11 @@ coordinator controlled acquisition. No prospective collection was scheduled.
 ## Data status
 Raw sources are ignored under `data/raw/`; intermediate quarterly aggregates are
 ignored under `data/processed/`. Compact outputs and manifests are Git-controlled.
-Run `python -m src.acquisition.batch --kind all` to acquire and `python -m src.run`
-to rebuild from raw after installing pinned requirements. See README for Windows
-commands, full source attribution, and failed-download recovery details.
+The documented Stage 0-4 acquisition command downloads 25 inputs, but `src.run`
+currently checks all 39 manifests, including 14 Stage 5 inputs. Fix this verification
+scope before treating the README sequence as a working standalone reproduction.
+Acquisition also needs to reject changed downloads against existing manifests.
+See the review for reproductions and the Stage 5 guide for its separate workflow.
 
 ## Known limitations and open questions
 Endogenous quantity; prorated fares and product composition; quarterly timing;
@@ -72,19 +81,20 @@ retrospective ERA5 vintage; sparse joint support; few clusters; no external dema
 shifter or full capacity model. See report for competing explanations and all fits.
 
 ## Next actions
-1. Read docs/findings/stage5_report.md and docs/methods/stage5_reproduction.md.
-2. Future research needs an
+1. Address the two P1 reproduction findings in the repository review, with focused
+   regression checks for a Stage 0-4-only input set and changed source payloads.
+2. Reconcile the two P2 method-scope gaps. Read docs/findings/stage5_report.md and
+   docs/methods/stage5_reproduction.md alongside the broader identification note.
+3. Future research needs an
    aligned information/identification design. Do not spend FR24 credits to inflate
    sample size or relabel descriptive estimates as identified effects.
-3. Restore Git authentication if required and publish the committed branch safely.
 
 ## Blockers / Git publication
-The public origin was verified and fetch succeeded. Final noninteractive push
-failed (exit 128) because GitHub username credentials were unavailable. A Stage5
-fetch succeeded and noninteractive push failed for the same reason. No login
-dialog was opened. Research and verification are committed locally on
-`codex/stage-5-robustness`, which includes the prior Stage0-4 history.
-Restore Git authentication and push that branch; see the Stage5 handoff.
+The earlier execution's failed push is historical. During this review,
+`git ls-remote --heads origin codex/stage-5-robustness` returned
+`08b00603d46272e182b9c7c5636c150d535b43cb`, matching the reviewed HEAD.
+The research branch is published, including prior Stage 0-4 history. That read-only
+check establishes publication, not write authentication on this machine.
 
 ## Relevant commits
 - `bcb1b47` — Stage 0 research specification.
@@ -99,6 +109,9 @@ Restore Git authentication and push that branch; see the Stage5 handoff.
 - `0738495` — expanded results, reviewed methods and durable outputs.
 
 ## Intentionally uncommitted local files
-- `.env`: ignored local key; never commit or print it.
-- `.env.example`: pre-existing user edit, intentionally preserved outside commits.
-- Raw/intermediate data, `.venv`, and temporary verification snapshot are ignored.
+- The review began with a clean working tree; `.env.example` is tracked and has
+  no uncommitted edit here. Earlier handoffs describe a different local state.
+- Raw inputs and `.venv` are absent here. Tests used the available Python 3.13.9
+  environment; its package versions differ from the recorded pins.
+- Credential files remain ignored; no credentials were read. Review calculations
+  used temporary storage and left the tracked research outputs unchanged.
