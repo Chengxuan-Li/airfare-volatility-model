@@ -5,9 +5,10 @@ Specified at Stage 0 before estimates.
 1. Original hypotheses: declare not identified if fare observation times and
    matching information sets cannot be recovered. Do not substitute outcomes
    or retrospective archive values and keep the original causal interpretation.
-2. Baseline validity: if traffic-price slope is zero/negative in benign conditions
-   or changes sign under route/carrier and calendar controls, report proxy failure
-   or instability. No automatic model changes to obtain a positive sign.
+2. Baseline diagnostic: if traffic-price slope is zero/negative in benign conditions
+   or changes sign under route/carrier and calendar controls, report descriptive
+   sign instability. Equilibrium quantity alone cannot validate demand pressure.
+   No automatic model changes to obtain a positive sign.
 3. Aggregate signs: report estimates and two-sided 95% intervals for A1/A2. A
    wrong sign or interval crossing zero is contrary/inconclusive evidence, not
    support. Multiple exploratory specifications are not independent confirmations.

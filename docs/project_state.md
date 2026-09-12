@@ -1,7 +1,7 @@
 # Project state
 
 ## Current stage
-Stages 0 and 1 complete; Stage 2 reviewed, acquisition/implementation underway
+Stages 0-2 complete; Stage 3 acquisition/implementation underway
 on branch `codex/stage-0-to-4`. Literature contains 22 verified studies.
 
 ## Last updated

@@ -13,9 +13,11 @@ quote-time risk are unavailable. Aggregate analogues A1/A2 use the same signs
 as directional expectations, but are exploratory associations in the charter's
 quarterly fare/traffic/weather design. They must be labelled separately.
 
-Baseline A0 expects beta_D > 0 under benign risk. Failure challenges the traffic
-proxy as a representation of demand pressure; it is not a reason to search for
-favorable specifications. Report raw and controlled associations.
+Baseline A0 expects beta_D > 0 under benign risk as a descriptive sign diagnostic.
+A nonpositive sign does not establish invalid traffic measurement: equilibrium
+quantity can move along downward-sloping demand when supply changes. Without an
+identified demand shifter, the sign cannot validate demand pressure. Do not search
+for favorable specifications. Report raw and controlled associations.
 
 Primary outcome is a passenger-weighted cell mean. Weighted second moments of
 ticket/market records measure within-cell dispersion, not dynamic repricing.

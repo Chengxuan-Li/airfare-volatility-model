@@ -22,3 +22,11 @@ status/history; follow the stage-specific next actions. No empirical findings ye
 - [Literature review](research/03_literature_review.md)
 - [Novelty assessment](research/04_novelty_assessment.md)
 - [Literature evidence table](../literature/literature_master.csv)
+
+- [Source inventory](data/05_data_source_inventory.md)
+- [Fare feasibility](data/06_fare_data_feasibility.md)
+- [Demand proxy feasibility](data/07_demand_proxy_feasibility.md)
+- [Weather-risk definition](data/08_weather_risk_definition.md)
+- [Data access and reuse](data/09_data_legal_technical_constraints.md)
+- [Source matrix](data/source_matrix.csv)
+- [Delay Causes request metadata](data/delay_causes_request.json)
