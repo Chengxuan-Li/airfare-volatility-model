@@ -40,3 +40,23 @@
   and figures. Clarified prorated Market fares and full interaction units.
 - Decision C: interesting aggregate observation, weak paper. Original quote-time
   H1/H2 and flexibility premiums remain unestimable. No prospective scheduler set.
+# Stage 5 extension entry — 2026-09-12
+
+User authorized additional free-source data and further methods. The extension
+plan was committed before new model results. Same seven airports, all directed
+pairs; 2025Q1/Q2 temporal holdout; whole one-way single-coupon ticket check; T100
+independent route capacity and passengers; route/carrier/season effects.
+No paid services and no FR24 calls or credits. Prior run token use was not
+available as a reliable numeric total; no fabricated doubled budget was set.
+
+Acquired four 2025 Market/Ticket ZIPs, three T100 annual form-generated extracts,
+and seven ERA5 2020-25 responses. Ticket 2025Q1 timed out at 57,163,776 of
+90,024,798 bytes after240 seconds; one bounded curl resume succeeded, followed
+by full ZIP CRC validation and SHA-256 provenance. T100 guessed PREZIP URLs
+returned404; the verified ASP.NET download form succeeds. Its archive includes
+Documentation.csv before the data member; the extension explicitly selects
+T_T100D_SEGMENT_ALL_CARRIER.csv. Raw files remain local and ignored.
+
+Nineteen offline tests pass at the implementation milestone. Raw fare rebuild
+and fitting are in progress. Worker tasks are bounded source verification and
+identification review; coordinator owns acquisition, integration, and commits.

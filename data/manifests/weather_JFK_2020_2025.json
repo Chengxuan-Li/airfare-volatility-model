@@ -1,0 +1,20 @@
+{
+  "source": "Open-Meteo ERA5 reanalysis, CC BY 4.0",
+  "url": "https://archive-api.open-meteo.com/v1/archive?latitude=40.639447&longitude=-73.779317&start_date=2020-01-01&end_date=2025-12-31&daily=precipitation_sum%2Csnowfall_sum%2Cwind_speed_10m_max&wind_speed_unit=ms&timezone=auto&models=era5",
+  "query_parameters": {
+    "latitude": 40.639447,
+    "longitude": -73.779317,
+    "start_date": "2020-01-01",
+    "end_date": "2025-12-31",
+    "daily": "precipitation_sum,snowfall_sum,wind_speed_10m_max",
+    "wind_speed_unit": "ms",
+    "timezone": "auto",
+    "models": "era5"
+  },
+  "retrieved_at_utc": "2026-09-12T10:59:40.518959+00:00",
+  "local_path": "data/raw/weather/JFK_2020_2025.json",
+  "bytes": 62054,
+  "sha256": "278a168b8ae09035f245d5aaca39011f683a8db2bdeb2da0af95ab044b246f5c",
+  "transformations": "None; original response retained.",
+  "license_notes": "See docs/data/09_data_legal_technical_constraints.md; raw files not committed."
+}

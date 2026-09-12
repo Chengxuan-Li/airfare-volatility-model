@@ -1,0 +1,41 @@
+{
+  "source": "BTS T100 Domestic Segment All Carriers",
+  "url": "https://www.transtats.bts.gov/DL_SelectFields.aspx?QO_fu146_anzr=Nv4+Pn44vr45&gnoyr_VQ=GEE",
+  "query_parameters": {
+    "method": "ASP.NET three-step POST",
+    "year": 2025,
+    "period": "All",
+    "fields": [
+      "UNIQUE_CARRIER",
+      "ORIGIN",
+      "DEST",
+      "YEAR",
+      "QUARTER",
+      "MONTH",
+      "CLASS",
+      "PASSENGERS",
+      "SEATS",
+      "DEPARTURES_SCHEDULED",
+      "DEPARTURES_PERFORMED",
+      "ORIGIN_AIRPORT_ID",
+      "DEST_AIRPORT_ID"
+    ]
+  },
+  "retrieved_at_utc": "2026-09-12T11:02:25.090033+00:00",
+  "local_path": "data/raw/t100/T_100_Domestic_Segment_All_Carrier_2025.zip",
+  "bytes": 3933448,
+  "sha256": "7bd0bb705f3c307ea073bcae5cfc62e70fb555560272e6cb933b2ee93296aa23",
+  "transformations": "None; original response retained.",
+  "license_notes": "See docs/data/09_data_legal_technical_constraints.md; raw files not committed.",
+  "members": [
+    {
+      "name": "Documentation.csv",
+      "uncompressed_bytes": 1052
+    },
+    {
+      "name": "T_T100D_SEGMENT_ALL_CARRIER.csv",
+      "uncompressed_bytes": 27605175
+    }
+  ],
+  "zip_crc_valid": true
+}

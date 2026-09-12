@@ -24,7 +24,12 @@ premiums are explicitly not estimable, as permitted by the execution addendum.
 - Independent code/methodology and final report reviews completed; findings addressed.
 
 ## In progress
-No research work remains in this authorized pass. Git publication status below.
+Stage 5 extension authorized by the user and active on `codex/stage-5-robustness`.
+The predeclared extension adds all directions among the seven original airports,
+2025 Q1/Q2 holdout fares, one-way single-coupon products, T100 capacity controls,
+and stronger seasonal effects. Four new fare archives, three annual capacity
+extracts and seven extended weather responses have been acquired. Raw rebuild
+and model validation are in progress; Stage 0-4 results remain preserved.
 
 ## Key conclusions
 - Decision C: interesting empirical observation, weak paper.
@@ -57,8 +62,9 @@ shifter or full capacity model. See report for competing explanations and all fi
 
 ## Next actions
 1. Read docs/findings/stage_0_to_4_report.md and the quality/methods documents.
-2. For Stage 5, first establish a demand-identification strategy or aligned quote
-   data. Do not scale this specification or spend FR24 credits to inflate sample size.
+2. Complete the predeclared Stage 5 stress tests and identification assessment.
+   New capacity data are diagnostics, not an instrument. Do not spend FR24 credits
+   to inflate sample size or relabel descriptive estimates as identified effects.
 3. Restore Git authentication if required and publish the committed branch safely.
 
 ## Blockers / Git publication

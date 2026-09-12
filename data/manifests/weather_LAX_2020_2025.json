@@ -1,0 +1,20 @@
+{
+  "source": "Open-Meteo ERA5 reanalysis, CC BY 4.0",
+  "url": "https://archive-api.open-meteo.com/v1/archive?latitude=33.942501&longitude=-118.407997&start_date=2020-01-01&end_date=2025-12-31&daily=precipitation_sum%2Csnowfall_sum%2Cwind_speed_10m_max&wind_speed_unit=ms&timezone=auto&models=era5",
+  "query_parameters": {
+    "latitude": 33.942501,
+    "longitude": -118.407997,
+    "start_date": "2020-01-01",
+    "end_date": "2025-12-31",
+    "daily": "precipitation_sum,snowfall_sum,wind_speed_10m_max",
+    "wind_speed_unit": "ms",
+    "timezone": "auto",
+    "models": "era5"
+  },
+  "retrieved_at_utc": "2026-09-12T10:59:39.535148+00:00",
+  "local_path": "data/raw/weather/LAX_2020_2025.json",
+  "bytes": 61818,
+  "sha256": "018f00945214ecaf2eebe06dabe8567aec0cc3f34c8c0d56d58eb6d73240c86b",
+  "transformations": "None; original response retained.",
+  "license_notes": "See docs/data/09_data_legal_technical_constraints.md; raw files not committed."
+}
