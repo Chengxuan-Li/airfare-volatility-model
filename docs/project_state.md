@@ -28,8 +28,10 @@ quote-time H1/H2 and flexibility premiums remain unidentifiable from these sourc
 - Independent code/methodology and final report reviews completed; findings addressed.
 
 ## In progress
-No additional research acquisition is proposed. The identification-argument
-stopping criterion remains met. Two reproduction defects require follow-up; see
+The prior pass's identification-argument stopping criterion remains met; it did not
+exhaust DOT data. A broader historical and operations-data phase is now proposed
+in [next research direction](methods/next_research_direction.md), not yet executed.
+Two reproduction defects require follow-up; see
 [repository review](reviews/2026-09-12-repository-review.md).
 The review also found two scope gaps between the broader identification note and
 the narrower executed plan: departure/supply-channel models and CR2/bootstrap
@@ -88,6 +90,9 @@ shifter or full capacity model. See report for competing explanations and all fi
 3. Future research needs an
    aligned information/identification design. Do not spend FR24 credits to inflate
    sample size or relabel descriptive estimates as identified effects.
+4. Consider the proposed 2010-2025 Q2 aggregate extension and BTS flight-level
+   irregular-operations measurement. Only ten fare quarters have been analyzed;
+   FR24 remains unused. Verify access and declare scope before new acquisition.
 
 ## Blockers / Git publication
 The earlier execution's failed push is historical. During this review,
