@@ -111,6 +111,9 @@ Each new year is built twice from raw. Its `verification.json` records all deriv
 hashes, consumed raw hashes, frozen baseline artifact hashes, implementation/source
 identity, Python/requirements pins and test evidence. Failed attempts are preserved
 in per-year build-attempt manifests. Old output sets remain ignored backups.
+Text-metadata evidence hashes are explicitly LF-normalized to tolerate checkout
+line endings. Raw archive and derived output hashes remain byte-exact; the final
+consumed-input manifest and Stage 6 outputs have Git-enforced LF line endings.
 
 From the repository root with the pinned environment:
 

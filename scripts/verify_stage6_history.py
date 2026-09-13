@@ -55,6 +55,11 @@ def _lf_sha256(data):
     return hashlib.sha256(data.replace(b'\r\n', b'\n')).hexdigest()
 
 
+def lf_digest(path):
+    """Hash text metadata after normalizing checkout line endings to LF."""
+    return _lf_sha256(Path(path).read_bytes())
+
+
 def _valid_sha256(value):
     return isinstance(value, str) and SHA256_RE.fullmatch(value) is not None
 
@@ -479,7 +484,7 @@ def verify_fr24_zero(manifest_root, summary_path, annual_inputs, summary_years, 
         except ValueError as exc:
             raise CertificationError(f'FR24 evidence is outside its root: {path}') from exc
 
-    evidence = {evidence_name(summary_path): digest(summary_path)}
+    evidence = {evidence_name(summary_path): lf_digest(summary_path)}
 
     for year, expected in sorted(annual_inputs.items()):
         ledgers = sorted(manifest_root.glob(f'stage6_{year}_acquisition_*.json'))
@@ -489,7 +494,7 @@ def verify_fr24_zero(manifest_root, summary_path, annual_inputs, summary_years, 
             ledger = _json(ledger_path)
             _require(ledger.get('fr24_calls') == 0 and ledger.get('fr24_credits') == 0,
                      f'{year} acquisition ledger does not record zero FR24 use')
-            evidence[evidence_name(ledger_path)] = digest(ledger_path)
+            evidence[evidence_name(ledger_path)] = lf_digest(ledger_path)
             for result in ledger.get('results', []):
                 observed.setdefault(result.get('local_path'), set()).add(result.get('sha256'))
         for path, checksum in expected.items():
@@ -642,7 +647,7 @@ def certify_history(tests_passed, *, repo_root=Path('.'), years=DEFAULT_YEARS,
                 'parameters': record['params'], 'url': record['url'],
                 'local_path': relative_target,
                 'manifest_path': Path(record['manifest']).as_posix(),
-                'manifest_sha256': digest(manifest),
+                'manifest_sha256_lf_normalized': lf_digest(manifest),
                 'bytes': target.stat().st_size, 'sha256': checksum,
                 'zip_crc_reverified': True,
             })
@@ -704,7 +709,7 @@ def certify_history(tests_passed, *, repo_root=Path('.'), years=DEFAULT_YEARS,
         'operations_source_exceptions': exceptions,
         'inputs': identity_rows,
         'fr24_calls': 0, 'fr24_credits': 0,
-        'fr24_evidence_sha256': fr24_evidence,
+        'fr24_evidence_sha256_lf_normalized': fr24_evidence,
     }
     coverage_path = repo_root / 'data/manifests/stage6_full_history_consumed_inputs.json'
     _write_json(coverage_path, coverage)
@@ -729,7 +734,7 @@ def certify_history(tests_passed, *, repo_root=Path('.'), years=DEFAULT_YEARS,
         'offline_tests_passed': tests_passed,
         'offline_test_command': 'python -m pytest -q',
         'fr24_calls': 0, 'fr24_credits': 0,
-        'fr24_evidence_sha256': fr24_evidence,
+        'fr24_evidence_sha256_lf_normalized': fr24_evidence,
     }
     _write_json(history_output / 'verification.json', final_proof)
     print(

@@ -478,3 +478,10 @@ eleven derived files byte-for-byte from its full declared raw input set. Per-yea
 verification records and build-attempt ledgers preserve input/baseline/source hashes
 and any preceding failed attempts. Report progress table reconciles against those
 verified artifacts. Publication follows staged inspection.
+
+Certification portability refinement: metadata evidence uses explicitly named
+LF-normalized hashes, preserving original manifest bytes and provenance across
+Windows/Unix checkout endings. Raw ZIP/output/annual-proof hashes stay byte-exact;
+the new consumed-input manifest is pinned LF. Independent review found no issues,
+and all 233 offline tests pass (one known Stage 5 warning). Annual dependencies
+did not change; ongoing raw builds retain their earlier 232-test validation record.

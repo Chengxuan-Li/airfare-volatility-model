@@ -4,3 +4,4 @@ outputs/stage6/*.json text eol=lf
 outputs/stage6/**/*.csv text eol=lf
 outputs/stage6/**/*.json text eol=lf
 data/manifests/stage6_frozen_sample_2010.json text eol=lf
+data/manifests/stage6_full_history_consumed_inputs.json text eol=lf

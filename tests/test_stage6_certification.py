@@ -270,6 +270,8 @@ def test_fr24_zero_requires_summary_and_every_annual_acquisition_ledger(tmp_path
         manifests, summary, {2012: {'raw.zip': 'd' * 64}}, [2012])
     assert set(evidence) == {'manifests/summary.json',
                              'manifests/stage6_2012_acquisition_test.json'}
+    assert evidence['manifests/summary.json'] == _sha(
+        summary.read_bytes().replace(b'\r\n', b'\n'))
 
     ledger.write_text(json.dumps({
         'fr24_calls': 1, 'fr24_credits': 0,
@@ -278,3 +280,16 @@ def test_fr24_zero_requires_summary_and_every_annual_acquisition_ledger(tmp_path
     with pytest.raises(CertificationError, match='FR24'):
         verify_fr24_zero(
             manifests, summary, {2012: {'raw.zip': 'd' * 64}}, [2012])
+
+
+def test_metadata_hash_normalizes_line_endings_but_raw_digest_remains_byte_exact(
+        tmp_path):
+    from scripts.verify_stage6_history import lf_digest
+    from src.acquisition.download import digest
+    lf = tmp_path/'lf.json'
+    crlf = tmp_path/'crlf.json'
+    lf.write_bytes(b'{\n  "value": 1\n}\n')
+    crlf.write_bytes(b'{\r\n  "value": 1\r\n}\r\n')
+
+    assert lf_digest(lf) == lf_digest(crlf)
+    assert digest(lf) != digest(crlf)
