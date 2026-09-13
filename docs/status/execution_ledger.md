@@ -377,3 +377,9 @@ and 2013/2015/etc.), each with two sequential reproduction passes. Per-year path
 are disjoint; acquisition remains one coordinator with at most two transfers.
 Source hashes must remain stable across each build. This reduces elapsed time
 without sharing mutable output state; any failure is preserved before diagnosis.
+
+Verified year milestone: 2012, 2013. Each year reproduces all
+eleven derived files byte-for-byte from its full declared raw input set. Per-year
+verification records and build-attempt ledgers preserve input/baseline/source hashes
+and any preceding failed attempts. Report progress table reconciles against those
+verified artifacts. Publication follows staged inspection.

@@ -40,6 +40,8 @@ HEAD access does not establish schema or complete data validity.
 | --- | ---: | ---: | ---: | ---: | ---: | ---: |
 | 2010 | 4 | 6,450,117 | 2,100,986 | 3,191 | 2,904 | 99.8458% |
 | 2011 | 4 | 6,085,281 | 2,110,718 | 3,198 | 2,865 | 99.8203% |
+| 2012 | 4 | 6,096,762 | 2,139,724 | 3,203 | 2,882 | 99.8648% |
+| 2013 | 4 | 6,369,482 | 2,156,616 | 3,206 | 2,896 | 99.8103% |
 <!-- YEAR_PROGRESS_END -->
 
 The coordinator alone downloads in bounded pairs and verifies caches, request

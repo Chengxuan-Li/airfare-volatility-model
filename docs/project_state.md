@@ -1,6 +1,12 @@
 # Project state
 
 ## Current stage
+<!-- HISTORY_PROGRESS_START -->
+Verified annual outputs: 2010, 2011, 2012, 2013. Each new year has
+two byte-identical raw builds; outstanding years remain queued for continuous
+execution through 2025 Q2. See the full-history report and per-year verification.
+<!-- HISTORY_PROGRESS_END -->
+
 Continuous completion of 2012-2025 Q2 is authorized and in progress on
 `codex/stage-6-full-history`; see the [plan](methods/stage6_full_history_plan.md).
 The user explicitly requested all remaining years without further commands.

@@ -8,6 +8,20 @@
       "status": "failed",
       "exit_code": 1,
       "failure_tail": "Selected 30 baseline airports\nFare 2012Q1: 12,174 carrier cells across samples\nFare 2012Q2: 12,563 carrier cells across samples\nFare 2012Q3: 11,907 carrier cells across samples\nFare 2012Q4: 12,374 carrier cells across samples\nOperations 2012-01: 486,133 national flights\nOperations 2012-02: 464,826 national flights\nOperations 2012-03: 521,628 national flights\nOperations 2012-04: 505,218 national flights\nOperations 2012-05: 518,423 national flights\nOperations 2012-06: 526,933 national flights\nTraceback (most recent call last):\n  File \"<frozen runpy>\", line 198, in _run_module_as_main\n  File \"<frozen runpy>\", line 88, in _run_code\n  File \"C:\\github\\airfare-volatility-model\\src\\stage6\\annual.py\", line 302, in <module>\n    main()\n    ~~~~^^\n  File \"C:\\github\\airfare-volatility-model\\src\\stage6\\annual.py\", line 233, in main\n    cells, national, audit = read_operations(record['target'], year, month,\n                             ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n                                             airport_ids=airport_ids)\n                                             ^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\github\\airfare-volatility-model\\src\\stage6\\operations.py\", line 96, in read_operations\n    cells, _ = summarize_operations(frame, year, month)\n               ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\github\\airfare-volatility-model\\src\\stage6\\operations.py\", line 37, in summarize_operations\n    raise ValueError('Missing operations identity')\nValueError: Missing operations identity\n"
+    },
+    {
+      "started_at_utc": "20260913T062600334529Z",
+      "implementation_commit": "261de8a81b9dda4492b8af652079ce46fd5f6e53",
+      "comparison_pass": 1,
+      "status": "success",
+      "exit_code": 0
+    },
+    {
+      "started_at_utc": "20260913T062801140282Z",
+      "implementation_commit": "261de8a81b9dda4492b8af652079ce46fd5f6e53",
+      "comparison_pass": 2,
+      "status": "success",
+      "exit_code": 0
     }
   ]
 }
