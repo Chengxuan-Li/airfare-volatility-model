@@ -454,3 +454,9 @@ Acquisition complete through 2025 Q2: all 270 remaining sources verify, totaling
 2024 cache). No transfer failures; all old matching fare manifests retain original
 provenance. Together with 2010/2011, all 310 declared archives are locally available.
 Remaining annual reproduction and final full-horizon certification continue.
+
+Verified year milestone: 2017. Each year reproduces all
+eleven derived files byte-for-byte from its full declared raw input set. Per-year
+verification records and build-attempt ledgers preserve input/baseline/source hashes
+and any preceding failed attempts. Report progress table reconciles against those
+verified artifacts. Publication follows staged inspection.

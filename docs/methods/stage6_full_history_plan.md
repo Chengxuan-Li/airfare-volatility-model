@@ -65,7 +65,7 @@ Files: `src/stage6/history.py`, `tests/test_stage6_history.py`.
 
 ## Task 3 — Continuous coordinator execution
 
-- [ ] Inventory and acquire 2012-2025 Q2 in audited batches. Keep exact ledgers,
+- [x] Inventory and acquire 2012-2025 Q2 in audited batches. Keep exact ledgers,
   cache outcomes, failure evidence and disk checks; no workers make live requests.
 - [ ] Build each remaining year twice, verify input/output hashes, source coverage,
   schema/key checks, support and identities. Commit/push verified year milestones.

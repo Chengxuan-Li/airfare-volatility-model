@@ -16,6 +16,20 @@
       "status": "failed",
       "exit_code": 1,
       "failure_tail": "Selected 30 baseline airports\nFare 2017Q1: 10,305 carrier cells across samples\nFare 2017Q2: 10,087 carrier cells across samples\nFare 2017Q3: 9,844 carrier cells across samples\nFare 2017Q4: 9,833 carrier cells across samples\nOperations 2017-01: 450,017 national flights\nOperations 2017-02: 410,517 national flights\nOperations 2017-03: 488,597 national flights\nOperations 2017-04: 468,329 national flights\nOperations 2017-05: 486,483 national flights\nOperations 2017-06: 494,266 national flights\nTraceback (most recent call last):\n  File \"<frozen runpy>\", line 198, in _run_module_as_main\n  File \"<frozen runpy>\", line 88, in _run_code\n  File \"C:\\github\\airfare-volatility-model\\src\\stage6\\annual.py\", line 302, in <module>\n    main()\n    ~~~~^^\n  File \"C:\\github\\airfare-volatility-model\\src\\stage6\\annual.py\", line 233, in main\n    cells, national, audit = read_operations(record['target'], year, month,\n                             ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n                                             airport_ids=airport_ids)\n                                             ^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\github\\airfare-volatility-model\\src\\stage6\\operations.py\", line 141, in read_operations\n    raise ValueError(\n        'Operations duplicate key has conflicting consumed fields')\nValueError: Operations duplicate key has conflicting consumed fields\n"
+    },
+    {
+      "started_at_utc": "20260913T071321400980Z",
+      "implementation_commit": "9c5e7dbab6aef137a165acc325dbcbf3392825bb",
+      "comparison_pass": 1,
+      "status": "success",
+      "exit_code": 0
+    },
+    {
+      "started_at_utc": "20260913T071650024431Z",
+      "implementation_commit": "9c5e7dbab6aef137a165acc325dbcbf3392825bb",
+      "comparison_pass": 2,
+      "status": "success",
+      "exit_code": 0
     }
   ]
 }
