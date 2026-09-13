@@ -448,3 +448,9 @@ tests pass (one known Stage 5 warning), including annual quarantine integration
 and certification proof-integrity regressions. The public final certification
 script validates source revisions, exact input classes, baseline artifacts and
 ambiguity details. Annual queues resume with this reviewed implementation.
+
+Acquisition complete through 2025 Q2: all 270 remaining sources verify, totaling
+13,165,882,016 bytes (269 downloads/matching reacquisitions and one verified January
+2024 cache). No transfer failures; all old matching fare manifests retain original
+provenance. Together with 2010/2011, all 310 declared archives are locally available.
+Remaining annual reproduction and final full-horizon certification continue.

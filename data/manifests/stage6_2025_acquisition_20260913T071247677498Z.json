@@ -1,0 +1,90 @@
+{
+  "started_at_utc": "20260913T071247677498Z",
+  "advertised_total_bytes": 572541263,
+  "advertised_missing_bytes": 572541263,
+  "free_bytes_before": 106902360064,
+  "fr24_calls": 0,
+  "fr24_credits": 0,
+  "results": [
+    {
+      "url": "https://transtats.bts.gov/PREZIP/On_Time_Reporting_Carrier_On_Time_Performance_1987_present_2025_1.zip",
+      "local_path": "data/raw/bts_ontime/On_Time_Reporting_Carrier_On_Time_Performance_1987_present_2025_1.zip",
+      "cached_before": false,
+      "status": "downloaded",
+      "bytes": 27108664,
+      "sha256": "868387dcedaef1b8d8392e608e642219fde50d594c3cf2094aec858167629ccf"
+    },
+    {
+      "url": "https://transtats.bts.gov/PREZIP/On_Time_Reporting_Carrier_On_Time_Performance_1987_present_2025_2.zip",
+      "local_path": "data/raw/bts_ontime/On_Time_Reporting_Carrier_On_Time_Performance_1987_present_2025_2.zip",
+      "cached_before": false,
+      "status": "downloaded",
+      "bytes": 25302583,
+      "sha256": "12dc8dbdb3c8b3c20d4c00a8b188196ae202f781a8760871ae502a9c733d0ecd"
+    },
+    {
+      "url": "https://transtats.bts.gov/PREZIP/On_Time_Reporting_Carrier_On_Time_Performance_1987_present_2025_3.zip",
+      "local_path": "data/raw/bts_ontime/On_Time_Reporting_Carrier_On_Time_Performance_1987_present_2025_3.zip",
+      "cached_before": false,
+      "status": "downloaded",
+      "bytes": 30544825,
+      "sha256": "9c80fbc2112cdbf3f0613ec2001ba019b3ad75511cd69657080736e7eda9cef4"
+    },
+    {
+      "url": "https://transtats.bts.gov/PREZIP/On_Time_Reporting_Carrier_On_Time_Performance_1987_present_2025_4.zip",
+      "local_path": "data/raw/bts_ontime/On_Time_Reporting_Carrier_On_Time_Performance_1987_present_2025_4.zip",
+      "cached_before": false,
+      "status": "downloaded",
+      "bytes": 29369186,
+      "sha256": "f3718431e988e2afd53a1714dfca37f67355b6fc06b02eb506bffa39300d608c"
+    },
+    {
+      "url": "https://transtats.bts.gov/PREZIP/On_Time_Reporting_Carrier_On_Time_Performance_1987_present_2025_5.zip",
+      "local_path": "data/raw/bts_ontime/On_Time_Reporting_Carrier_On_Time_Performance_1987_present_2025_5.zip",
+      "cached_before": false,
+      "status": "downloaded",
+      "bytes": 30830593,
+      "sha256": "17c3419d7169b313b2bc8ddd3fd57e1e2d4d959c35f2da17f6a5610d4bac7d63"
+    },
+    {
+      "url": "https://transtats.bts.gov/PREZIP/On_Time_Reporting_Carrier_On_Time_Performance_1987_present_2025_6.zip",
+      "local_path": "data/raw/bts_ontime/On_Time_Reporting_Carrier_On_Time_Performance_1987_present_2025_6.zip",
+      "cached_before": false,
+      "status": "downloaded",
+      "bytes": 31131411,
+      "sha256": "087b75e4e059516ca1181e58955d062f341933adb2706e5b2404ed10c9ecbdc6"
+    },
+    {
+      "url": "https://transtats.bts.gov/PREZIP/Origin_and_Destination_Survey_DB1BMarket_2025_1.zip",
+      "local_path": "data/raw/bts_db1b/Origin_and_Destination_Survey_DB1BMarket_2025_1.zip",
+      "cached_before": false,
+      "status": "downloaded",
+      "bytes": 94587240,
+      "sha256": "6541728831788264d4c7da33ba20eb69d1e65d3bf97f75c32ae79e7084725b41"
+    },
+    {
+      "url": "https://transtats.bts.gov/PREZIP/Origin_and_Destination_Survey_DB1BTicket_2025_1.zip",
+      "local_path": "data/raw/bts_db1b/Origin_and_Destination_Survey_DB1BTicket_2025_1.zip",
+      "cached_before": false,
+      "status": "downloaded",
+      "bytes": 90024798,
+      "sha256": "c2ac8de1afb05a119067670b6cfd42bf7ac2494069506ee2c081ebac069d027d"
+    },
+    {
+      "url": "https://transtats.bts.gov/PREZIP/Origin_and_Destination_Survey_DB1BMarket_2025_2.zip",
+      "local_path": "data/raw/bts_db1b/Origin_and_Destination_Survey_DB1BMarket_2025_2.zip",
+      "cached_before": false,
+      "status": "downloaded",
+      "bytes": 110296405,
+      "sha256": "e137271888e48ff2b6eb404d0f2ea532b3266aba64362249b42d05858ad87db2"
+    },
+    {
+      "url": "https://transtats.bts.gov/PREZIP/Origin_and_Destination_Survey_DB1BTicket_2025_2.zip",
+      "local_path": "data/raw/bts_db1b/Origin_and_Destination_Survey_DB1BTicket_2025_2.zip",
+      "cached_before": false,
+      "status": "downloaded",
+      "bytes": 103345558,
+      "sha256": "7b6de0a64458f0ba4471600823694936aef755754e2e8da6fbdc650615230db2"
+    }
+  ]
+}

@@ -1,0 +1,139 @@
+{
+  "scope": "2012 through 2025 Q2 completion batch; 2010/2011 sources already verified",
+  "completed_year_batches": 14,
+  "source_count": 270,
+  "compressed_bytes": 13165882016,
+  "downloaded": 269,
+  "verified_cache": 1,
+  "failed_transfers": 0,
+  "fr24_calls": 0,
+  "fr24_credits": 0,
+  "years": [
+    {
+      "year": 2012,
+      "ledger_path": "data/manifests/stage6_2012_acquisition_20260913T060840113133Z.json",
+      "ledger_sha256": "3996538087ee675651a0497bf8292409983e49bbfcbe684fa7ffa0160a515404",
+      "source_count": 20,
+      "downloaded": 20,
+      "verified_cache": 0,
+      "bytes": 902909158
+    },
+    {
+      "year": 2013,
+      "ledger_path": "data/manifests/stage6_2013_acquisition_20260913T061303695344Z.json",
+      "ledger_sha256": "833a2607bf99ef44e293c62f5a17be88c46044154553f8cc9a45245b05bcd3c9",
+      "source_count": 20,
+      "downloaded": 20,
+      "verified_cache": 0,
+      "bytes": 917543347
+    },
+    {
+      "year": 2014,
+      "ledger_path": "data/manifests/stage6_2014_acquisition_20260913T061748081391Z.json",
+      "ledger_sha256": "c23363c6a59ed505115d987b7fdc95907e4f2f4fabf89e31347b46c9b8014ea7",
+      "source_count": 20,
+      "downloaded": 20,
+      "verified_cache": 0,
+      "bytes": 932759065
+    },
+    {
+      "year": 2015,
+      "ledger_path": "data/manifests/stage6_2015_acquisition_20260913T062227566578Z.json",
+      "ledger_sha256": "5dc01c80ea8494a8f96af0837fd3d5fe386be1cc146ccecb9d5f92cb26088836",
+      "source_count": 20,
+      "downloaded": 20,
+      "verified_cache": 0,
+      "bytes": 949093578
+    },
+    {
+      "year": 2016,
+      "ledger_path": "data/manifests/stage6_2016_acquisition_20260913T062700294181Z.json",
+      "ledger_sha256": "1583b7cbc8833011206d17fbf58d458a42b5c35f72b6b0aaca8efd08d4962b94",
+      "source_count": 20,
+      "downloaded": 20,
+      "verified_cache": 0,
+      "bytes": 957240885
+    },
+    {
+      "year": 2017,
+      "ledger_path": "data/manifests/stage6_2017_acquisition_20260913T063218822658Z.json",
+      "ledger_sha256": "dee08f950ce404a9eda5feec2003ac510af83d04d4fbe948a9b8a8ac57981db9",
+      "source_count": 20,
+      "downloaded": 20,
+      "verified_cache": 0,
+      "bytes": 966263323
+    },
+    {
+      "year": 2018,
+      "ledger_path": "data/manifests/stage6_2018_acquisition_20260913T063729836235Z.json",
+      "ledger_sha256": "dc24bdbd23720134a42254f44078d73f0c40d0de96680a87ca3dc3689ddc65cd",
+      "source_count": 20,
+      "downloaded": 20,
+      "verified_cache": 0,
+      "bytes": 1075010419
+    },
+    {
+      "year": 2019,
+      "ledger_path": "data/manifests/stage6_2019_acquisition_20260913T064255367178Z.json",
+      "ledger_sha256": "5fbfa21f45bbce9544e73776b147e007381ff2b978e792b28f9075c9086c3516",
+      "source_count": 20,
+      "downloaded": 20,
+      "verified_cache": 0,
+      "bytes": 1122661254
+    },
+    {
+      "year": 2020,
+      "ledger_path": "data/manifests/stage6_2020_acquisition_20260913T064816513213Z.json",
+      "ledger_sha256": "5ec19493208ce011d4924a76aa06c51fdb208001d03f58de67742af77bb33670",
+      "source_count": 20,
+      "downloaded": 20,
+      "verified_cache": 0,
+      "bytes": 562477137
+    },
+    {
+      "year": 2021,
+      "ledger_path": "data/manifests/stage6_2021_acquisition_20260913T065109998453Z.json",
+      "ledger_sha256": "afdd91b8d895a0fd55e9061379a90076edfe9256e759ef83ea4ac0812cb1fc89",
+      "source_count": 20,
+      "downloaded": 20,
+      "verified_cache": 0,
+      "bytes": 891194868
+    },
+    {
+      "year": 2022,
+      "ledger_path": "data/manifests/stage6_2022_acquisition_20260913T065537174662Z.json",
+      "ledger_sha256": "636307c2eb45d2210622df34d9b89fadc8d060b1342120b8ae40eb51a2b41b15",
+      "source_count": 20,
+      "downloaded": 20,
+      "verified_cache": 0,
+      "bytes": 1050250742
+    },
+    {
+      "year": 2023,
+      "ledger_path": "data/manifests/stage6_2023_acquisition_20260913T070048530073Z.json",
+      "ledger_sha256": "942bd98c8efcc1a3449f16c9ea54d0bf914694cab6ae7f3f938f1787cdb5e7ad",
+      "source_count": 20,
+      "downloaded": 20,
+      "verified_cache": 0,
+      "bytes": 1087805815
+    },
+    {
+      "year": 2024,
+      "ledger_path": "data/manifests/stage6_2024_acquisition_20260913T070633655539Z.json",
+      "ledger_sha256": "8461e9128bcf8e84b727742e41c700225a5940629deb97afc2d4373a9babff6e",
+      "source_count": 20,
+      "downloaded": 19,
+      "verified_cache": 1,
+      "bytes": 1178131162
+    },
+    {
+      "year": 2025,
+      "ledger_path": "data/manifests/stage6_2025_acquisition_20260913T071247677498Z.json",
+      "ledger_sha256": "0e4249e447bc7d730adf4856184f119082267d76b730940beb526d2de4cdfef4",
+      "source_count": 10,
+      "downloaded": 10,
+      "verified_cache": 0,
+      "bytes": 572541263
+    }
+  ]
+}

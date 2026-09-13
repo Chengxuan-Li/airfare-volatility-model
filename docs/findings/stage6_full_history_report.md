@@ -32,8 +32,11 @@ All 270 remaining endpoints passed HEAD checks, advertising 13,165,882,016 bytes
 121,456,566,272 bytes were free before acquisition. See the
 [access summary](../../data/manifests/stage6_full_history_access_summary.json),
 per-year access inventories and [execution ledger](../status/execution_ledger.md).
-The 2010/2011 panels were already published. Remaining year batches are in progress.
-HEAD access does not establish schema or complete data validity.
+The 2010/2011 panels were already published. All remaining 270 archives are
+acquired and verified; annual builds remain in progress. The
+[acquisition summary](../../data/manifests/stage6_full_history_acquisition_summary.json)
+records 269 downloads/reacquisitions and one verified cache, with no transfer
+failures or FR24 use. HEAD access alone does not establish complete data validity.
 
 <!-- YEAR_PROGRESS_START -->
 | Verified year | Fare quarters | Retained national records | Retained scoped records | Primary fare cells | Matched | Passenger-weight match |
