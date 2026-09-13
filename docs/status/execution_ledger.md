@@ -534,3 +534,14 @@ eleven derived files byte-for-byte from its full declared raw input set. Per-yea
 verification records and build-attempt ledgers preserve input/baseline/source hashes
 and any preceding failed attempts. Report progress table reconciles against those
 verified artifacts. Publication follows staged inspection.
+
+Final certification attempt (2026-09-13): all 310 consumed raw archives passed
+fresh SHA-256 and ZIP CRC checks, and all sixteen annual proofs passed. Summary
+publication stopped with `2025 carrier counts do not reconcile to quality audit`.
+Diagnosis: annual panel audit counts scoped operations carriers (13), whereas
+history compared national identities (14). DOT20368/G4 is national-only in the
+2025 January-June sample. Added explicit scoped counts to annual and quarterly
+summaries and reconciled like populations, preserving national carrier presence
+and every annual artifact. Regression reproduced the failure before the fix;
+full offline suite now passes 251 tests (one known Stage 5 rank warning).
+The failed attempt published no final summary proof. Fresh certification follows.

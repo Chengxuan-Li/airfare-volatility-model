@@ -82,6 +82,7 @@ def test_summarize_frames_keeps_samples_separate_and_counts_operations_once():
         'expected_months': 6, 'observed_months': 6,
         'national_flights': 60, 'scoped_flights': 21,
         'db1b_reporting_codes': 2, 'operations_reporting_dot_ids': 1,
+        'scoped_operations_reporting_dot_ids': 1,
         'primary_cells': 3, 'primary_matched': 1, 'primary_fare_only': 1,
         'primary_operations_only': 1, 'primary_fare_passengers': 100.0,
         'primary_matched_passengers': 90.0,
@@ -184,10 +185,18 @@ def test_summarize_frames_rejects_duplicate_operations_keys_before_counting():
             *frames, year=2025, quarters=(1, 2), months=tuple(range(1, 7)))
 
 
-def _write_verified_year(root: Path, *, corrupt=False, panel_mismatch=False):
+def _write_verified_year(root: Path, *, corrupt=False, panel_mismatch=False,
+                         national_only_carrier=False):
     annual_dir = root / 'annual_2025'
     annual_dir.mkdir(parents=True)
     panel, fares, scoped, national, identities = history_frames()
+    if national_only_carrier:
+        national = pd.concat([
+            national, national.iloc[[0]].assign(
+                DOT_ID_Reporting_Airline=200, Reporting_Airline='ZZ')],
+            ignore_index=True)
+        identities = national[[
+            'Year', 'Month', 'DOT_ID_Reporting_Airline', 'Reporting_Airline']].copy()
     frames = {
         'route_quarter_panel.csv': panel,
         'fare_carrier_cells.csv': fares,
@@ -273,6 +282,25 @@ def test_default_history_cannot_publish_only_the_available_subset(tmp_path):
     with pytest.raises(ValueError, match='Missing per-year verification'):
         build_history(root, output)
     assert not output.exists()
+
+
+def test_history_reconciles_scoped_carriers_without_dropping_national_only_carrier(tmp_path):
+    from src.stage6.history import build_history
+
+    root = tmp_path / 'stage6'
+    _write_verified_year(root, national_only_carrier=True)
+    output = root / 'history'
+    build_history(root, output, expected_years=(2025,))
+
+    annual = pd.read_csv(output / 'annual_summary.csv').iloc[0]
+    quarterly = pd.read_csv(output / 'quarterly_summary.csv')
+    presence = pd.read_csv(output / 'carrier_presence.csv', dtype={'carrier_id': str})
+    assert annual.operations_reporting_dot_ids == 2
+    assert annual.scoped_operations_reporting_dot_ids == 1
+    assert annual.national_flights == 70 and annual.scoped_flights == 21
+    assert quarterly.operations_reporting_dot_ids.tolist() == [2, 1]
+    assert quarterly.scoped_operations_reporting_dot_ids.tolist() == [1, 1]
+    assert '200' in presence.carrier_id.tolist()
 
 
 def test_subset_history_rejects_gaps_in_its_labelled_span(tmp_path):

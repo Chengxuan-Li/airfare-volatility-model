@@ -17,7 +17,11 @@ in the annual workflow; raw variants and failed attempts remain documented.
 The reviewed implementation and certification script pass 232 offline tests.
 Acquisition is complete for all 310 declared archives. All sixteen annual/partial
 years now have two verified byte-identical builds; full-horizon certification and
-summary publication are in progress. The reviewed implementation passes250 tests.
+summary publication are in progress. The implementation passes 251 tests.
+The final certification checked all 310 raw archives, then caught a national/scoped
+carrier-count mismatch in the 2025 summary. The summary now distinguishes the
+14 national DOT IDs from 13 scoped IDs and reconciles the appropriate population.
+Annual artifacts remain unchanged; full certification is being repeated.
 
 The 2011 extension is complete and published on `codex/stage-6-2011-panel`;
 see [report](findings/stage6_2011_report.md) and [plan](methods/stage6_2011_plan.md).

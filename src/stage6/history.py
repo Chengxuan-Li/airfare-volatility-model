@@ -247,6 +247,8 @@ def summarize_frames(panel, fare_carriers, operations_monthly,
         'db1b_reporting_codes': int(fare_carriers['RPCarrier'].nunique()),
         'operations_reporting_dot_ids': int(
             carrier_identities['DOT_ID_Reporting_Airline'].nunique()),
+        'scoped_operations_reporting_dot_ids': int(
+            operations_monthly['DOT_ID_Reporting_Airline'].nunique()),
     }
     for sample, prefix in SAMPLES:
         annual.update(_sample_metrics(
@@ -274,6 +276,9 @@ def summarize_frames(panel, fare_carriers, operations_monthly,
             'operations_reporting_dot_ids': int(carrier_identities.loc[
                 carrier_identities['Month'].isin(quarter_months),
                 'DOT_ID_Reporting_Airline'].nunique()),
+            'scoped_operations_reporting_dot_ids': int(operations_monthly.loc[
+                operations_monthly['Month'].isin(quarter_months),
+                'DOT_ID_Reporting_Airline'].nunique()),
         }
         quarter_panel = panel.loc[panel['Quarter'].eq(quarter)]
         for sample, prefix in SAMPLES:
@@ -296,6 +301,12 @@ def summarize_frames(panel, fare_carriers, operations_monthly,
         'fare_carrier_identity': 'DB1B reporting carrier code',
         'operations_carrier_identity': (
             'BTS national DOT reporting airline ID with source-reported code'),
+        'operations_carrier_counts_scope': {
+            'operations_reporting_dot_ids': 'national reporting population',
+            'scoped_operations_reporting_dot_ids': (
+                'retained routes between frozen selected airports; reconciles '
+                'to annual quality panel operations_reporting_carriers'),
+        },
         'carrier_crosswalk_performed': False,
     }
     return annual, pd.DataFrame(quarterly_rows), presence, audit
@@ -377,7 +388,7 @@ def _reconcile_quality_panel(annual, quality, year):
                 f'{year} {sample} summary does not reconcile to quality audit')
     carrier_expectations = {
         'fare_reporting_carriers': annual['db1b_reporting_codes'],
-        'operations_reporting_carriers': annual['operations_reporting_dot_ids'],
+        'operations_reporting_carriers': annual['scoped_operations_reporting_dot_ids'],
     }
     if any(quality.get('panel', {}).get(key) != value
            for key, value in carrier_expectations.items()):

@@ -98,6 +98,11 @@ Later 2017/2018 builds stopped on conflicting outcomes for complete keys. July
 return/diversion record on different aircraft. June 2018 has a DEN-XNA scheduled
 flight with two aircraft and arrival delays of 4 versus 941 minutes. The key alone
 cannot establish which physical-flight history should be the analysis unit.
+November 2017 also has a conflicting MSP-DLH key (DOT20304, flight 4529):
+arrival delay 750 minutes versus a diverted record with missing arrival delay.
+The 2017 exclusions therefore total four rows in two groups: two July rows within
+the selected sample and two November rows outside it. The two June 2018 rows are
+also outside the selected sample.
 
 After independent policy review, the annual workflow quarantines every row for a
 conflicting complete key. A full-month preflight validates all rows and classifies
@@ -117,6 +122,15 @@ incomplete key without imputing a number, with explicit national/scoped counts.
 Scheduled time must be present; both optional fields missing, projected-key
 collisions, and potentially overlapping missing-time/missing-number rows fail.
 The original missing number and failed build remain part of the evidence.
+
+The combined-summary reconciliation initially failed in 2025 because it compared
+national and scoped carrier populations. The summary now reports both:
+`operations_reporting_dot_ids` is national, while
+`scoped_operations_reporting_dot_ids` counts retained routes between selected
+airports and reconciles to the annual panel audit. In 2025 these counts are 14
+and 13: DOT20368/G4 is observed nationally in January-June but has no retained
+route between the frozen airports. National carrier presence remains preserved;
+sample absence does not establish service closure.
 
 ## Reproduction contract
 
