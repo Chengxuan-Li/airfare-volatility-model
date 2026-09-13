@@ -9,6 +9,49 @@ from src.stage6 import annual
 from src.acquisition.download import digest
 
 
+def test_2011_requests_are_complete_without_2010_data_paths():
+    records=annual.input_records(2011)
+    assert len(records)==20 and len({r['url'] for r in records})==20
+    assert all(r['year']==2011 and '_2011_' in r['url'] for r in records)
+    assert {r['month'] for r in records if r['kind']=='operations'}==set(range(1,13))
+    assert {(r['table'],r['quarter']) for r in records if r['kind']=='fare'}=={
+        (t,q) for t in ('Market','Ticket') for q in range(1,5)}
+
+
+@pytest.mark.parametrize('year',[2009,2012,2025,True,2011.0])
+def test_undeclared_annual_years_reject_before_acquisition(year):
+    with pytest.raises(ValueError,match='year'):
+        annual.input_records(year)
+
+
+def test_source_completeness_uses_requested_year():
+    annual.validate_months([{'year':2011,'month':m} for m in range(1,13)],year=2011)
+    with pytest.raises(ValueError,match='twelve'):
+        annual.validate_months([{'year':2010,'month':m} for m in range(1,13)],year=2011)
+
+
+def test_2011_refuses_output_overlapping_frozen_baseline():
+    with pytest.raises(ValueError,match='overlap'):
+        annual.main(['--year','2011','--output','outputs/stage6/annual_2010'])
+
+
+def test_2011_processing_uses_frozen_airport_ids_without_reranking(tmp_path,monkeypatch):
+    from src.stage6 import baseline, annual_fares
+    ranking=pd.DataFrame({'AirportID':[101,202,303],'selected':[True,False,True]})
+    monkeypatch.setattr(baseline,'load_baseline',lambda:(ranking,{'year':2010},{}))
+    monkeypatch.setattr(annual,'input_records',lambda year:[])
+    def forbidden(*args,**kwargs):
+        raise AssertionError('Later year attempted airport reselection')
+    monkeypatch.setattr(annual_fares,'select_airports',forbidden)
+    def capture(*args,**kwargs):
+        assert kwargs['year']==2011
+        assert kwargs['airport_ids']==[101,303]
+        raise RuntimeError('reached frozen-scope fare processing')
+    monkeypatch.setattr(annual_fares,'process_fares',capture)
+    with pytest.raises(RuntimeError,match='frozen-scope'):
+        annual.main(['--year','2011','--output',str(tmp_path/'output')])
+
+
 def test_annual_requests_cover_exactly_twelve_months_and_four_fare_pairs():
     records = annual.input_records()
     assert len(records) == 20

@@ -41,12 +41,12 @@ input_records(year=2010)  # exactly twenty identities; reject undeclared years
 validate_months(audits, year=2010)
 load_baseline()  # pinned ranking, 2010 selection audit, verified baseline tables
 ```
-- [ ] Write regressions for full 2011 identities, wrong-year months, modified
+- [x] Write regressions for full 2011 identities, wrong-year months, modified
   baseline/ranking, frozen IDs and 2010 compatibility; run red before changes.
-- [ ] Parameterize year-specific paths, access inventory, acquisition ledger,
+- [x] Parameterize year-specific paths, access inventory, acquisition ledger,
   period checks, labels and output directory. For 2011 load the frozen ranking;
   never call selection on 2011 data. Verify baseline before network/build work.
-- [ ] Run focused/full tests and independent code/spec review; commit.
+- [x] Run focused/full tests and independent code/spec review; commit.
 
 ## Task 2: independent continuity diagnostics
 
@@ -57,16 +57,16 @@ compare_years(baseline_tables, current_tables)
 # Both dictionaries use CSV filenames -> DataFrames, with the seven annual CSVs.
 # Returns (extra_tables, audit). extra_tables uses CSV filenames -> DataFrames.
 ```
-- [ ] Test observed airport/carrier/route entry and exit, mutable codes versus
+- [x] Test observed airport/carrier/route entry and exit, mutable codes versus
   stable IDs, source separation, and unchanged quarterly matching/denominators.
   Real small DataFrames only; no worker HTTP or actual raw build.
-- [ ] Emit `airport_continuity.csv`, `carrier_continuity.csv`,
+- [x] Emit `airport_continuity.csv`, `carrier_continuity.csv`,
   `route_continuity.csv`, plus a JSON-compatible summary. Airport rows cover every
   selected ID, including absence. Carrier rows distinguish fare reporting codes
   from operations DOT-ID/code observations. Route rows match equal quarter and
   stable IDs per fare sample; report fare presence and operations presence for
   both years without filling absent outcomes with zeros.
-- [ ] Verify no changes to input frames or fare/operations aggregation, test and
+- [x] Verify no changes to input frames or fare/operations aggregation, test and
   review independently. Root integrates diagnostics into the 2011 annual output.
 
 ## Task 3: acquisition, real builds and publication
@@ -76,7 +76,7 @@ Commands:
 .\.venv\Scripts\python.exe -m src.stage6.annual --year 2011 --acquire
 .\.venv\Scripts\python.exe -m src.stage6.annual --year 2011
 ```
-- [ ] Inventory twenty endpoints, acquire/verify twenty inputs and preserve
+- [x] Inventory twenty endpoints, acquire/verify twenty inputs and preserve
   immutable request metadata with failure/cache outcomes and disk budget.
 - [ ] Rebuild the 2011 outputs twice from raw; compare every derived file byte.
   Save twenty raw hashes plus frozen/baseline artifact hashes, source hashes and

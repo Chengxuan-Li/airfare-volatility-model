@@ -1,4 +1,4 @@
-"""Rebuild the declared 2010 fare and operations development panel."""
+"""Rebuild a declared annual fare and operations panel with frozen later-year scope."""
 import argparse
 from concurrent.futures import ThreadPoolExecutor
 from datetime import datetime, timezone
@@ -16,29 +16,31 @@ from src.stage6.bootstrap import verify_input
 from src.stage6.inventory import ontime_request
 
 
-def input_records():
+def input_records(year=2010):
+    if not isinstance(year, int) or isinstance(year, bool) or year not in (2010, 2011):
+        raise ValueError("Only declared annual years 2010 and 2011 are supported")
     records = []
     for month in range(1, 13):
-        request = ontime_request(2010, month)
-        records.append({'kind': 'operations', 'year': 2010, 'month': month,
+        request = ontime_request(year, month)
+        records.append({'kind': 'operations', 'year': year, 'month': month,
             'url': request['url'], 'target': RAW/'bts_ontime'/request['url'].rsplit('/', 1)[1],
-            'manifest': MANIFESTS/f'bts_ontime_2010_{month:02d}.json',
+            'manifest': MANIFESTS/f'bts_ontime_{year}_{month:02d}.json',
             'source': 'BTS Reporting Carrier On-Time Performance',
-            'params': {'year': 2010, 'month': month}})
+            'params': {'year': year, 'month': month}})
     for quarter in range(1, 5):
         for table in ('Market', 'Ticket'):
-            target = bts_path(table, 2010, quarter)
-            records.append({'kind': 'fare', 'table': table, 'year': 2010,
+            target = bts_path(table, year, quarter)
+            records.append({'kind': 'fare', 'table': table, 'year': year,
                 'quarter': quarter, 'url': 'https://transtats.bts.gov/PREZIP/'+target.name,
-                'target': target, 'manifest': MANIFESTS/f'bts_db1b_{table.lower()}_2010_q{quarter}.json',
-                'source': f'BTS DB1B{table}', 'params': {'year': 2010, 'quarter': quarter}})
+                'target': target, 'manifest': MANIFESTS/f'bts_db1b_{table.lower()}_{year}_q{quarter}.json',
+                'source': f'BTS DB1B{table}', 'params': {'year': year, 'quarter': quarter}})
     return records
 
 
-def validate_months(audits):
+def validate_months(audits, year=2010):
     identities = [(a['year'], a['month']) for a in audits]
-    if len(identities) != 12 or set(identities) != {(2010, m) for m in range(1, 13)}:
-        raise ValueError('Annual build requires exactly twelve distinct 2010 source months')
+    if len(identities) != 12 or set(identities) != {(year, m) for m in range(1, 13)}:
+        raise ValueError(f'Annual build requires exactly twelve distinct {year} source months')
 
 
 def advertised_bytes(records, inventories):
@@ -54,13 +56,13 @@ def advertised_bytes(records, inventories):
     return sum(known[r['url']] for r in records)
 
 
-def acquire_inputs(records):
+def acquire_inputs(records, year=2010):
     for record in records:
         if record['target'].exists() and not record['manifest'].exists():
             raise ValueError(f'Existing raw input lacks provenance manifest: {record["target"]}')
-    inventories = [json.loads((MANIFESTS/name).read_text(encoding='utf-8')) for name in (
-        'stage6_access_inventory.json', 'stage6_operations_access_correction.json',
-        'stage6_2010_access_inventory.json')]
+    names = ('stage6_access_inventory.json', 'stage6_operations_access_correction.json',
+             'stage6_2010_access_inventory.json') if year == 2010 else (f'stage6_{year}_access_inventory.json',)
+    inventories = [json.loads((MANIFESTS/name).read_text(encoding='utf-8')) for name in names]
     total = advertised_bytes(records, inventories)
     missing = [r for r in records if not r['target'].exists()]
     remaining = advertised_bytes(missing, inventories)
@@ -68,7 +70,7 @@ def acquire_inputs(records):
     if remaining > free:
         raise ValueError('Insufficient free disk for remaining advertised downloads')
     stamp = datetime.now(timezone.utc).strftime('%Y%m%dT%H%M%S%fZ')
-    ledger_path = MANIFESTS/f'stage6_2010_acquisition_{stamp}.json'
+    ledger_path = MANIFESTS/f'stage6_{year}_acquisition_{stamp}.json'
     ledger = {'started_at_utc': stamp, 'advertised_total_bytes': total,
               'advertised_missing_bytes': remaining, 'free_bytes_before': free,
               'fr24_calls': 0, 'fr24_credits': 0, 'results': []}
@@ -128,33 +130,44 @@ def publish_directory(staging, output):
 def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--acquire', action='store_true')
-    parser.add_argument('--output', type=Path, default=Path('outputs/stage6/annual_2010'))
+    parser.add_argument('--year', type=int, choices=(2010, 2011), default=2010)
+    parser.add_argument('--output', type=Path)
     args = parser.parse_args(argv)
-    records = input_records()
+    year = args.year
+    args.output = args.output or Path(f'outputs/stage6/annual_{year}')
+    baseline_tables = None
+    if year != 2010:
+        from src.stage6.baseline import load_baseline, BASELINE_DIRECTORY
+        destination, baseline_dir = args.output.resolve(), BASELINE_DIRECTORY.resolve()
+        if destination.is_relative_to(baseline_dir) or baseline_dir.is_relative_to(destination):
+            raise ValueError('Later-year output must not overlap the frozen baseline')
+        ranking, selection_audit, baseline_tables = load_baseline()
+    records = input_records() if year == 2010 else input_records(year)
     if args.acquire:
-        acquire_inputs(records)
+        acquire_inputs(records, year=year)
     # Verify the entire declared input set before any derived output is replaced.
     for record in records:
         verify_input(record['target'], record['manifest'], record['url'], record['params'])
     from src.stage6.annual_fares import select_airports, process_fares
     from src.stage6.annual_panel import join_annual_panel
     from src.stage6.operations import read_operations
-    ranking, selection_audit = select_airports(bts_path('Market', 2010, 1))
+    if year == 2010:
+        ranking, selection_audit = select_airports(bts_path('Market', 2010, 1))
     airport_ids = ranking.loc[ranking.selected, 'AirportID'].astype(int).tolist()
     print(f'Selected {len(airport_ids)} baseline airports', flush=True)
     fare_parts, fare_audits, alias_parts = [], [], []
     for quarter in range(1, 5):
-        cells, audit, aliases = process_fares(bts_path('Market', 2010, quarter),
-            bts_path('Ticket', 2010, quarter), year=2010, quarter=quarter,
+        cells, audit, aliases = process_fares(bts_path('Market', year, quarter),
+            bts_path('Ticket', year, quarter), year=year, quarter=quarter,
             airport_ids=airport_ids)
         fare_parts.append(cells)
         fare_audits.append(audit)
-        alias_parts.append(aliases.assign(source='DB1B', Year=2010, period=quarter))
-        print(f'Fare 2010Q{quarter}: {len(cells):,} carrier cells across samples', flush=True)
+        alias_parts.append(aliases.assign(source='DB1B', Year=year, period=quarter))
+        print(f'Fare {year}Q{quarter}: {len(cells):,} carrier cells across samples', flush=True)
     monthly_parts, national_parts, operation_audits = [], [], []
     for month in range(1, 13):
         record = next(r for r in records if r.get('month') == month)
-        cells, national, audit = read_operations(record['target'], 2010, month,
+        cells, national, audit = read_operations(record['target'], year, month,
                                                  airport_ids=airport_ids)
         monthly_parts.append(cells)
         national_parts.append(national)
@@ -162,9 +175,9 @@ def main(argv=None):
         for endpoint in ('Origin', 'Dest'):
             aliases = cells[[endpoint+'AirportID', endpoint]].drop_duplicates().rename(
                 columns={endpoint+'AirportID': 'AirportID', endpoint: 'code'})
-            alias_parts.append(aliases.assign(source='BTS on-time', Year=2010, period=month))
-        print(f'Operations 2010-{month:02d}: {audit["raw_rows"]:,} national flights', flush=True)
-    validate_months(operation_audits)
+            alias_parts.append(aliases.assign(source='BTS on-time', Year=year, period=month))
+        print(f'Operations {year}-{month:02d}: {audit["raw_rows"]:,} national flights', flush=True)
+    validate_months(operation_audits, year=year)
     fares = pd.concat(fare_parts, ignore_index=True)
     monthly = pd.concat(monthly_parts, ignore_index=True)
     national = pd.concat(national_parts, ignore_index=True)
@@ -179,7 +192,7 @@ def main(argv=None):
         'carrier_join': 'None; route-quarter join aggregates each source independently across carriers',
         'alias_period_units': {'DB1B': 'quarter', 'BTS on-time': 'month'},
     }
-    audit = {'year': 2010, 'scope': 'development year; no estimated fare models',
+    audit = {'year': year, 'scope': 'development year; no estimated fare models' if year == 2010 else 'subsequent-year data validation; no estimated fare models',
         'selection': selection_audit, 'fares': fare_audits, 'operations': operation_audits,
         'identity': identity_audit, 'panel': panel_audit,
         'verified_input_count': len(records), 'source_months_complete': True}
@@ -187,16 +200,22 @@ def main(argv=None):
         'operations_carrier_month.csv': monthly, 'operations_national_month.csv': national,
         'airport_aliases.csv': aliases, 'operations_carrier_identities.csv': carrier_map,
         'route_quarter_panel.csv': panel}
+    if baseline_tables is not None:
+        from src.stage6.continuity import compare_years
+        extra, continuity_audit = compare_years(baseline_tables, outputs)
+        outputs.update(extra)
+        audit['continuity'] = continuity_audit
+        audit['selection_reused_from_year'] = 2010
     args.output.parent.mkdir(parents=True, exist_ok=True)
     # Complete serialization in temporary files before publishing any result.
-    with tempfile.TemporaryDirectory(dir=args.output.parent, prefix='.annual_2010_') as temp:
+    with tempfile.TemporaryDirectory(dir=args.output.parent, prefix=f'.annual_{year}_') as temp:
         staging = Path(temp)
         for name, frame in outputs.items():
             frame.to_csv(staging/name, index=False, lineterminator='\n')
         (staging/'quality_audit.json').write_text(json.dumps(audit, indent=2, allow_nan=False)+'\n',
             encoding='utf-8', newline='\n')
         publish_directory(staging, args.output)
-    print(f'2010 development panel complete: {len(panel):,} rows across samples; no fare models fitted.', flush=True)
+    print(f'{year} annual panel complete: {len(panel):,} rows across samples; no fare models fitted.', flush=True)
 
 
 if __name__ == '__main__':

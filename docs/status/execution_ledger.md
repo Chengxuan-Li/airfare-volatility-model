@@ -250,3 +250,9 @@ The frozen-baseline/year-parameter regressions and continuity fixtures pass in
 the full offline suite: 118 tests, one existing Stage 5 reference warning.
 Independent Task 1 review found no material issues. Continuity review and the
 first real 2011 raw build are in progress; no new model estimates are planned.
+
+Independent Task 2 code/spec review also found no material issues. Focused tests
+pass (27 annual/baseline/continuity cases); shuffled inputs confirm deterministic
+continuity results and nonmutation. The first real raw build completed successfully,
+producing eleven derived files; the second comparison build is running. Baseline
+selection, source separation and missing-outcome semantics are preserved.
