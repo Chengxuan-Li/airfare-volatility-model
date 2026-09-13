@@ -8,6 +8,7 @@ hypotheses remain unidentifiable from the quarterly sources. Recommendation C.
 - [Repository and documentation review, 2026-09-12](reviews/2026-09-12-repository-review.md)
 - [Proposed next research direction and unused DOT history](methods/next_research_direction.md)
 - [Authorized Stage 6 execution plan](methods/stage6_execution_plan.md)
+- [Full-year 2010 panel execution plan](methods/stage6_2010_plan.md)
 - [Stage 6 bootstrap results, limitations and reproduction](findings/stage6_bootstrap_report.md)
 - [Stage 6 access inventory, including original failures](../data/manifests/stage6_access_inventory.json)
 - [Stage 6 corrected operations recipe probes](../data/manifests/stage6_operations_access_correction.json)

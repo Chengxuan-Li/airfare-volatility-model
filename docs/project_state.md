@@ -1,6 +1,12 @@
 # Project state
 
 ## Current stage
+The full-year 2010 panel is now authorized and in progress on
+`codex/stage-6-2010-panel`; see [plan](methods/stage6_2010_plan.md). Airport selection
+uses baseline passenger volume; primary linkage is by stable route IDs across
+carriers with explicit source-coverage differences. No new fare models are planned
+in this milestone.
+
 Stage 6 historical/operations bootstrap is complete on
 `codex/stage-6-operations`; see [execution plan](methods/stage6_execution_plan.md).
 The [bootstrap report](findings/stage6_bootstrap_report.md) records provenance fixes,
