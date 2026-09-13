@@ -14,20 +14,20 @@ from src.acquisition.download import digest, fetch
 from src.config import MANIFESTS, RAW, bts_path
 from src.stage6.bootstrap import verify_input
 from src.stage6.inventory import ontime_request
+from src.stage6.periods import periods_for_year, restrict_tables_to_periods
 
 
 def input_records(year=2010):
-    if not isinstance(year, int) or isinstance(year, bool) or year not in (2010, 2011):
-        raise ValueError("Only declared annual years 2010 and 2011 are supported")
+    periods = periods_for_year(year)
     records = []
-    for month in range(1, 13):
+    for month in periods.months:
         request = ontime_request(year, month)
         records.append({'kind': 'operations', 'year': year, 'month': month,
             'url': request['url'], 'target': RAW/'bts_ontime'/request['url'].rsplit('/', 1)[1],
             'manifest': MANIFESTS/f'bts_ontime_{year}_{month:02d}.json',
             'source': 'BTS Reporting Carrier On-Time Performance',
             'params': {'year': year, 'month': month}})
-    for quarter in range(1, 5):
+    for quarter in periods.quarters:
         for table in ('Market', 'Ticket'):
             target = bts_path(table, year, quarter)
             records.append({'kind': 'fare', 'table': table, 'year': year,
@@ -38,9 +38,71 @@ def input_records(year=2010):
 
 
 def validate_months(audits, year=2010):
+    periods = periods_for_year(year)
+    if any(
+        not isinstance(a.get(field), int) or isinstance(a.get(field), bool)
+        for a in audits
+        for field in ('year', 'month')
+    ):
+        raise ValueError(f'Annual build requires exact integer {year} source months')
     identities = [(a['year'], a['month']) for a in audits]
-    if len(identities) != 12 or set(identities) != {(year, m) for m in range(1, 13)}:
-        raise ValueError(f'Annual build requires exactly twelve distinct {year} source months')
+    expected = {(year, month) for month in periods.months}
+    if len(identities) != len(periods.months) or set(identities) != expected:
+        count = 'six' if periods.partial_year else 'twelve'
+        raise ValueError(f'Annual build requires exactly {count} distinct {year} source months')
+
+
+def _observed_periods(tables, column, table):
+    frame = tables[table]
+    if column not in frame:
+        raise ValueError(f'Missing {column} in {table}')
+    values = pd.to_numeric(frame[column], errors='coerce')
+    if values.isna().any() or not (values % 1).eq(0).all():
+        raise ValueError(f'Invalid {column} in {table}')
+    return sorted(values.astype(int).unique().tolist())
+
+
+def _observed_year(tables):
+    years = set()
+    for frame in tables.values():
+        if isinstance(frame, pd.DataFrame) and 'Year' in frame and not frame.empty:
+            values = pd.to_numeric(frame['Year'], errors='coerce')
+            if values.isna().any() or not (values % 1).eq(0).all():
+                raise ValueError('Invalid comparison Year')
+            years.update(values.astype(int).unique().tolist())
+    if len(years) != 1:
+        raise ValueError('Comparison tables must contain exactly one year')
+    return next(iter(years))
+
+
+def prepare_comparison(baseline_tables, current_tables, periods):
+    """Restrict a partial year's baseline and describe the comparison window."""
+    if not periods.partial_year:
+        return baseline_tables, None
+    baseline = restrict_tables_to_periods(baseline_tables, periods)
+    baseline_year = _observed_year(baseline)
+    current_year = _observed_year(current_tables)
+    if current_year != periods.year:
+        raise ValueError('Current comparison year does not match declared periods')
+    audit = {
+        'label': periods.label,
+        'baseline_year': baseline_year,
+        'current_year': current_year,
+        'baseline_restricted_to_matching_periods': True,
+        'expected_fare_quarters': list(periods.quarters),
+        'baseline_fare_quarters_observed': _observed_periods(
+            baseline, 'Quarter', 'fare_carrier_cells.csv'),
+        'current_fare_quarters_observed': _observed_periods(
+            current_tables, 'Quarter', 'fare_carrier_cells.csv'),
+        'expected_operations_months': list(periods.months),
+        'baseline_operations_months_observed': _observed_periods(
+            baseline, 'Month', 'operations_carrier_month.csv'),
+        'current_operations_months_observed': _observed_periods(
+            current_tables, 'Month', 'operations_carrier_month.csv'),
+        'alias_period_units': {'DB1B': 'quarter', 'BTS on-time': 'month'},
+        'carrier_identity_period_unit': 'month',
+    }
+    return baseline, audit
 
 
 def advertised_bytes(records, inventories):
@@ -130,10 +192,11 @@ def publish_directory(staging, output):
 def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--acquire', action='store_true')
-    parser.add_argument('--year', type=int, choices=(2010, 2011), default=2010)
+    parser.add_argument('--year', type=int, choices=range(2010, 2026), default=2010)
     parser.add_argument('--output', type=Path)
     args = parser.parse_args(argv)
     year = args.year
+    periods = periods_for_year(year)
     args.output = args.output or Path(f'outputs/stage6/annual_{year}')
     baseline_tables = None
     if year != 2010:
@@ -156,7 +219,7 @@ def main(argv=None):
     airport_ids = ranking.loc[ranking.selected, 'AirportID'].astype(int).tolist()
     print(f'Selected {len(airport_ids)} baseline airports', flush=True)
     fare_parts, fare_audits, alias_parts = [], [], []
-    for quarter in range(1, 5):
+    for quarter in periods.quarters:
         cells, audit, aliases = process_fares(bts_path('Market', year, quarter),
             bts_path('Ticket', year, quarter), year=year, quarter=quarter,
             airport_ids=airport_ids)
@@ -165,7 +228,7 @@ def main(argv=None):
         alias_parts.append(aliases.assign(source='DB1B', Year=year, period=quarter))
         print(f'Fare {year}Q{quarter}: {len(cells):,} carrier cells across samples', flush=True)
     monthly_parts, national_parts, operation_audits = [], [], []
-    for month in range(1, 13):
+    for month in periods.months:
         record = next(r for r in records if r.get('month') == month)
         cells, national, audit = read_operations(record['target'], year, month,
                                                  airport_ids=airport_ids)
@@ -192,7 +255,11 @@ def main(argv=None):
         'carrier_join': 'None; route-quarter join aggregates each source independently across carriers',
         'alias_period_units': {'DB1B': 'quarter', 'BTS on-time': 'month'},
     }
-    audit = {'year': year, 'scope': 'development year; no estimated fare models' if year == 2010 else 'subsequent-year data validation; no estimated fare models',
+    scope = ('development year; no estimated fare models' if year == 2010 else
+             'subsequent-year data validation; no estimated fare models')
+    if periods.partial_year:
+        scope = 'partial-year data validation through Q2/June; no estimated fare models'
+    audit = {'year': year, 'scope': scope,
         'selection': selection_audit, 'fares': fare_audits, 'operations': operation_audits,
         'identity': identity_audit, 'panel': panel_audit,
         'verified_input_count': len(records), 'source_months_complete': True}
@@ -202,10 +269,22 @@ def main(argv=None):
         'route_quarter_panel.csv': panel}
     if baseline_tables is not None:
         from src.stage6.continuity import compare_years
-        extra, continuity_audit = compare_years(baseline_tables, outputs)
+        comparison_baseline, comparison_audit = prepare_comparison(
+            baseline_tables, outputs, periods)
+        extra, continuity_audit = compare_years(comparison_baseline, outputs)
         outputs.update(extra)
         audit['continuity'] = continuity_audit
         audit['selection_reused_from_year'] = 2010
+        if comparison_audit is not None:
+            audit['period'] = {
+                'label': periods.label,
+                'partial_year': True,
+                'expected_fare_quarters': list(periods.quarters),
+                'observed_fare_quarters': comparison_audit['current_fare_quarters_observed'],
+                'expected_operations_months': list(periods.months),
+                'observed_operations_months': comparison_audit['current_operations_months_observed'],
+            }
+            audit['comparison_period'] = comparison_audit
     args.output.parent.mkdir(parents=True, exist_ok=True)
     # Complete serialization in temporary files before publishing any result.
     with tempfile.TemporaryDirectory(dir=args.output.parent, prefix=f'.annual_{year}_') as temp:
@@ -215,7 +294,8 @@ def main(argv=None):
         (staging/'quality_audit.json').write_text(json.dumps(audit, indent=2, allow_nan=False)+'\n',
             encoding='utf-8', newline='\n')
         publish_directory(staging, args.output)
-    print(f'{year} annual panel complete: {len(panel):,} rows across samples; no fare models fitted.', flush=True)
+    completion_label = periods.label if periods.partial_year else f'{year} annual'
+    print(f'{completion_label} panel complete: {len(panel):,} rows across samples; no fare models fitted.', flush=True)
 
 
 if __name__ == '__main__':

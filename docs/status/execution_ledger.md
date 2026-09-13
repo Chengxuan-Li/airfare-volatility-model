@@ -326,3 +326,19 @@ operations archives. Endpoint access is not yet schema or complete data validati
 Ruling: use matching Q1-Q2/January-June baseline periods for 2025 continuity —
 unrequested later periods cannot establish exits — full-year totals are not directly
 comparable to the partial final year. Keep original ranking/selection metadata.
+
+Task 1 implements the shared 2010-2025 period declaration, exact ten-input 2025
+boundary and matched-period baseline restriction. Independent code/spec review
+found no material issues. Root verified all 270 expanded request identities against
+the committed inventories. The offline suite excluding the concurrently developed
+history-summary tests passes 169 cases with one known Stage 5 warning. Focused
+annual/period/provenance regressions are green; old 2010/2011 outputs are unchanged.
+
+Inspection found two original 2024 Market manifests with top-level year/quarter
+instead of query_parameters. The annual verifier previously rejected them, despite
+matching exact source identities. A fixture reproduced that rejection; verification
+now accepts exact legacy fields without rewriting provenance and still rejects
+wrong or incomplete periods. Independent review accepted the fix; bootstrap and
+download tests pass (11). This was found before the 2024 raw build, not a failed
+historical source request. The 2012 acquisition completed all twenty inputs and
+2013 is underway. Repeated raw builds are starting with the reviewed annual code.

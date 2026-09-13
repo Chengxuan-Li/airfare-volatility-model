@@ -44,3 +44,32 @@ def test_bootstrap_verifies_consumed_path_against_manifest(tmp_path):
     manifest.write_text(json.dumps(record))
     with pytest.raises(ValueError, match='path'):
         verify_input(path, manifest, record['url'], record['query_parameters'])
+
+
+def test_legacy_fare_manifest_verifies_without_rewriting_provenance(tmp_path):
+    from src.stage6.bootstrap import verify_input
+    from src.acquisition.download import digest
+    path = ticket_archive(tmp_path)
+    manifest = tmp_path/'legacy.json'
+    record = {'local_path': str(path), 'url': 'https://example.test/ticket.zip',
+              'year': 2010, 'quarter': 1, 'sha256': digest(path),
+              'retrieved_at_utc': '2026-09-12T09:54:03Z'}
+    manifest.write_text(json.dumps(record))
+    original = manifest.read_bytes()
+    verify_input(path, manifest, record['url'], {'year': 2010, 'quarter': 1})
+    assert manifest.read_bytes() == original
+    for params in ({'year': 2010, 'quarter': 2}, {'year': 2010, 'month': 1}):
+        with pytest.raises(ValueError, match='identity'):
+            verify_input(path, manifest, record['url'], params)
+
+
+def test_missing_legacy_period_identity_is_rejected(tmp_path):
+    from src.stage6.bootstrap import verify_input
+    from src.acquisition.download import digest
+    path = ticket_archive(tmp_path)
+    manifest = tmp_path/'incomplete.json'
+    record = {'local_path': str(path), 'url': 'https://example.test/ticket.zip',
+              'year': 2010, 'sha256': digest(path)}
+    manifest.write_text(json.dumps(record))
+    with pytest.raises(ValueError, match='identity'):
+        verify_input(path, manifest, record['url'], {'year': 2010, 'quarter': 1})

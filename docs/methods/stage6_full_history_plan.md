@@ -40,13 +40,13 @@ Work on `codex/stage-6-full-history` in the clean checkout to retain verified ca
 
 Files: `src/stage6/periods.py`, `src/stage6/annual.py`, relevant tests.
 
-- [ ] Test 20 identities for each complete year, ten for 2025, 310 for the whole
+- [x] Test 20 identities for each complete year, ten for 2025, 310 for the whole
   horizon; reject out-of-range/noninteger years and unexpected months.
-- [ ] Test baseline restriction to matching 2025 quarters/months, aliases and
+- [x] Test baseline restriction to matching 2025 quarters/months, aliases and
   national reporting identities; preserve source strings and frozen selection.
-- [ ] Implement shared period selection, exact source completeness, partial-year
+- [x] Implement shared period selection, exact source completeness, partial-year
   labels and baseline-period restriction. Keep 2010/2011 behavior compatible.
-- [ ] Run offline regressions and independent code/spec review; commit.
+- [x] Run offline regressions and independent code/spec review; commit.
 
 ## Task 2 — Full-horizon coverage summaries
 

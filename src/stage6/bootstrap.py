@@ -37,7 +37,9 @@ def verify_input(target, manifest, url, params):
     record = json.loads(Path(manifest).read_text(encoding='utf-8'))
     if Path(record['local_path']).resolve() != target.resolve():
         raise ValueError('Bootstrap manifest path differs from consumed input')
-    if record['url'] != url or record.get('query_parameters') != params:
+    recorded_params = (record['query_parameters'] if 'query_parameters' in record
+                       else {key: record[key] for key in ('year', 'quarter') if key in record})
+    if record['url'] != url or recorded_params != params:
         raise ValueError('Bootstrap manifest request identity differs')
     if digest(target) != record['sha256']:
         raise ValueError('Bootstrap raw input checksum mismatch')

@@ -6,6 +6,7 @@ import pandas as pd
 import pytest
 
 from src.stage6 import annual
+from src.stage6.periods import periods_for_year
 from src.acquisition.download import digest
 
 
@@ -18,7 +19,7 @@ def test_2011_requests_are_complete_without_2010_data_paths():
         (t,q) for t in ('Market','Ticket') for q in range(1,5)}
 
 
-@pytest.mark.parametrize('year',[2009,2012,2025,True,2011.0])
+@pytest.mark.parametrize('year',[2009,2026,True,2011.0])
 def test_undeclared_annual_years_reject_before_acquisition(year):
     with pytest.raises(ValueError,match='year'):
         annual.input_records(year)
@@ -28,6 +29,205 @@ def test_source_completeness_uses_requested_year():
     annual.validate_months([{'year':2011,'month':m} for m in range(1,13)],year=2011)
     with pytest.raises(ValueError,match='twelve'):
         annual.validate_months([{'year':2010,'month':m} for m in range(1,13)],year=2011)
+
+
+@pytest.mark.parametrize('year', range(2010, 2025))
+def test_complete_year_requests_have_twenty_exact_identities(year):
+    records = annual.input_records(year)
+
+    assert len(records) == 20
+    assert len({record['url'] for record in records}) == 20
+    assert {record['month'] for record in records if record['kind'] == 'operations'} == set(range(1, 13))
+    assert {(record['table'], record['quarter']) for record in records if record['kind'] == 'fare'} == {
+        (table, quarter) for table in ('Market', 'Ticket') for quarter in range(1, 5)
+    }
+
+
+def test_2025_requests_have_ten_exact_identities_and_no_later_periods():
+    records = annual.input_records(2025)
+
+    assert len(records) == 10
+    assert len({record['url'] for record in records}) == 10
+    assert {record['month'] for record in records if record['kind'] == 'operations'} == set(range(1, 7))
+    assert {(record['table'], record['quarter']) for record in records if record['kind'] == 'fare'} == {
+        (table, quarter) for table in ('Market', 'Ticket') for quarter in (1, 2)
+    }
+
+
+def test_declared_history_contains_310_input_identities():
+    records = [record for year in range(2010, 2026) for record in annual.input_records(year)]
+
+    assert len(records) == 310
+    assert len({record['url'] for record in records}) == 310
+
+
+def test_2025_source_completeness_requires_exactly_january_through_june():
+    annual.validate_months([{'year': 2025, 'month': month} for month in range(1, 7)], year=2025)
+
+    for months in (range(1, 6), (1, 2, 3, 4, 5, 5), range(2, 8), range(1, 13)):
+        with pytest.raises(ValueError, match='six'):
+            annual.validate_months([{'year': 2025, 'month': month} for month in months], year=2025)
+
+
+@pytest.mark.parametrize('field,value', [('year', 2025.0), ('year', True), ('month', 1.0), ('month', True)])
+def test_source_completeness_rejects_noninteger_identity_values(field, value):
+    audits = [{'year': 2025, 'month': month} for month in range(1, 7)]
+    audits[0][field] = value
+
+    with pytest.raises(ValueError, match='source months'):
+        annual.validate_months(audits, year=2025)
+
+
+def _comparison_tables(year):
+    return {
+        'airport_ranking.csv': pd.DataFrame({'AirportID': [10], 'selected': [True]}),
+        'fare_carrier_cells.csv': pd.DataFrame({'Year': [year] * 4, 'Quarter': [1, 2, 3, 4]}),
+        'operations_carrier_month.csv': pd.DataFrame({'Year': [year] * 4, 'Month': [1, 6, 7, 12]}),
+        'operations_national_month.csv': pd.DataFrame({'Year': [year] * 4, 'Month': [1, 6, 7, 12]}),
+        'airport_aliases.csv': pd.DataFrame({
+            'Year': [year] * 4,
+            'source': ['DB1B', 'DB1B', 'BTS on-time', 'BTS on-time'],
+            'period': [2, 3, 6, 7],
+        }),
+        'operations_carrier_identities.csv': pd.DataFrame({'Year': [year] * 4, 'Month': [1, 6, 7, 12]}),
+        'route_quarter_panel.csv': pd.DataFrame({'Year': [year] * 4, 'Quarter': [1, 2, 3, 4]}),
+    }
+
+
+def test_2025_comparison_restricts_baseline_and_audits_matching_periods():
+    baseline = _comparison_tables(2010)
+    current = _comparison_tables(2025)
+    current['fare_carrier_cells.csv'] = current['fare_carrier_cells.csv'].iloc[:2].copy()
+    current['route_quarter_panel.csv'] = current['route_quarter_panel.csv'].iloc[:2].copy()
+    for name in ('operations_carrier_month.csv', 'operations_national_month.csv',
+                 'operations_carrier_identities.csv'):
+        current[name] = current[name].iloc[:2].copy()
+    current['airport_aliases.csv'] = current['airport_aliases.csv'].iloc[[0, 2]].copy()
+
+    comparison, audit = annual.prepare_comparison(
+        baseline, current, periods_for_year(2025)
+    )
+
+    assert comparison['fare_carrier_cells.csv'].Quarter.tolist() == [1, 2]
+    assert comparison['route_quarter_panel.csv'].Quarter.tolist() == [1, 2]
+    assert comparison['operations_carrier_month.csv'].Month.tolist() == [1, 6]
+    assert comparison['operations_national_month.csv'].Month.tolist() == [1, 6]
+    assert comparison['operations_carrier_identities.csv'].Month.tolist() == [1, 6]
+    assert comparison['airport_aliases.csv'][['source', 'period']].values.tolist() == [
+        ['DB1B', 2], ['BTS on-time', 6]
+    ]
+    assert audit == {
+        'label': '2025 Q1-Q2 / January-June',
+        'baseline_year': 2010,
+        'current_year': 2025,
+        'baseline_restricted_to_matching_periods': True,
+        'expected_fare_quarters': [1, 2],
+        'baseline_fare_quarters_observed': [1, 2],
+        'current_fare_quarters_observed': [1, 2],
+        'expected_operations_months': [1, 2, 3, 4, 5, 6],
+        'baseline_operations_months_observed': [1, 6],
+        'current_operations_months_observed': [1, 6],
+        'alias_period_units': {'DB1B': 'quarter', 'BTS on-time': 'month'},
+        'carrier_identity_period_unit': 'month',
+    }
+    assert baseline['fare_carrier_cells.csv'].Quarter.tolist() == [1, 2, 3, 4]
+
+
+def test_complete_year_comparison_keeps_baseline_unrestricted_without_new_audit():
+    baseline = _comparison_tables(2010)
+
+    comparison, audit = annual.prepare_comparison(
+        baseline, _comparison_tables(2011), periods_for_year(2011)
+    )
+
+    assert comparison is baseline
+    assert audit is None
+
+
+def test_2025_runner_processes_only_declared_periods_and_records_partial_audit(tmp_path, monkeypatch, capsys):
+    from src.stage6 import annual_fares, annual_panel, baseline, continuity, operations
+
+    records = []
+    for month in range(1, 7):
+        records.append({'kind': 'operations', 'year': 2025, 'month': month,
+                        'target': tmp_path / f'ops-{month}.zip',
+                        'manifest': tmp_path / f'ops-{month}.json',
+                        'url': f'https://example.test/ops-{month}.zip',
+                        'params': {'year': 2025, 'month': month}})
+    for quarter in (1, 2):
+        for table in ('Market', 'Ticket'):
+            records.append({'kind': 'fare', 'table': table, 'year': 2025, 'quarter': quarter,
+                            'target': tmp_path / f'{table}-{quarter}.zip',
+                            'manifest': tmp_path / f'{table}-{quarter}.json',
+                            'url': f'https://example.test/{table}-{quarter}.zip',
+                            'params': {'year': 2025, 'quarter': quarter}})
+    ranking = pd.DataFrame({'AirportID': [10], 'selected': [True]})
+    monkeypatch.setattr(baseline, 'load_baseline', lambda: (
+        ranking, {'year': 2010}, _comparison_tables(2010)))
+    monkeypatch.setattr(annual, 'input_records', lambda year: records)
+    monkeypatch.setattr(annual, 'verify_input', lambda *args: None)
+    monkeypatch.setattr(annual, 'bts_path', lambda table, year, quarter: tmp_path / f'{table}-{quarter}.zip')
+    processed_quarters = []
+
+    def process_fares(*args, year, quarter, airport_ids):
+        processed_quarters.append(quarter)
+        cells = pd.DataFrame({
+            'Year': [year], 'Quarter': [quarter], 'OriginAirportID': [10],
+            'DestAirportID': [10], 'RPCarrier': ['FA'], 'sample': ['primary'],
+        })
+        aliases = pd.DataFrame({'AirportID': [10], 'code': ['AAA']})
+        return cells, {'year': year, 'quarter': quarter}, aliases
+
+    monkeypatch.setattr(annual_fares, 'process_fares', process_fares)
+    processed_months = []
+
+    def read_operations(path, year, month, *, airport_ids):
+        processed_months.append(month)
+        cells = pd.DataFrame({
+            'Year': [year], 'Month': [month], 'OriginAirportID': [10],
+            'DestAirportID': [10], 'Origin': ['AAA'], 'Dest': ['AAA'],
+        })
+        national = pd.DataFrame({
+            'Year': [year], 'Month': [month], 'DOT_ID_Reporting_Airline': [99],
+            'Reporting_Airline': ['OP'],
+        })
+        return cells, national, {'year': year, 'month': month, 'raw_rows': 1}
+
+    monkeypatch.setattr(operations, 'read_operations', read_operations)
+    panel = pd.DataFrame({
+        'Year': [2025, 2025], 'Quarter': [1, 2], 'OriginAirportID': [10, 10],
+        'DestAirportID': [10, 10], 'sample': ['primary', 'primary'],
+        'coverage': ['matched', 'matched'],
+    })
+    monkeypatch.setattr(annual_panel, 'join_annual_panel', lambda fares, monthly: (panel, {}))
+    compared = {}
+
+    def compare_years(baseline_tables, current_tables):
+        compared.update(baseline_tables)
+        return {}, {'baseline_year': 2010, 'current_year': 2025}
+
+    monkeypatch.setattr(continuity, 'compare_years', compare_years)
+    output = tmp_path / 'annual-2025'
+
+    annual.main(['--year', '2025', '--output', str(output)])
+
+    assert processed_quarters == [1, 2]
+    assert processed_months == list(range(1, 7))
+    assert compared['fare_carrier_cells.csv'].Quarter.tolist() == [1, 2]
+    assert compared['operations_carrier_month.csv'].Month.tolist() == [1, 6]
+    audit = json.loads((output / 'quality_audit.json').read_text())
+    assert audit['scope'] == 'partial-year data validation through Q2/June; no estimated fare models'
+    assert audit['verified_input_count'] == 10
+    assert audit['period'] == {
+        'label': '2025 Q1-Q2 / January-June',
+        'partial_year': True,
+        'expected_fare_quarters': [1, 2],
+        'observed_fare_quarters': [1, 2],
+        'expected_operations_months': [1, 2, 3, 4, 5, 6],
+        'observed_operations_months': [1, 2, 3, 4, 5, 6],
+    }
+    assert audit['comparison_period']['baseline_restricted_to_matching_periods'] is True
+    assert '2025 Q1-Q2 / January-June panel complete' in capsys.readouterr().out
 
 
 def test_2011_refuses_output_overlapping_frozen_baseline():
