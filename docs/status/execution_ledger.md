@@ -485,3 +485,9 @@ Windows/Unix checkout endings. Raw ZIP/output/annual-proof hashes stay byte-exac
 the new consumed-input manifest is pinned LF. Independent review found no issues,
 and all 233 offline tests pass (one known Stage 5 warning). Annual dependencies
 did not change; ongoing raw builds retain their earlier 232-test validation record.
+
+Verified year milestone: 2022. Each year reproduces all
+eleven derived files byte-for-byte from its full declared raw input set. Per-year
+verification records and build-attempt ledgers preserve input/baseline/source hashes
+and any preceding failed attempts. Report progress table reconciles against those
+verified artifacts. Publication follows staged inspection.

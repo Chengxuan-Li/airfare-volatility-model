@@ -56,6 +56,7 @@ failures or FR24 use. HEAD access alone does not establish complete data validit
 | 2018 | 4 | 7,206,193 | 2,388,143 | 3,177 | 3,027 | 99.9624% |
 | 2019 | 4 | 7,422,037 | 2,380,567 | 3,182 | 3,025 | 99.9672% |
 | 2020 | 4 | 4,688,354 | 1,474,864 | 3,059 | 2,914 | 99.9666% |
+| 2022 | 4 | 6,729,125 | 2,171,867 | 3,169 | 3,019 | 99.9687% |
 <!-- YEAR_PROGRESS_END -->
 
 The coordinator alone downloads in bounded pairs and verifies caches, request
