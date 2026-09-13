@@ -223,3 +223,8 @@ hashes. It caught a prematurely checked publication item; that item was separate
 and left pending until the push succeeds. No remaining numerical, interpretation,
 code/spec or local-link findings. Public staged inspection verifies all eight
 output hashes and excludes raw inputs, credentials and retained backup directories.
+
+Publication succeeded: `8a036a8` and all preceding annual milestones pushed to
+`origin/codex/stage-6-2010-panel`. The publication checklist is now complete.
+Only source, tests, documentation, manifests and compact aggregates are published;
+raw inputs, the pinned environment and one previous derived-set backup stay ignored.

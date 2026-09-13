@@ -144,9 +144,10 @@ The Stage 5 branch is published through `2968268`. Stage 6 uses the separate
 milestone `4ae39ec`, including the plan and provenance fixes. Final independent
 code/report review found no remaining material issues. Raw inputs and the pinned
 environment remain ignored; no tracked user changes were left outside the work.
-The annual 2010 work uses `codex/stage-6-2010-panel`. Plan, acquisition and
-implementation milestones are committed locally; final results/publication checks
-are being completed. See Git remote state for the final publication result.
+The annual 2010 work is published on `codex/stage-6-2010-panel`. Noninteractive
+push succeeded for result milestone `8a036a8`, including the declared plan,
+acquisition and reviewed implementation. Independent final artifact review
+reconciled all counts and hashes. No unresolved code or scientific-report findings.
 
 ## Relevant commits
 - `bcb1b47` — Stage 0 research specification.
@@ -165,6 +166,7 @@ are being completed. See Git remote state for the final publication result.
 - `af1544c` — declared full-year 2010 sampling and linkage rules.
 - `6a64b7c` — verified acquisition of twenty full-year source archives.
 - `96e0c31` — tested annual pipeline, parser fix and safe output publication.
+- `8a036a8` — verified 2010 outputs, coverage report and reproduction evidence.
 
 ## Intentionally uncommitted local files
 - The review began with a clean working tree; `.env.example` is tracked and has

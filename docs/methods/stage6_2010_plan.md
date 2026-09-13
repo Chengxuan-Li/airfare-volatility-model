@@ -122,7 +122,7 @@ CLI:
   material findings with regressions; record negative results and all deviations.
 - [x] Write the 2010 coverage report and next-batch instructions, update state,
   index and execution ledger, and inspect staged public content.
-- [ ] Commit and push the verified annual results and record publication.
+- [x] Commit and push the verified annual results and record publication.
 
 Completion is the verified 2010 panel and report. Full 2011-2025 Q2 acquisition,
 cross-year carrier histories, capacity, risk calibration and model estimation
@@ -139,3 +139,4 @@ Final evidence: [2010 report](../findings/stage6_2010_report.md) and
 [verification record](../../outputs/stage6/annual_2010/verification.json): twenty
 verified inputs, two successful raw builds, eight identical derived files, 100
 passing tests. All implementation tasks are complete; next-year work is distinct.
+Result milestone `8a036a8` was successfully pushed to `codex/stage-6-2010-panel`.
