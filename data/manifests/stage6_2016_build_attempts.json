@@ -1,0 +1,19 @@
+{
+  "year": 2016,
+  "attempts": [
+    {
+      "started_at_utc": "20260913T063412734557Z",
+      "implementation_commit": "8a79519453b32e24666ac8e805b14d6599d94998",
+      "comparison_pass": 1,
+      "status": "success",
+      "exit_code": 0
+    },
+    {
+      "started_at_utc": "20260913T063605896964Z",
+      "implementation_commit": "8a79519453b32e24666ac8e805b14d6599d94998",
+      "comparison_pass": 2,
+      "status": "success",
+      "exit_code": 0
+    }
+  ]
+}

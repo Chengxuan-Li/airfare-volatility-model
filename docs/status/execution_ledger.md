@@ -384,7 +384,31 @@ verification records and build-attempt ledgers preserve input/baseline/source ha
 and any preceding failed attempts. Report progress table reconciles against those
 verified artifacts. Publication follows staged inspection.
 
+The first 2017 attempt stopped in May on two rows sharing the complete declared
+flight key: 2017-05-21, DOT carrier 20436, flight 170, DEN-PHL, scheduled 1855.
+Complete-row inspection shows different tail/departure/ground-return metadata,
+but every field consumed by this operations pipeline agrees, including cancelled=1,
+diverted=0 and missing arrival delay. They are not identical full source rows.
+The failed attempt remains in its build ledger. The other coordinator queue was
+stopped while waiting for 2018 (no active raw child) so the rule can be reviewed
+before further builds; acquisition continues unchanged.
+
+Ruling: coalesce a repeated complete flight key only when all consumed identity
+and outcome fields agree exactly, including equal missingness. Count that declared
+scheduled-flight unit once and audit raw rows, retained rows and removed repeated
+rows nationally and in scope. Keep raw bytes and distinct unconsumed metadata;
+this rule does not resolve aircraft or gate-departure variants for future models.
+Conflicting consumed fields still fail. Missing-schedule core collisions still fail
+and are never coalesced. Check both within-chunk and cross-chunk repeats, preserving
+the existing full-key definition rather than selecting a preferred outcome row.
+
 Verified year milestone: 2014, 2015. Each year reproduces all
+eleven derived files byte-for-byte from its full declared raw input set. Per-year
+verification records and build-attempt ledgers preserve input/baseline/source hashes
+and any preceding failed attempts. Report progress table reconciles against those
+verified artifacts. Publication follows staged inspection.
+
+Verified year milestone: 2016. Each year reproduces all
 eleven derived files byte-for-byte from its full declared raw input set. Per-year
 verification records and build-attempt ledgers preserve input/baseline/source hashes
 and any preceding failed attempts. Report progress table reconciles against those
