@@ -1,6 +1,10 @@
 # Project state
 
 ## Current stage
+The 2011 extension is authorized and starting on `codex/stage-6-2011-panel`;
+see [plan](methods/stage6_2011_plan.md). It reuses the frozen 2010 airport IDs,
+adds explicit cross-year coverage diagnostics, and estimates no new models.
+
 The full-year 2010 panel is complete on `codex/stage-6-2010-panel`; see the
 [report](findings/stage6_2010_report.md) and [plan](methods/stage6_2010_plan.md).
 Thirty airports selected by baseline passenger volume; stable-ID route-quarter
@@ -36,7 +40,7 @@ Stage 0-4 results remain preserved. Original
 quote-time H1/H2 and flexibility premiums remain unidentifiable from these sources.
 
 ## Last updated
-2026-09-12
+2026-09-13
 
 ## Completed
 - Stage 0 charter, original hypotheses, aggregate redesign, and falsification rules.

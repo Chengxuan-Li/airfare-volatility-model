@@ -9,6 +9,7 @@ hypotheses remain unidentifiable from the quarterly sources. Recommendation C.
 - [Proposed next research direction and unused DOT history](methods/next_research_direction.md)
 - [Authorized Stage 6 execution plan](methods/stage6_execution_plan.md)
 - [Full-year 2010 panel execution plan](methods/stage6_2010_plan.md)
+- [Frozen-sample 2011 execution plan](methods/stage6_2011_plan.md)
 - [Full-year 2010 coverage, methods and reproduction report](findings/stage6_2010_report.md)
 - [2010 panel outputs](../outputs/stage6/annual_2010/) and [verification](../outputs/stage6/annual_2010/verification.json)
 - [2010 additional source access](../data/manifests/stage6_2010_access_inventory.json) and [acquisition ledger](../data/manifests/stage6_2010_acquisition_20260913T011738492971Z.json)

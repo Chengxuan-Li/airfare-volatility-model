@@ -1,0 +1,10 @@
+{
+  "baseline_year": 2010,
+  "baseline_directory": "outputs/stage6/annual_2010",
+  "verification_sha256": "fac12655ac8a908d9f83b411ce0dd31b980ec5955ca02727853caf92c5ee766a",
+  "ranking_sha256": "2f4d1a10b32816a1ae17cdd27e23d0df81f26d6521ec5b4d6e840669e7e87cdf",
+  "selection_rule": "2010 Q1 passenger-volume top 30 plus original seven; no reranking in later years",
+  "expected_selected_airports": 30,
+  "published_result_commit": "8a036a8",
+  "frozen_at_date": "2026-09-13"
+}
