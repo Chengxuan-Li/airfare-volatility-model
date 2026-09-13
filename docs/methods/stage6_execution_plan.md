@@ -33,19 +33,19 @@ acquisition, integration and commits. Work in the clean current checkout on
 Files: `src/acquisition/download.py`, `tests/test_download.py`.
 Keep `fetch(url, target, manifest_path, *, source='BTS', params=None)` compatible.
 
-- [ ] Add regression cases with temporary real files and an external-transfer fake:
+- [x] Add regression cases with temporary real files and an external-transfer fake:
   changed valid payload plus existing manifest must raise and preserve manifest
   bytes; matching payload must preserve original retrieval metadata; changed
   request identity must reject even if target is missing. Legacy DB1B manifests
   encode year/quarter at top level and must remain usable.
-- [ ] Run the new tests against the old implementation and record intended failures.
-- [ ] Before promoting `.part`, validate format, checksum and request identity
+- [x] Run the new tests against the old implementation and record intended failures.
+- [x] Before promoting `.part`, validate format, checksum and request identity
   against any existing manifest. On mismatch preserve original manifest and leave
   the candidate quarantined as `.part`. Never overwrite an existing valid target.
-- [ ] Verify cache hits and T100's prevalidated local POST registration still work.
+- [x] Verify cache hits and T100's prevalidated local POST registration still work.
   A source revision requires a new explicitly versioned target/manifest; no silent
   refresh flag is introduced in this milestone.
-- [ ] Run `python -m pytest tests/test_download.py tests/test_pipeline.py -q`.
+- [x] Run `python -m pytest tests/test_download.py tests/test_pipeline.py -q`.
 
 ## Task 2 — Verify only the original pipeline's actual inputs
 
@@ -54,11 +54,11 @@ Introduce `verify_pilot_inputs()` with explicit 16 fare, seven weather, registry
 and delay-archive identities. Verify expected paths and hashes rather than trusting
 arbitrary manifest paths. Keep full and analysis-only modes' raw-check requirement.
 
-- [ ] Fixture a complete small original input set plus an unrelated missing Stage 5
+- [x] Fixture a complete small original input set plus an unrelated missing Stage 5
   manifest; original verification must pass. Deleting a required manifest/input,
   changing its path or content must fail before analysis.
-- [ ] Run failing tests, implement the verifier, replace the directory-wide loop.
-- [ ] Run the full suite and inspect unchanged historical outputs. Commit Tasks 1-2
+- [x] Run failing tests, implement the verifier, replace the directory-wide loop.
+- [x] Run the full suite and inspect unchanged historical outputs. Commit Tasks 1-2
   as the first code milestone after an independent review.
 
 ## Task 3 — Inventory historical availability before bulk acquisition

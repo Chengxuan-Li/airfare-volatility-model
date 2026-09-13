@@ -5,10 +5,10 @@ import json
 import pandas as pd
 
 from src.acquisition.batch import acquire_bts, acquire_delay, acquire_weather
-from src.acquisition.download import digest
+from src.acquisition.verify import verify_pilot_inputs
 from src.analysis.pilot import analyze
 from src.cleaning.panel import build_cells
-from src.config import PERIODS, TABLES, MANIFESTS
+from src.config import PERIODS, TABLES
 from src.weather.panel import attach_weather, build_weather_panel
 
 
@@ -23,11 +23,7 @@ def main():
                 acquire_bts((table, year, quarter))
         acquire_weather()
         acquire_delay()
-    for manifest in MANIFESTS.glob('*.json'):
-        record = json.loads(manifest.read_text(encoding='utf-8'))
-        if 'local_path' in record and 'sha256' in record:
-            if digest(record['local_path']) != record['sha256']:
-                raise ValueError(f'Raw input checksum mismatch: {manifest.name}')
+    verify_pilot_inputs()
     if not args.analysis_only:
         build_cells()
     # One canonical representation for both full and analysis-only execution.

@@ -22,6 +22,15 @@ def validate_zip(path):
                 for x in archive.infolist()]
 
 
+def _request_mismatch(record, url, params):
+    if record.get('url') != url:
+        return True
+    if 'query_parameters' in record:
+        return record['query_parameters'] != params
+    legacy_params = {key: record[key] for key in ('year', 'quarter') if key in record}
+    return bool(legacy_params) and legacy_params != params
+
+
 def fetch(url, target, manifest_path, *, source='BTS', params=None):
     target, manifest_path = Path(target), Path(manifest_path)
     target.parent.mkdir(parents=True, exist_ok=True)
@@ -32,7 +41,7 @@ def fetch(url, target, manifest_path, *, source='BTS', params=None):
         if previous and previous['sha256'] != checksum:
             raise ValueError(f'Cached checksum mismatch: {target.name}')
         if previous:
-            if previous.get('url') != url or ('query_parameters' in previous and previous['query_parameters'] != params):
+            if _request_mismatch(previous, url, params):
                 raise ValueError(f'Cached request identity mismatch: {target.name}')
             if target.suffix == '.zip':
                 validate_zip(target)
@@ -43,6 +52,8 @@ def fetch(url, target, manifest_path, *, source='BTS', params=None):
             print(f'Cache verified: {target.name}', flush=True)
             return target
     else:
+        if previous and _request_mismatch(previous, url, params):
+            raise ValueError(f'Download request identity mismatch: {target.name}')
         partial = target.with_suffix(target.suffix + '.part')
         curl = shutil.which('curl.exe') or shutil.which('curl')
         if curl is None:
@@ -57,8 +68,15 @@ def fetch(url, target, manifest_path, *, source='BTS', params=None):
             payload = json.loads(partial.read_text(encoding='utf-8'))
             if isinstance(payload, dict) and payload.get('error'):
                 raise ValueError(f'Source error: {payload.get("reason")}')
+        checksum = digest(partial)
+        if previous and previous['sha256'] != checksum:
+            raise ValueError(f'Downloaded checksum mismatch: {target.name}')
+        if previous and _request_mismatch(previous, url, params):
+            raise ValueError(f'Downloaded request identity mismatch: {target.name}')
         partial.rename(target)
-        checksum = digest(target)
+        if previous:
+            print(f'Reacquisition verified: {target.name}', flush=True)
+            return target
     record = {'source': source, 'url': url, 'query_parameters': params,
               'retrieved_at_utc': datetime.fromtimestamp(target.stat().st_mtime, timezone.utc).isoformat(),
               'local_path': target.as_posix(), 'bytes': target.stat().st_size,

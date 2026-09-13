@@ -8,6 +8,10 @@ tests, compact outputs, and handoff consistency. Separate bounded reviewers
 checked standards/code and specification/methodology. This was a review, not an
 implementation pass; the two code findings below remain open.
 
+Subsequent Stage 6 update: both P1 code defects below have now been fixed with
+regression tests. See [current project state](../project_state.md) and the execution
+ledger. The findings below preserve the reviewed commit's behavior.
+
 ## Standards
 
 ### P1 — Stage 0-4 reproduction checks unrelated Stage 5 inputs

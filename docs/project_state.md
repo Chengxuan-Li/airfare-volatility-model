@@ -5,6 +5,8 @@ Stage 6 historical/operations work is authorized and starting on
 `codex/stage-6-operations`; see [execution plan](methods/stage6_execution_plan.md).
 First milestone: provenance fixes, historical access inventory and a two-month
 flight-operations bootstrap. The full 2010-2025 Q2 expansion is not yet complete.
+The two acquisition/reproduction fixes now pass 34 relevant tests in a newly
+installed pinned environment. Live historical HEAD inventory is in progress.
 
 Stage 5 assessment is complete on `codex/stage-5-robustness`; the repository review
 found two open acquisition/reproduction defects. The earlier execution recorded
@@ -36,8 +38,10 @@ quote-time H1/H2 and flexibility premiums remain unidentifiable from these sourc
 The prior pass's identification-argument stopping criterion remains met; it did not
 exhaust DOT data. The user authorized the broader historical and operations-data
 direction on 2026-09-12; execution begins with the bounded Stage 6 plan.
-Two reproduction defects require follow-up; see
-[repository review](reviews/2026-09-12-repository-review.md).
+The two reproduction defects in the
+[repository review](reviews/2026-09-12-repository-review.md) are fixed with regression
+tests: original-stage verification is explicit, and reacquisition preserves
+recorded provenance or rejects changed content. Further bootstrap work is ongoing.
 The review also found two scope gaps between the broader identification note and
 the narrower executed plan: departure/supply-channel models and CR2/bootstrap
 inference need explicit deferred status or a separately declared follow-up.
@@ -76,10 +80,11 @@ coordinator controlled acquisition. No prospective collection was scheduled.
 ## Data status
 Raw sources are ignored under `data/raw/`; intermediate quarterly aggregates are
 ignored under `data/processed/`. Compact outputs and manifests are Git-controlled.
-The documented Stage 0-4 acquisition command downloads 25 inputs, but `src.run`
-currently checks all 39 manifests, including 14 Stage 5 inputs. Fix this verification
-scope before treating the README sequence as a working standalone reproduction.
-Acquisition also needs to reject changed downloads against existing manifests.
+The Stage 0-4 runner now checks its 25 required paths and checksums, regardless of
+other manifests. Reacquisition checks existing request identity before transfer
+and checksum before promotion. Changed candidates stay in `.part`; previous
+manifests are preserved. Original historical raw inputs have not all been rebuilt
+on this machine, so the fixes' test coverage is not a fresh full-pilot rebuild.
 See the review for reproductions and the Stage 5 guide for its separate workflow.
 
 ## Known limitations and open questions
@@ -88,8 +93,8 @@ retrospective ERA5 vintage; sparse joint support; few clusters; no external dema
 shifter or full capacity model. See report for competing explanations and all fits.
 
 ## Next actions
-1. Address the two P1 reproduction findings in the repository review, with focused
-   regression checks for a Stage 0-4-only input set and changed source payloads.
+1. Complete the Stage 6 historical inventory and operations bootstrap; the two P1
+   reproduction fixes now have passing regression checks.
 2. Reconcile the two P2 method-scope gaps. Read docs/findings/stage5_report.md and
    docs/methods/stage5_reproduction.md alongside the broader identification note.
 3. Future research needs an
@@ -121,7 +126,7 @@ check establishes publication, not write authentication on this machine.
 ## Intentionally uncommitted local files
 - The review began with a clean working tree; `.env.example` is tracked and has
   no uncommitted edit here. Earlier handoffs describe a different local state.
-- Raw inputs and `.venv` are absent here. Tests used the available Python 3.13.9
-  environment; its package versions differ from the recorded pins.
+- A local ignored `.venv` with the exact requirements pins has now been installed
+  on Python 3.13.9. Earlier review tests used the available system environment.
 - Credential files remain ignored; no credentials were read. Review calculations
   used temporary storage and left the tracked research outputs unchanged.

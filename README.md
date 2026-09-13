@@ -48,6 +48,12 @@ float parsing. Raw inputs are ignored; acquisition manifests and compact outputs
 are tracked. A source revision or unavailable endpoint may require reacquisition
 review; manifests protect the exact local data used here.
 
+The original runner verifies its own 25 required inputs, so Stage 5/6 manifests
+do not require downloading unrelated raw files. Reacquisition must match an
+existing manifest's request and checksum; a changed response stays in `.part`
+and raises an error. Preserve that evidence and the original manifest for source
+revision review. A matching reacquisition preserves the original provenance.
+
 ## Contents and interpretation
 
 - [Documentation index](docs/INDEX.md), [agent rules](AGENTS.md), and

@@ -77,3 +77,18 @@ call/credit. Git fetch succeeded; noninteractive push of codex/stage-5-robustnes
 failed exit 128 because GitHub username credentials are unavailable. No dialog.
 Research, outputs, structure and final verification are committed locally; the
 pre-existing user .env.example edit remains deliberately outside research commits.
+
+# Stage 6 execution start — 2026-09-12
+
+User authorized the committed next direction and instructed execution. Branch
+`codex/stage-6-operations`; execution plan commit `6461da8`. A clean local checkout
+is used, and a new ignored `.venv` installs all pinned requirements on Python
+3.13.9. No paid service or FR24 request/credit.
+
+The original-stage runner regression reproduced failure on an unrelated missing
+T100 archive before the fix. Seven input-verification tests now pass. Download
+regressions reproduced silent provenance replacement; six tests now cover changed
+and matching reacquisition, request identity, legacy records and local POST
+registration. Thirty-four relevant original/fix tests pass in the pinned
+environment; its intentional redundant-dummy reference emits one known warning.
+Historical outputs remain untouched. Full original raw rebuild is not claimed.
