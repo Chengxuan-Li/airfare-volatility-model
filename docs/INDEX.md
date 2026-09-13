@@ -10,6 +10,7 @@ hypotheses remain unidentifiable from the quarterly sources. Recommendation C.
 - [Authorized Stage 6 execution plan](methods/stage6_execution_plan.md)
 - [Full-year 2010 panel execution plan](methods/stage6_2010_plan.md)
 - [Frozen-sample 2011 execution plan](methods/stage6_2011_plan.md)
+- [Continuous full-history execution plan](methods/stage6_full_history_plan.md)
 - [2011 coverage, continuity and reproduction report](findings/stage6_2011_report.md)
 - [2011 panel outputs](../outputs/stage6/annual_2011/) and [verification](../outputs/stage6/annual_2011/verification.json)
 - [Frozen 2010 sample manifest](../data/manifests/stage6_frozen_sample_2010.json)
