@@ -274,6 +274,7 @@ def test_repeat_audit_counts_rows_groups_and_scoped_denominators_once(
     assert audit['repeated_key_rows_removed_national'] == 3
     assert audit['repeated_key_rows_removed_selected'] == 2
     assert audit['repeated_key_groups_national'] == 2
+    assert audit['repeated_key_groups_selected'] == 1
 
 
 def test_equivalent_repeat_results_and_audit_are_chunksize_invariant(tmp_path):
@@ -305,3 +306,136 @@ def test_equivalent_complete_repeat_never_resolves_missing_schedule_core_collisi
 
     with pytest.raises(ValueError, match='incomplete.*collision'):
         read_operations(path, 2024, 1, chunksize=chunksize)
+
+
+def _ambiguous_rows():
+    selected = flight_rows().iloc[[0]].copy()
+    selected_conflict = selected.copy()
+    selected_conflict['ArrDelay'] = -12.0
+    selected_repeat = selected.copy()
+    outside = selected.copy()
+    outside[['Origin', 'Dest']] = ['DEN', 'XNA']
+    outside[['OriginAirportID', 'DestAirportID']] = [11292, 15919]
+    outside['Flight_Number_Reporting_Airline'] = 3624
+    outside['CRSDepTime'] = 2007
+    outside_conflict = outside.copy()
+    outside_conflict['ArrDelay'] = np.nan
+    retained = selected.copy()
+    retained['Flight_Number_Reporting_Airline'] = 99
+    missing_schedule = selected.copy()
+    missing_schedule['Flight_Number_Reporting_Airline'] = 100
+    missing_schedule['CRSDepTime'] = np.nan
+    return pd.concat([
+        selected, selected_conflict, selected_repeat,
+        outside, outside_conflict, retained, missing_schedule,
+    ], ignore_index=True)
+
+
+@pytest.mark.parametrize('reverse', [False, True])
+@pytest.mark.parametrize('chunksize', [1, 3, 20])
+def test_quarantine_excludes_all_ambiguous_copies_with_deterministic_audit(
+        tmp_path, reverse, chunksize):
+    from src.stage6.operations import read_operations
+    rows = _ambiguous_rows()
+    if reverse:
+        rows = rows.iloc[::-1].reset_index(drop=True)
+    path = tmp_path/f'quarantine-{reverse}-{chunksize}.zip'
+    _write_operations_zip(path, rows)
+
+    scoped, national, audit = read_operations(
+        path, 2024, 1, airports=['ORD', 'LAX'], chunksize=chunksize,
+        conflict_policy='quarantine')
+
+    assert scoped.flights.sum() == 2
+    assert national.flights.sum() == 2
+    assert audit['raw_rows'] == 7
+    assert audit['retained_rows'] == 2
+    assert audit['selected_rows'] == 2
+    assert audit['ambiguous_key_rows_excluded_national'] == 5
+    assert audit['ambiguous_key_rows_excluded_selected'] == 3
+    assert audit['ambiguous_key_groups_national'] == 2
+    assert audit['ambiguous_key_groups_selected'] == 1
+    assert 'repeated_key_rows_removed_national' not in audit
+    assert audit['missing_scheduled_departure_national'] == 1
+    assert audit['missing_scheduled_departure_selected'] == 1
+    assert 'retained reported analysis units' in audit['ambiguity_policy']
+    groups = audit['ambiguous_complete_key_groups']
+    assert len(groups) == 2
+    assert [group['rows'] for group in groups] == [3, 2]
+    assert [group['consumed_variant_count'] for group in groups] == [2, 2]
+    selected_group = next(group for group in groups
+                          if group['key']['Flight_Number_Reporting_Airline'] == 1)
+    assert [variant['rows'] for variant in selected_group['consumed_variants']] == [1, 2]
+    assert {variant['values']['ArrDelay']
+            for variant in selected_group['consumed_variants']} == {-12.0, -5.0}
+    outside_group = next(group for group in groups
+                         if group['key']['Flight_Number_Reporting_Airline'] == 3624)
+    assert {variant['values']['ArrDelay']
+            for variant in outside_group['consumed_variants']} == {None, -5.0}
+
+
+def test_quarantine_audit_is_identical_across_row_and_chunk_order(tmp_path):
+    from src.stage6.operations import read_operations
+    rows = _ambiguous_rows()
+    paths = [tmp_path/'forward.zip', tmp_path/'reverse.zip']
+    _write_operations_zip(paths[0], rows)
+    _write_operations_zip(paths[1], rows.iloc[::-1])
+
+    forward = read_operations(
+        paths[0], 2024, 1, airports=['ORD', 'LAX'], chunksize=1,
+        conflict_policy='quarantine')[2]
+    reverse = read_operations(
+        paths[1], 2024, 1, airports=['ORD', 'LAX'], chunksize=20,
+        conflict_policy='quarantine')[2]
+
+    ignored = {'input_sha256', 'csv_member'}
+    assert {key: value for key, value in forward.items() if key not in ignored} == {
+        key: value for key, value in reverse.items() if key not in ignored}
+
+
+def test_quarantine_still_rejects_missing_schedule_core_collision(tmp_path):
+    from src.stage6.operations import read_operations
+    rows = flight_rows().iloc[[0, 0]].copy()
+    rows['CRSDepTime'] = [np.nan, 1100]
+    path = tmp_path/'missing-core-collision-quarantine.zip'
+    _write_operations_zip(path, rows)
+
+    with pytest.raises(ValueError, match='incomplete.*collision'):
+        read_operations(path, 2024, 1, chunksize=1,
+                        conflict_policy='quarantine')
+
+
+def test_quarantine_validates_invalid_outcome_before_excluding_conflict(tmp_path):
+    from src.stage6.operations import read_operations
+    rows = flight_rows().iloc[[0, 0]].copy().reset_index(drop=True)
+    rows['ArrDelay'] = [-5.0, 12.0]
+    rows.loc[1, 'Diverted'] = 2
+    path = tmp_path/'invalid-quarantined-row.zip'
+    _write_operations_zip(path, rows)
+
+    with pytest.raises(ValueError, match='flag'):
+        read_operations(path, 2024, 1, chunksize=1,
+                        conflict_policy='quarantine')
+
+
+def test_unknown_conflict_policy_fails_before_reading(tmp_path):
+    from src.stage6.operations import read_operations
+    with pytest.raises(ValueError, match='conflict_policy'):
+        read_operations(tmp_path/'missing.zip', 2024, 1,
+                        conflict_policy='choose_first')
+
+
+def test_quarantine_serialized_details_ignore_chunk_numeric_inference(tmp_path):
+    import json
+    import zipfile
+    from src.stage6.operations import read_operations
+    rows = _ambiguous_rows()
+    path = tmp_path/'integral-lexemes.zip'
+    csv = rows.to_csv(index=False).replace('.0,', ',').replace('.0\n', '\n')
+    with zipfile.ZipFile(path, 'w') as archive:
+        archive.writestr('fixture.csv', csv)
+    small = read_operations(path, 2024, 1, chunksize=1,
+                            conflict_policy='quarantine')[2]
+    large = read_operations(path, 2024, 1, chunksize=20,
+                            conflict_policy='quarantine')[2]
+    assert json.dumps(small, sort_keys=True) == json.dumps(large, sort_keys=True)

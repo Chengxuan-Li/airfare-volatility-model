@@ -421,3 +421,30 @@ national flights, 191,108 retained scoped flights and one removed repeat both
 nationally and in scope. Multiple chunk sizes produce identical results. The
 optimized exact-tuple implementation keeps all consumed fields without hash-only
 equality. Both raw-build queues resume from 2017/2018 after this code milestone.
+
+New strict failures: the resumed 2017 build stopped in July; 2018 stopped in June.
+Complete raw inspection found exactly two conflicting rows in each affected month:
+2017-07-05/DOT19930/flight608/SEA-LAS/2150 has ArrDelay159,Diverted0 versus
+ArrDelay missing,Diverted1 on different aircraft; 2018-06-21/DOT20452/flight3624/
+DEN-XNA/2007 has ArrDelay4 versus941, both noncancelled/nondiverted, on different
+aircraft. No preferred physical-flight history follows from the consumed key.
+Independent review approved whole-key quarantine with full-month preflight and
+second-pass aggregation. Every conflicting raw row is excluded and audited with
+exact consumed variants/counts; equivalent removals remain mutually exclusive.
+Incomplete-key collisions and invalid values still fail. The plan/report record
+the denominator and disruption-selection limitations; raw data are unchanged.
+
+Coordinator real-month quarantine verification on all thirty IDs: July 2017
+509,070 raw -> 509,068 retained national records; 196,589 retained scoped records;
+two ambiguous rows excluded nationally and in scope. June 2018: 626,217 raw ->
+626,215 retained; 205,076 scoped; two national and zero scoped ambiguous exclusions.
+A serialized-audit regression exposed integer/float CSV chunk inference changing
+JSON bytes; numeric canonicalization fixed it. Independent code review also added
+scoped equivalent-repeat group counts. Full suite passed 226 tests before final
+certification-detail refinements. Exact final test evidence follows the code review.
+
+Final code/spec re-review found no remaining material issues. All 232 offline
+tests pass (one known Stage 5 warning), including annual quarantine integration
+and certification proof-integrity regressions. The public final certification
+script validates source revisions, exact input classes, baseline artifacts and
+ambiguity details. Annual queues resume with this reviewed implementation.

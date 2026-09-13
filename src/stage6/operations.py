@@ -1,4 +1,5 @@
 """Flight-level realized outcomes with explicit eligibility and denominators."""
+import json
 import zipfile
 
 import numpy as np
@@ -26,6 +27,29 @@ def _exact_tuple(values):
     return tuple(_MISSING if pd.isna(value) else value for value in values)
 
 
+def _json_value(value):
+    if value is _MISSING or pd.isna(value):
+        return None
+    value = value.item() if isinstance(value, np.generic) else value
+    # Blank values can change a CSV chunk's integral columns to floating dtype.
+    return int(value) if isinstance(value, float) and value.is_integer() else value
+
+
+def _validate_consumed_values(frame, year, month, *, require_flights):
+    if frame[GROUPS + CORE_KEYS].isna().any().any():
+        raise ValueError('Missing operations identity')
+    dates = pd.to_datetime(frame.FlightDate, errors='raise')
+    if not (frame.Year.eq(year) & frame.Month.eq(month) & dates.dt.year.eq(year)
+            & dates.dt.month.eq(month)).all():
+        raise ValueError('Operations period mismatch')
+    if not frame[['Cancelled', 'Diverted']].isin([0, 1]).all().all():
+        raise ValueError('Invalid cancellation/diversion flag')
+    if np.isinf(frame.ArrDelay.to_numpy(dtype=float)).any():
+        raise ValueError('Infinite arrival delay')
+    if require_flights and not frame.Flights.eq(1).all():
+        raise ValueError('Expected one reported flight per source row')
+
+
 def outcome_rates(cells):
     result = cells.copy()
     result['cancellation_rate'] = result.cancelled / result.flights
@@ -42,16 +66,7 @@ def summarize_operations(frame, year, month):
     required = set(GROUPS + KEYS + ['Cancelled', 'Diverted', 'ArrDelay'])
     if required - set(df.columns):
         raise ValueError(f'Missing operations columns: {sorted(required - set(df.columns))}')
-    if df[GROUPS + CORE_KEYS].isna().any().any():
-        raise ValueError('Missing operations identity')
-    dates = pd.to_datetime(df.FlightDate, errors='raise')
-    if not (df.Year.eq(year) & df.Month.eq(month) & dates.dt.year.eq(year)
-            & dates.dt.month.eq(month)).all():
-        raise ValueError('Operations period mismatch')
-    if not df[['Cancelled', 'Diverted']].isin([0, 1]).all().all():
-        raise ValueError('Invalid cancellation/diversion flag')
-    if np.isinf(df.ArrDelay.to_numpy(dtype=float)).any():
-        raise ValueError('Infinite arrival delay')
+    _validate_consumed_values(df, year, month, require_flights=False)
     missing_schedule = df.CRSDepTime.isna()
     duplicates = int(df.loc[~missing_schedule].duplicated(KEYS, keep=False).sum())
     if duplicates:
@@ -78,17 +93,87 @@ def summarize_operations(frame, year, month):
     return outcome_rates(cells), audit
 
 
+def _quarantine_preflight(archive, member, required, year, month, chunksize):
+    """Validate a complete month and return its conflicting complete-key groups."""
+    consumed_positions = {column: position for position, column in enumerate(CONSUMED)}
+    key_positions = [consumed_positions[column] for column in KEYS]
+    core_positions = [consumed_positions[column] for column in CORE_KEYS]
+    signature_positions = [consumed_positions[column] for column in NON_KEY_CONSUMED]
+    variants_by_key = {}
+    seen_cores = set()
+    seen_missing_cores = set()
+    with archive.open(member) as stream:
+        for frame in pd.read_csv(stream, usecols=required, chunksize=chunksize):
+            _validate_consumed_values(frame, year, month, require_flights=True)
+            missing_schedule = frame.CRSDepTime.isna().to_numpy(copy=False)
+            for position, values in enumerate(
+                    frame[CONSUMED].itertuples(index=False, name=None)):
+                core = _exact_tuple(values[index] for index in core_positions)
+                if missing_schedule[position]:
+                    if core in seen_cores:
+                        raise ValueError('Operations incomplete key collision: 1')
+                    seen_missing_cores.add(core)
+                    seen_cores.add(core)
+                    continue
+                if core in seen_missing_cores:
+                    raise ValueError('Operations incomplete key collision: 1')
+                key = _exact_tuple(values[index] for index in key_positions)
+                signature = _exact_tuple(values[index]
+                                         for index in signature_positions)
+                counts = variants_by_key.setdefault(key, {})
+                counts[signature] = counts.get(signature, 0) + 1
+                seen_cores.add(core)
+
+    ambiguous = {
+        key: variants for key, variants in variants_by_key.items()
+        if len(variants) > 1
+    }
+    del variants_by_key, seen_cores, seen_missing_cores
+
+    details = []
+    for key, variants in ambiguous.items():
+        variant_rows = [
+            {
+                'values': {
+                    column: _json_value(value)
+                    for column, value in zip(NON_KEY_CONSUMED, signature)
+                },
+                'rows': count,
+            }
+            for signature, count in variants.items()
+        ]
+        variant_rows.sort(key=lambda item: json.dumps(
+            item['values'], sort_keys=True, separators=(',', ':')))
+        details.append({
+            'key': {
+                column: _json_value(value)
+                for column, value in zip(KEYS, key)
+            },
+            'rows': sum(variants.values()),
+            'consumed_variant_count': len(variants),
+            'consumed_variants': variant_rows,
+        })
+    details.sort(key=lambda item: json.dumps(
+        item['key'], sort_keys=True, separators=(',', ':')))
+    return set(ambiguous), details
+
+
 def read_operations(path, year, month, *, airports=AIRPORTS, airport_ids=None,
-                    chunksize=100000):
+                    chunksize=100000, conflict_policy='error'):
     """Validate all national rows and retain scoped route and national carrier totals."""
+    if conflict_policy not in {'error', 'quarantine'}:
+        raise ValueError("conflict_policy must be 'error' or 'quarantine'")
     required = CONSUMED
     selected_parts, national_parts = [], []
     seen_complete = {}
     repeated_keys = set()
+    repeated_keys_selected = set()
     seen_cores = set()
     seen_missing_cores = set()
     raw_rows = selected_rows = 0
     repeated_rows_national = repeated_rows_selected = 0
+    ambiguous_rows_national = ambiguous_rows_selected = 0
+    ambiguous_groups_selected = set()
     missing_schedule_national = missing_schedule_selected = 0
     national_groups = ['Year', 'Month', 'DOT_ID_Reporting_Airline', 'Reporting_Airline']
     selected_airport_ids = None if airport_ids is None else set(airport_ids)
@@ -106,6 +191,11 @@ def read_operations(path, year, month, *, airports=AIRPORTS, airport_ids=None,
             columns = pd.read_csv(stream, nrows=0).columns.tolist()
         if set(required) - set(columns):
             raise ValueError(f'Missing operations columns: {sorted(set(required) - set(columns))}')
+        if conflict_policy == 'quarantine':
+            ambiguous_keys, ambiguous_details = _quarantine_preflight(
+                archive, member, required, year, month, chunksize)
+        else:
+            ambiguous_keys, ambiguous_details = set(), []
         with archive.open(member) as stream:
             for frame in pd.read_csv(stream, usecols=required, chunksize=chunksize):
                 if not frame.Flights.eq(1).all():
@@ -133,6 +223,13 @@ def read_operations(path, year, month, *, airports=AIRPORTS, airport_ids=None,
                     if core in seen_missing_cores:
                         raise ValueError('Operations incomplete key collision: 1')
                     key = _exact_tuple(values[index] for index in key_positions)
+                    if key in ambiguous_keys:
+                        keep[position] = False
+                        ambiguous_rows_national += 1
+                        if selected_values[position]:
+                            ambiguous_rows_selected += 1
+                            ambiguous_groups_selected.add(key)
+                        continue
                     signature = _exact_tuple(values[index]
                                              for index in signature_positions)
                     previous = seen_complete.get(key)
@@ -144,6 +241,8 @@ def read_operations(path, year, month, *, airports=AIRPORTS, airport_ids=None,
                         repeated_keys.add(key)
                         repeated_rows_national += 1
                         repeated_rows_selected += int(selected_values[position])
+                        if selected_values[position]:
+                            repeated_keys_selected.add(key)
                     else:
                         seen_complete[key] = signature
                         seen_cores.add(core)
@@ -173,6 +272,8 @@ def read_operations(path, year, month, *, airports=AIRPORTS, airport_ids=None,
                 national_airport_ids.update(frame.DestAirportID.unique())
     if not raw_rows:
         raise ValueError('Operations archive contains no flight rows')
+    if not national_parts:
+        raise ValueError('Operations month has no retained reported analysis units')
     scoped = pd.concat(selected_parts, ignore_index=True).groupby(GROUPS, as_index=False)[COUNTS].sum()
     national = pd.concat(national_parts, ignore_index=True).groupby(national_groups, as_index=False)[COUNTS].sum()
     audit = {'year': year, 'month': month, 'input_sha256': digest(path),
@@ -186,15 +287,28 @@ def read_operations(path, year, month, *, airports=AIRPORTS, airport_ids=None,
         audit.pop('selected_airports')
         audit['selected_airport_ids'] = sorted(selected_airport_ids)
         audit['scope'] = 'both endpoint airport IDs in supplied stable-ID set; all reporting carriers'
+    if repeated_rows_national or ambiguous_rows_national:
+        audit['retained_rows'] = (
+            raw_rows - repeated_rows_national - ambiguous_rows_national)
     if repeated_rows_national:
-        audit['retained_rows'] = raw_rows - repeated_rows_national
         audit['repeated_key_rows_removed_national'] = repeated_rows_national
         audit['repeated_key_rows_removed_selected'] = repeated_rows_selected
         audit['repeated_key_groups_national'] = len(repeated_keys)
+        audit['repeated_key_groups_selected'] = len(repeated_keys_selected)
         audit['repeat_resolution_policy'] = (
             'Repeated complete flight keys are counted once only when every consumed '
             'identity and outcome field agrees, including missingness; this is '
             'measurement equivalence, not full source row identity.')
+    if ambiguous_rows_national:
+        audit['ambiguous_key_rows_excluded_national'] = ambiguous_rows_national
+        audit['ambiguous_key_rows_excluded_selected'] = ambiguous_rows_selected
+        audit['ambiguous_key_groups_national'] = len(ambiguous_keys)
+        audit['ambiguous_key_groups_selected'] = len(ambiguous_groups_selected)
+        audit['ambiguous_complete_key_groups'] = ambiguous_details
+        audit['ambiguity_policy'] = (
+            'All rows in a conflicting complete flight-key group are quarantined; '
+            'no outcome is selected or imputed. Counts are retained reported analysis '
+            'units, not a census of unique physical flights.')
     if missing_schedule_national:
         audit['missing_scheduled_departure_national'] = missing_schedule_national
         audit['missing_scheduled_departure_selected'] = missing_schedule_selected

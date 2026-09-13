@@ -36,7 +36,7 @@ The 2010/2011 panels were already published. Remaining year batches are in progr
 HEAD access does not establish schema or complete data validity.
 
 <!-- YEAR_PROGRESS_START -->
-| Verified year | Fare quarters | National reported flights | Scoped flights | Primary fare cells | Matched | Passenger-weight match |
+| Verified year | Fare quarters | Retained national records | Retained scoped records | Primary fare cells | Matched | Passenger-weight match |
 | --- | ---: | ---: | ---: | ---: | ---: | ---: |
 | 2010 | 4 | 6,450,117 | 2,100,986 | 3,191 | 2,904 | 99.8458% |
 | 2011 | 4 | 6,085,281 | 2,110,718 | 3,198 | 2,865 | 99.8203% |
@@ -70,11 +70,29 @@ flight key. Every identity and outcome field consumed here agrees, including a
 cancellation, no diversion and missing arrival delay. Tail/departure/ground-return
 metadata outside this analysis differ, so these are not identical full source
 rows. The reviewed rule counts a repeated complete key once only when all consumed
-fields agree, including missingness. Conflicting fields and ambiguous incomplete
-keys still fail. Raw rows, retained flights and removed repeats are audited
-separately; national flight totals above count retained scheduled-flight units.
+fields agree, including missingness. The default reader rejects conflicts; the
+annual workflow uses the quarantine rule below. Ambiguous incomplete keys still
+fail. Raw rows, retained records and removed repeats are audited
+separately; national totals above count retained reported analysis units.
 The original raw variants remain available for any future aircraft or departure
 analysis, which would need its own resolution rule.
+
+Later 2017/2018 builds stopped on conflicting outcomes for complete keys. July
+2017 has a SEA-LAS scheduled flight with both a delayed-arrival record and a
+return/diversion record on different aircraft. June 2018 has a DEN-XNA scheduled
+flight with two aircraft and arrival delays of 4 versus 941 minutes. The key alone
+cannot establish which physical-flight history should be the analysis unit.
+
+After independent policy review, the annual workflow quarantines every row for a
+conflicting complete key. A full-month preflight validates all rows and classifies
+exact consumed variants; a second pass aggregates only unambiguous retained rows.
+The audit reports excluded groups/rows nationally and in scope and preserves each
+consumed variant and its count. Equivalent repeats within a conflicting group are
+all quarantined, never also counted as equivalent removals. Raw equals retained
+plus equivalent removals plus ambiguity exclusions. Invalid source values and
+incomplete-key collisions still fail. Raw bytes and all failed attempts remain.
+These small exclusions may depend on disruptions; retained outcome rates are
+conditional on unambiguous records and do not resolve every irregular operation.
 
 ## Reproduction contract
 
@@ -91,6 +109,12 @@ From the repository root with the pinned environment:
 .\.venv\Scripts\python.exe -m src.stage6.annual --year 2025
 .\.venv\Scripts\python.exe -m pytest -q
 ```
+
+After all annual proof files are available, run
+`python -m scripts.verify_stage6_history --tests-passed COUNT`, replacing COUNT
+with the freshly observed full offline test count. This public certification
+recipe verifies raw archives, historical source commits, frozen artifacts and
+the two summary builds.
 
 Use each declared year in the annual command. `--year 2025` automatically requests
 only Q1-Q2/January-June, not a full year. The published frozen 2010 artifacts and

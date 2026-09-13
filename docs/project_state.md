@@ -11,6 +11,9 @@ Continuous completion of 2012-2025 Q2 is authorized and in progress on
 `codex/stage-6-full-history`; see the [plan](methods/stage6_full_history_plan.md).
 The user explicitly requested all remaining years without further commands.
 2025 is limited to Q1-Q2/January-June and must use matching baseline periods.
+The 2017/2018 source conflicts are resolved by explicit whole-key quarantine
+in the annual workflow; raw variants and failed attempts remain documented.
+The reviewed implementation and certification script pass 232 offline tests.
 
 The 2011 extension is complete and published on `codex/stage-6-2011-panel`;
 see [report](findings/stage6_2011_report.md) and [plan](methods/stage6_2011_plan.md).

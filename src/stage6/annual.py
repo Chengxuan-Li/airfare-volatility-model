@@ -231,7 +231,8 @@ def main(argv=None):
     for month in periods.months:
         record = next(r for r in records if r.get('month') == month)
         cells, national, audit = read_operations(record['target'], year, month,
-                                                 airport_ids=airport_ids)
+                                                 airport_ids=airport_ids,
+                                                 conflict_policy='quarantine')
         monthly_parts.append(cells)
         national_parts.append(national)
         operation_audits.append(audit)
@@ -239,7 +240,8 @@ def main(argv=None):
             aliases = cells[[endpoint+'AirportID', endpoint]].drop_duplicates().rename(
                 columns={endpoint+'AirportID': 'AirportID', endpoint: 'code'})
             alias_parts.append(aliases.assign(source='BTS on-time', Year=year, period=month))
-        print(f'Operations {year}-{month:02d}: {audit["raw_rows"]:,} national flights', flush=True)
+        retained = audit.get('retained_rows', audit['raw_rows'])
+        print(f'Operations {year}-{month:02d}: {retained:,} retained national records', flush=True)
     validate_months(operation_audits, year=year)
     fares = pd.concat(fare_parts, ignore_index=True)
     monthly = pd.concat(monthly_parts, ignore_index=True)

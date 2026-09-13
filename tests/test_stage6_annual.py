@@ -181,7 +181,8 @@ def test_2025_runner_processes_only_declared_periods_and_records_partial_audit(t
     monkeypatch.setattr(annual_fares, 'process_fares', process_fares)
     processed_months = []
 
-    def read_operations(path, year, month, *, airport_ids):
+    def read_operations(path, year, month, *, airport_ids, conflict_policy):
+        assert conflict_policy == 'quarantine'
         processed_months.append(month)
         cells = pd.DataFrame({
             'Year': [year], 'Month': [month], 'OriginAirportID': [10],
@@ -351,7 +352,9 @@ def test_publish_replaces_exact_set_and_retains_previous_directory(tmp_path):
     assert (backup/'stale.json').read_bytes() == b'previous evidence'
 
 
-def test_full_annual_runner_joins_twenty_real_fixture_archives(tmp_path, monkeypatch):
+@pytest.mark.parametrize('ambiguous_january', [False, True])
+def test_full_annual_runner_joins_twenty_real_fixture_archives(
+        tmp_path, monkeypatch, ambiguous_january):
     codes = ['ORD', 'DEN', 'DFW', 'ATL', 'LAX', 'JFK', 'SEA']
     records = annual.input_records()
     for record in records:
@@ -376,6 +379,8 @@ def test_full_annual_runner_joins_twenty_real_fixture_archives(tmp_path, monkeyp
             else:
                 rows.append({'Year': 2010, 'Quarter': record['quarter'],
                              'ItinID': i+1, 'DollarCred': 1})
+        if ambiguous_january and record['kind'] == 'operations' and record['month'] == 1:
+            rows.append({**rows[0], 'ArrDelay': 90})
         with zipfile.ZipFile(record['target'], 'w') as archive:
             archive.writestr('fixture.csv', pd.DataFrame(rows).to_csv(index=False))
         record['manifest'].write_text(json.dumps({'local_path': str(record['target']),
@@ -391,8 +396,11 @@ def test_full_annual_runner_joins_twenty_real_fixture_archives(tmp_path, monkeyp
     assert panel.coverage.eq('matched').all()
     assert panel.passengers.eq(10).all()
     assert panel.fare_mean.eq(100).all()
-    assert panel.flights.eq(3).all()
-    assert panel.months_observed.eq(3).all()
+    affected = panel.OriginAirportID.eq(100) & panel.Quarter.eq(1) & ambiguous_january
+    assert panel.loc[~affected].flights.eq(3).all()
+    assert panel.loc[affected].flights.eq(2).all()
+    assert panel.loc[~affected].months_observed.eq(3).all()
+    assert panel.loc[affected].months_observed.eq(2).all()
     assert panel.delay_15_rate.eq(1).all()
     assert panel.delay_60_rate.eq(0).all()
     audit = json.loads((output / 'quality_audit.json').read_text())
@@ -400,3 +408,9 @@ def test_full_annual_runner_joins_twenty_real_fixture_archives(tmp_path, monkeyp
     assert audit['source_months_complete'] is True
     assert len(audit['operations']) == 12
     assert len(audit['fares']) == 4
+    if ambiguous_january:
+        january = audit['operations'][0]
+        assert january['raw_rows'] == 8
+        assert january['retained_rows'] == 6
+        assert january['ambiguous_key_rows_excluded_national'] == 2
+        assert january['ambiguous_key_rows_excluded_selected'] == 2

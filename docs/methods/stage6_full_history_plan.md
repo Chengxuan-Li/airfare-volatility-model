@@ -79,3 +79,21 @@ Files: `src/stage6/history.py`, `tests/test_stage6_history.py`.
 Completion means the entire declared descriptive data horizon is built and audited.
 Capacity expansion, quote/forecast-vintage data and new econometric models remain
 separate research work; no stage-completion claim should imply those ran.
+
+## Source ambiguity ruling during execution
+
+Actual July 2017 and June 2018 records show that a complete scheduled-flight key
+can have conflicting consumed outcomes and different aircraft metadata. Preserve
+both failed builds. The annual workflow uses a full-month preflight to quarantine
+every source row for a conflicting complete key, followed by aggregation of the
+unambiguous retained records. Never select a preferred outcome or count a conflict
+as cancellation/absence. Equivalent repeats of an otherwise unambiguous key count
+once; repeated copies inside a conflicting group all belong to quarantine.
+
+Audit national/scoped excluded rows and groups, exact consumed variants and their
+counts, equivalent removals and retained totals. Reconcile raw = retained +
+equivalent removals + ambiguity exclusions. Keep raw inputs unchanged and report
+these as retained reported analysis units, not a census of physical flights.
+Ambiguity exclusions can depend on disruption and limit outcome representativeness.
+Incomplete-key collisions and invalid source values still fail. The strict reader
+default remains available; only the declared annual workflow opts into quarantine.
