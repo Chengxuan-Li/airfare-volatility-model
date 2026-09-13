@@ -296,3 +296,13 @@ reran the full suite: 118 passed, one documented warning. Staged inspection veri
 all eleven derived hashes, ten baseline artifact hashes and nine source hashes;
 local Markdown links resolve. Only compact text outputs and documentation are
 staged; the largest new aggregate is 5,460,764 bytes. Publication is still pending.
+
+Publication succeeded: `804a3b7` and all preceding milestones pushed to
+`origin/codex/stage-6-2011-panel`. The publication checklist is now complete.
+During final review a worker inadvertently redirected the committed annual runner
+to an untracked `CON` file using PowerShell `Set-Content -NoNewline`, violating the
+read-only review scope. The worker identified the exact command and source-only
+contents. The coordinator verified its workspace path and SHA-256
+`e7cd6b3458e3e6fe92b87aa3e09ee064f6d77a9cd318e7380ba464e0465ab3fc`, then removed
+only that generated file. No raw data, credentials or user edits were affected.
+Use stdout for read-only inspection; do not redirect to reserved device names.

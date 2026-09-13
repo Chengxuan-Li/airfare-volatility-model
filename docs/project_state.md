@@ -1,13 +1,13 @@
 # Project state
 
 ## Current stage
-The 2011 extension is built and reproduced on `codex/stage-6-2011-panel`;
+The 2011 extension is complete and published on `codex/stage-6-2011-panel`;
 see [report](findings/stage6_2011_report.md) and [plan](methods/stage6_2011_plan.md).
 It reuses the frozen thirty 2010 airport IDs and adds cross-year coverage audits.
 All twenty 2011 inputs verify (805,060,530 bytes); no source failures or FR24 calls.
 Two raw builds reproduce eleven derived files byte-for-byte; 118 offline tests
 pass on the pinned environment. All fifty earlier output files remain unchanged.
-Final artifact review found no material issues; publication remains pending.
+Final artifact review found no material issues; result milestone `804a3b7` is published.
 No new models are estimated.
 
 2011 scans 22,999,175 Market rows, 13,343,503 Ticket rows and 6,085,281 national
@@ -71,8 +71,8 @@ quote-time H1/H2 and flexibility premiums remain unidentifiable from these sourc
 - Independent code/methodology and final report reviews completed; findings addressed.
 
 ## In progress
-The audited 2011 batch is reproduced and independently reviewed; publication is
-pending. The annual runner accepts only 2010 and 2011, retaining the 2010 default.
+The audited 2011 batch is reproduced, independently reviewed and published.
+The annual runner accepts only 2010 and 2011, retaining the 2010 default.
 The next data milestone is a declared 2012 batch; later-year acquisition remains
 outstanding.
 
@@ -166,6 +166,12 @@ The annual 2010 work is published on `codex/stage-6-2010-panel`. Noninteractive
 push succeeded for result milestone `8a036a8`, including the declared plan,
 acquisition and reviewed implementation. Independent final artifact review
 reconciled all counts and hashes. No unresolved code or scientific-report findings.
+The 2011 result milestone `804a3b7` and all preceding plan/acquisition/implementation
+commits are published on `origin/codex/stage-6-2011-panel`. Independent code and
+artifact reviews found no material issues. Raw data and previous output backups
+remain ignored. A review command accidentally wrote a flattened source copy to
+an untracked `CON` file; the coordinator verified its exact source-only hash and
+removed that generated artifact before final handoff. No user work was discarded.
 
 ## Relevant commits
 - `bcb1b47` — Stage 0 research specification.
@@ -188,6 +194,7 @@ reconciled all counts and hashes. No unresolved code or scientific-report findin
 - `7190f84` — declared 2011 scope and pinned the frozen 2010 sample.
 - `2129ae3` — verified twenty 2011 source archives and acquisition provenance.
 - `b085a1a` — reviewed frozen-year runner and source-separated continuity audits.
+- `804a3b7` — published reproduced 2011 panel, coverage report and verification.
 
 ## Intentionally uncommitted local files
 - The review began with a clean working tree; `.env.example` is tracked and has

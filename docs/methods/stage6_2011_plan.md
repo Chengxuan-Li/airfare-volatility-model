@@ -87,7 +87,7 @@ Commands:
 - [x] Final independent code/report review, full offline tests, source/output
   hashes and unchanged older outputs. Update report/index/state/ledger and inspect
   public staged contents.
-- [ ] Commit and push the verified 2011 milestone, then record publication.
+- [x] Commit and push the verified 2011 milestone, then record publication.
 
 Execution uses the current clean checkout on `codex/stage-6-2011-panel` with ignored
 caches retained. At most two bounded workers; coordinator integrates and owns Git.
