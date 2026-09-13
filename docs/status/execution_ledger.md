@@ -169,3 +169,24 @@ in memory. Fixes retain old bootstrap behavior, preserve operations-only cells i
 both declared fare samples, and aggregate baseline volumes by chunk. A complete
 20-archive fixture runs through verification, selection, fares, operations and
 linkage successfully. The real annual raw build is now in progress.
+
+The first real annual build selected 30 airports but stopped in pandas CSV parsing
+of 2010 Q1 Market before publishing outputs: `c_parser_wrapper._concatenate_chunks`
+raised `IndexError: list index out of range` while handling mixed inferred column
+types with a selected column subset. The reader now specifies text fields at read
+time; targeted mixed-code/leading-zero regressions and a raw-reader check are
+being completed before retry. Input CRC/checksums were unchanged.
+
+Independent runner review identified orphan-raw adoption and interrupted output
+replacement risks. The annual acquisition preflight now rejects existing raw
+without a manifest. A regression reproduced an unrelated valid ZIP being assigned
+new provenance before the fix. Complete output directories now publish through
+sibling renames, with rollback on failure and prior sets retained in ignored
+backup directories. Injected publication failure preserves all previous bytes.
+
+Parser diagnosis confirmed the numeric carrier token `16` in 57,963 Q1 Market
+rows, mixed with 35 alphanumeric tokens. Explicit string fields read all 4,906,864
+rows successfully and preserve the leading-zero fixture token `01`. The final
+implementation suite passes 100 tests (one existing Stage 5 reference warning);
+independent review accepts the annual provenance/publication fixes. The second
+real build attempt is running with the corrected parser.

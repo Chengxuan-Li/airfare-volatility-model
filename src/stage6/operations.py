@@ -64,14 +64,16 @@ def summarize_operations(frame, year, month):
     return outcome_rates(cells), audit
 
 
-def read_operations(path, year, month, *, airports=AIRPORTS, chunksize=100000):
+def read_operations(path, year, month, *, airports=AIRPORTS, airport_ids=None,
+                    chunksize=100000):
     """Validate all national rows and retain scoped route and national carrier totals."""
     required = sorted(set(GROUPS + KEYS + ['Cancelled', 'Diverted', 'ArrDelay', 'Flights']))
     selected_parts, national_parts = [], []
     seen = set()
     raw_rows = selected_rows = 0
     national_groups = ['Year', 'Month', 'DOT_ID_Reporting_Airline', 'Reporting_Airline']
-    airport_ids = set()
+    selected_airport_ids = None if airport_ids is None else set(airport_ids)
+    national_airport_ids = set()
     with zipfile.ZipFile(path) as archive:
         members = [n for n in archive.namelist() if n.lower().endswith('.csv')]
         if len(members) != 1:
@@ -93,13 +95,18 @@ def read_operations(path, year, month, *, airports=AIRPORTS, chunksize=100000):
                 seen.update(keys)
                 cells, _ = summarize_operations(frame, year, month)
                 national_parts.append(cells.groupby(national_groups, as_index=False)[COUNTS].sum())
-                selected = cells.loc[cells.Origin.isin(airports) & cells.Dest.isin(airports)
+                if selected_airport_ids is None:
+                    in_scope = cells.Origin.isin(airports) & cells.Dest.isin(airports)
+                else:
+                    in_scope = (cells.OriginAirportID.isin(selected_airport_ids)
+                                & cells.DestAirportID.isin(selected_airport_ids))
+                selected = cells.loc[in_scope
                                      & cells.OriginAirportID.ne(cells.DestAirportID)]
                 selected_parts.append(selected[GROUPS + COUNTS])
                 raw_rows += len(frame)
                 selected_rows += int(selected.flights.sum())
-                airport_ids.update(frame.OriginAirportID.unique())
-                airport_ids.update(frame.DestAirportID.unique())
+                national_airport_ids.update(frame.OriginAirportID.unique())
+                national_airport_ids.update(frame.DestAirportID.unique())
     if not raw_rows:
         raise ValueError('Operations archive contains no flight rows')
     scoped = pd.concat(selected_parts, ignore_index=True).groupby(GROUPS, as_index=False)[COUNTS].sum()
@@ -107,8 +114,12 @@ def read_operations(path, year, month, *, airports=AIRPORTS, chunksize=100000):
     audit = {'year': year, 'month': month, 'input_sha256': digest(path),
              'csv_member': member, 'columns': columns, 'raw_rows': raw_rows,
              'selected_rows': selected_rows, 'duplicate_rows': 0,
-             'national_airport_count': len(airport_ids),
+             'national_airport_count': len(national_airport_ids),
              'national_reporting_carriers': len(national), 'selected_airports': sorted(airports),
              'eligible_delay_missing_national': int(national.delay_missing_eligible.sum()),
              'scope': 'both endpoints in original seven-airport set; all reporting carriers'}
+    if selected_airport_ids is not None:
+        audit.pop('selected_airports')
+        audit['selected_airport_ids'] = sorted(selected_airport_ids)
+        audit['scope'] = 'both endpoint airport IDs in supplied stable-ID set; all reporting carriers'
     return outcome_rates(scoped), outcome_rates(national), audit

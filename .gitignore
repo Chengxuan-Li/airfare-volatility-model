@@ -15,3 +15,6 @@ __pycache__/
 data/raw/
 data/interim/
 data/processed/
+
+# Previous annual output sets retained for rollback/provenance, not publication.
+outputs/stage6/.*.backup-*/
