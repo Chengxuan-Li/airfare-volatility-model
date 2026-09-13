@@ -1,0 +1,170 @@
+{
+  "started_at_utc": "20260913T064255367178Z",
+  "advertised_total_bytes": 1122661254,
+  "advertised_missing_bytes": 1122661254,
+  "free_bytes_before": 113300537344,
+  "fr24_calls": 0,
+  "fr24_credits": 0,
+  "results": [
+    {
+      "url": "https://transtats.bts.gov/PREZIP/On_Time_Reporting_Carrier_On_Time_Performance_1987_present_2019_1.zip",
+      "local_path": "data/raw/bts_ontime/On_Time_Reporting_Carrier_On_Time_Performance_1987_present_2019_1.zip",
+      "cached_before": false,
+      "status": "downloaded",
+      "bytes": 29527308,
+      "sha256": "e0d43e9fca6a298a0f67886e15ad3c2a6641fd0e064e7c93a826e827190ace2d"
+    },
+    {
+      "url": "https://transtats.bts.gov/PREZIP/On_Time_Reporting_Carrier_On_Time_Performance_1987_present_2019_2.zip",
+      "local_path": "data/raw/bts_ontime/On_Time_Reporting_Carrier_On_Time_Performance_1987_present_2019_2.zip",
+      "cached_before": false,
+      "status": "downloaded",
+      "bytes": 27392090,
+      "sha256": "f875de8d70c18229d0e0d1b2e8d7da83b8cfdf4daa10772256e74586859f5003"
+    },
+    {
+      "url": "https://transtats.bts.gov/PREZIP/On_Time_Reporting_Carrier_On_Time_Performance_1987_present_2019_3.zip",
+      "local_path": "data/raw/bts_ontime/On_Time_Reporting_Carrier_On_Time_Performance_1987_present_2019_3.zip",
+      "cached_before": false,
+      "status": "downloaded",
+      "bytes": 31992570,
+      "sha256": "cacf26234b805c20aa6fe6195616b4e4cdc64d190b684474171b9b045b2e670c"
+    },
+    {
+      "url": "https://transtats.bts.gov/PREZIP/On_Time_Reporting_Carrier_On_Time_Performance_1987_present_2019_4.zip",
+      "local_path": "data/raw/bts_ontime/On_Time_Reporting_Carrier_On_Time_Performance_1987_present_2019_4.zip",
+      "cached_before": false,
+      "status": "downloaded",
+      "bytes": 31115601,
+      "sha256": "6da5230e97bfa1fff7526f7100d3075a0872766ddf117a096dc9d2d2b409ae3e"
+    },
+    {
+      "url": "https://transtats.bts.gov/PREZIP/On_Time_Reporting_Carrier_On_Time_Performance_1987_present_2019_5.zip",
+      "local_path": "data/raw/bts_ontime/On_Time_Reporting_Carrier_On_Time_Performance_1987_present_2019_5.zip",
+      "cached_before": false,
+      "status": "downloaded",
+      "bytes": 32950743,
+      "sha256": "31ba30855fa8e1633e4d2da04a506f7076276b8b684ef553f756a31297d5b15e"
+    },
+    {
+      "url": "https://transtats.bts.gov/PREZIP/On_Time_Reporting_Carrier_On_Time_Performance_1987_present_2019_6.zip",
+      "local_path": "data/raw/bts_ontime/On_Time_Reporting_Carrier_On_Time_Performance_1987_present_2019_6.zip",
+      "cached_before": false,
+      "status": "downloaded",
+      "bytes": 33597362,
+      "sha256": "22baf5bd22a7ecb94d853b4c99563ff076a9262d62c6f137124d1e056a17172d"
+    },
+    {
+      "url": "https://transtats.bts.gov/PREZIP/On_Time_Reporting_Carrier_On_Time_Performance_1987_present_2019_7.zip",
+      "local_path": "data/raw/bts_ontime/On_Time_Reporting_Carrier_On_Time_Performance_1987_present_2019_7.zip",
+      "cached_before": false,
+      "status": "downloaded",
+      "bytes": 34226844,
+      "sha256": "60cc698891cc7a074e226d0c2765fab7186884381ee5bb7f8fd120a14a7fcce4"
+    },
+    {
+      "url": "https://transtats.bts.gov/PREZIP/On_Time_Reporting_Carrier_On_Time_Performance_1987_present_2019_8.zip",
+      "local_path": "data/raw/bts_ontime/On_Time_Reporting_Carrier_On_Time_Performance_1987_present_2019_8.zip",
+      "cached_before": false,
+      "status": "downloaded",
+      "bytes": 34112844,
+      "sha256": "bfe19fa8fd705998288952234375401909c3a6f4b16aa71431940183120b0f50"
+    },
+    {
+      "url": "https://transtats.bts.gov/PREZIP/On_Time_Reporting_Carrier_On_Time_Performance_1987_present_2019_9.zip",
+      "local_path": "data/raw/bts_ontime/On_Time_Reporting_Carrier_On_Time_Performance_1987_present_2019_9.zip",
+      "cached_before": false,
+      "status": "downloaded",
+      "bytes": 30508709,
+      "sha256": "7673b6d53aa11ea08ae03a74e05c8453301c32d6ba77b62a4f3b93a0e28359fb"
+    },
+    {
+      "url": "https://transtats.bts.gov/PREZIP/On_Time_Reporting_Carrier_On_Time_Performance_1987_present_2019_10.zip",
+      "local_path": "data/raw/bts_ontime/On_Time_Reporting_Carrier_On_Time_Performance_1987_present_2019_10.zip",
+      "cached_before": false,
+      "status": "downloaded",
+      "bytes": 32419572,
+      "sha256": "6da37bf93019ac332754da90d440da2c9e8b2c20372eaf32db78bc736cab34ce"
+    },
+    {
+      "url": "https://transtats.bts.gov/PREZIP/On_Time_Reporting_Carrier_On_Time_Performance_1987_present_2019_11.zip",
+      "local_path": "data/raw/bts_ontime/On_Time_Reporting_Carrier_On_Time_Performance_1987_present_2019_11.zip",
+      "cached_before": false,
+      "status": "downloaded",
+      "bytes": 31005144,
+      "sha256": "6ec48d19a3d4813c96b4a96c0cdf9385ade530cc20b193b63ec607bb032de916"
+    },
+    {
+      "url": "https://transtats.bts.gov/PREZIP/On_Time_Reporting_Carrier_On_Time_Performance_1987_present_2019_12.zip",
+      "local_path": "data/raw/bts_ontime/On_Time_Reporting_Carrier_On_Time_Performance_1987_present_2019_12.zip",
+      "cached_before": false,
+      "status": "downloaded",
+      "bytes": 33113829,
+      "sha256": "e146e2068c0608622adb028a145efa8abc918c5b7b77a004dd438e9ba11e6a8b"
+    },
+    {
+      "url": "https://transtats.bts.gov/PREZIP/Origin_and_Destination_Survey_DB1BMarket_2019_1.zip",
+      "local_path": "data/raw/bts_db1b/Origin_and_Destination_Survey_DB1BMarket_2019_1.zip",
+      "cached_before": false,
+      "status": "downloaded",
+      "bytes": 89241935,
+      "sha256": "6aa2bccdaf5165a2762668a8cb41f560d84dde6c7c948a1c956d474fff08b9d5"
+    },
+    {
+      "url": "https://transtats.bts.gov/PREZIP/Origin_and_Destination_Survey_DB1BTicket_2019_1.zip",
+      "local_path": "data/raw/bts_db1b/Origin_and_Destination_Survey_DB1BTicket_2019_1.zip",
+      "cached_before": false,
+      "status": "downloaded",
+      "bytes": 79909297,
+      "sha256": "c08cce92ad0f26213939e0832f8c610679cfce0f7b4f6d7ce904720ad1d2d044"
+    },
+    {
+      "url": "https://transtats.bts.gov/PREZIP/Origin_and_Destination_Survey_DB1BMarket_2019_2.zip",
+      "local_path": "data/raw/bts_db1b/Origin_and_Destination_Survey_DB1BMarket_2019_2.zip",
+      "cached_before": false,
+      "status": "downloaded",
+      "bytes": 102407994,
+      "sha256": "43e21376ec44185d8c0f32f7dbe9486ec723aab8d18d8074598b1a681e714e48"
+    },
+    {
+      "url": "https://transtats.bts.gov/PREZIP/Origin_and_Destination_Survey_DB1BTicket_2019_2.zip",
+      "local_path": "data/raw/bts_db1b/Origin_and_Destination_Survey_DB1BTicket_2019_2.zip",
+      "cached_before": false,
+      "status": "downloaded",
+      "bytes": 91894803,
+      "sha256": "4d1b27d89d654093f66aa31e70158125a929f1b989ba966fc6386f9bd5085a93"
+    },
+    {
+      "url": "https://transtats.bts.gov/PREZIP/Origin_and_Destination_Survey_DB1BMarket_2019_3.zip",
+      "local_path": "data/raw/bts_db1b/Origin_and_Destination_Survey_DB1BMarket_2019_3.zip",
+      "cached_before": false,
+      "status": "downloaded",
+      "bytes": 98581898,
+      "sha256": "c7b7659710c9d90cc05d9bd067ab5d8373e28d9b1d479f2763b59ab6a9f4f94c"
+    },
+    {
+      "url": "https://transtats.bts.gov/PREZIP/Origin_and_Destination_Survey_DB1BTicket_2019_3.zip",
+      "local_path": "data/raw/bts_db1b/Origin_and_Destination_Survey_DB1BTicket_2019_3.zip",
+      "cached_before": false,
+      "status": "downloaded",
+      "bytes": 88153733,
+      "sha256": "1a2020ff1fc6c2b9b03f75e89a4636ad28e5a64b3542f731172b9bf1e2b64026"
+    },
+    {
+      "url": "https://transtats.bts.gov/PREZIP/Origin_and_Destination_Survey_DB1BMarket_2019_4.zip",
+      "local_path": "data/raw/bts_db1b/Origin_and_Destination_Survey_DB1BMarket_2019_4.zip",
+      "cached_before": false,
+      "status": "downloaded",
+      "bytes": 99975032,
+      "sha256": "4259c4643a46c50379feeba01c0cefc2e87cacc1ee989c13393735b7c7c996cc"
+    },
+    {
+      "url": "https://transtats.bts.gov/PREZIP/Origin_and_Destination_Survey_DB1BTicket_2019_4.zip",
+      "local_path": "data/raw/bts_db1b/Origin_and_Destination_Survey_DB1BTicket_2019_4.zip",
+      "cached_before": false,
+      "status": "downloaded",
+      "bytes": 90533946,
+      "sha256": "5d7b89cd38c818428b3b912426d10ed6864d4071c6d4491e79193f19f5c6b928"
+    }
+  ]
+}
