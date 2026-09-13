@@ -74,7 +74,7 @@ Files: `src/stage6/history.py`, `tests/test_stage6_history.py`.
 - [x] Build full-horizon summaries twice and reconcile them against verified annual
   outputs. Preserve old outputs; run relevant/full offline tests and independent
   final artifact review. Update report/index/state/ledger and inspect public files.
-- [ ] Push final results and record actual publication and remaining research scope.
+- [x] Push final results and record actual publication and remaining research scope.
 
 Completion means the entire declared descriptive data horizon is built and audited.
 Capacity expansion, quote/forecast-vintage data and new econometric models remain

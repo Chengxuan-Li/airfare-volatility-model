@@ -11,7 +11,7 @@ of all remaining years without further commands. See the
 <!-- HISTORY_PROGRESS_START -->
 Verified years: 2010-2024 in full; 2025 Q1-Q2/January-June only. Every year has
 two successful byte-identical raw builds. No declared year or source period remains
-outstanding. Final remote publication is recorded below after the push.
+outstanding. Final remote publication is verified and recorded below.
 <!-- HISTORY_PROGRESS_END -->
 
 All 310 source archives pass exact request, SHA-256 and ZIP CRC checks: 124 DB1B
@@ -81,8 +81,12 @@ credits within a reported 60,000 monthly allocation. One coordinator controlled
 live acquisition and Git; at most two worker agents reviewed independent tasks.
 
 Verified annual milestones are committed and pushed throughout execution.
-Final full-horizon publication follows final artifact review and staged inspection;
-the actual result commit and remote confirmation will be recorded here.
+Final result milestone `16b1c52` is published on the configured public remote.
+`git ls-remote` confirmed the branch at
+`16b1c529bc8f6c7126911f33734223fa1e724bbe` on 2026-09-13.
+Independent final review found no remaining material issues. Public staged
+contents, proof hashes and documentation links passed inspection. This completion
+record follows the verified result milestone; no declared work remains pending.
 
 ## Local state and reproduction
 

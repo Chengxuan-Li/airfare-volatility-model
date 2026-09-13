@@ -560,3 +560,10 @@ output hashes and 310 unique consumed identities reconcile. Clarified the August
 certification command explicitly use the pinned virtual-environment executable.
 Staged public files pass JSON parsing, local-link checks, sensitive-pattern/size
 inspection and byte-exact summary/consumed-manifest comparison to the final proof.
+
+Publication complete (2026-09-13): result milestone 16b1c52 was committed and
+pushed to origin/codex/stage-6-full-history. `git ls-remote` confirmed full remote
+OID 16b1c529bc8f6c7126911f33734223fa1e724bbe. Independent final review found no
+remaining material issues. All plan items for the declared 2010 Q1-2025 Q2 data
+horizon are complete. This documentation record closes publication; remaining
+capacity/quote/forecast/model research is separately identified in project state.

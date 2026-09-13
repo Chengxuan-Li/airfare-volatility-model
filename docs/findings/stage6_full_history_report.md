@@ -2,7 +2,8 @@
 
 Execution started 2026-09-13 under the [continuous plan](../methods/stage6_full_history_plan.md).
 All sixteen declared annual/partial-year panels are built and verified.
-Final publication is recorded in project state after the remote push.
+Result milestone `16b1c52` is published and verified on the public remote;
+see [project state](../project_state.md) for the publication record.
 
 ## Scope and interpretation
 
