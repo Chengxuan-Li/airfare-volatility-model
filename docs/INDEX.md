@@ -1,7 +1,7 @@
 # Documentation index
 
 Purpose: investigate operational/weather risk and demand-to-fare transmission.
-Current phase: Stage 6 historical access and operations bootstrap; original quote-time
+Current phase: verified Stage 6 full-year 2010 development panel; original quote-time
 hypotheses remain unidentifiable from the quarterly sources. Recommendation C.
 
 - [Project state and next actions](project_state.md)
@@ -9,6 +9,9 @@ hypotheses remain unidentifiable from the quarterly sources. Recommendation C.
 - [Proposed next research direction and unused DOT history](methods/next_research_direction.md)
 - [Authorized Stage 6 execution plan](methods/stage6_execution_plan.md)
 - [Full-year 2010 panel execution plan](methods/stage6_2010_plan.md)
+- [Full-year 2010 coverage, methods and reproduction report](findings/stage6_2010_report.md)
+- [2010 panel outputs](../outputs/stage6/annual_2010/) and [verification](../outputs/stage6/annual_2010/verification.json)
+- [2010 additional source access](../data/manifests/stage6_2010_access_inventory.json) and [acquisition ledger](../data/manifests/stage6_2010_acquisition_20260913T011738492971Z.json)
 - [Stage 6 bootstrap results, limitations and reproduction](findings/stage6_bootstrap_report.md)
 - [Stage 6 access inventory, including original failures](../data/manifests/stage6_access_inventory.json)
 - [Stage 6 corrected operations recipe probes](../data/manifests/stage6_operations_access_correction.json)

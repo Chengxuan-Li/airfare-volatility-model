@@ -107,7 +107,7 @@ CLI:
 - [x] Coordinator acquires missing files with bounded public fetch calls. Record
   success/failure/cache outcomes and bytes; preserve failed candidates. On source
   failure stop the dependent build and keep prior outputs intact.
-- [ ] Save ranking, fare carrier cells, operations carrier-month and national
+- [x] Save ranking, fare carrier cells, operations carrier-month and national
   totals, airport/carrier identity audits, joined panel and quality report under
   `outputs/stage6/annual_2010/`. Preserve raw national and scoped counts, exclusions,
   monthly availability, low-support flags and unmatched data on both sides.
@@ -115,13 +115,14 @@ CLI:
 ## Task 4: evidence, review and publication
 
 - [x] Run the full offline suite with exact installed requirements verified.
-- [ ] Rebuild from all 20 raw inputs twice and compare every derived output byte;
+- [x] Rebuild from all 20 raw inputs twice and compare every derived output byte;
   save manifest/output/source hashes separately in a verification record. Keep
   Stage 0-5 and bootstrap output bytes unchanged.
-- [ ] Independently review code/spec and final numbers/interpretation. Resolve
+- [x] Independently review code/spec and final numbers/interpretation. Resolve
   material findings with regressions; record negative results and all deviations.
-- [ ] Write the 2010 coverage report and next-batch instructions, update state,
-  index and execution ledger, inspect staged public content, commit and push.
+- [x] Write the 2010 coverage report and next-batch instructions, update state,
+  index and execution ledger, and inspect staged public content.
+- [ ] Commit and push the verified annual results and record publication.
 
 Completion is the verified 2010 panel and report. Full 2011-2025 Q2 acquisition,
 cross-year carrier histories, capacity, risk calibration and model estimation
@@ -133,3 +134,8 @@ codes; a pandas mixed-inference failure in the real Q1 file is recorded in the
 ledger. Annual publication retains the old output directory in an ignored backup
 and restores it if the new directory rename fails. No orphan raw file is adopted
 without existing provenance. Full offline suite at implementation: 100 passed.
+
+Final evidence: [2010 report](../findings/stage6_2010_report.md) and
+[verification record](../../outputs/stage6/annual_2010/verification.json): twenty
+verified inputs, two successful raw builds, eight identical derived files, 100
+passing tests. All implementation tasks are complete; next-year work is distinct.

@@ -28,6 +28,13 @@ schema, and processes 1.07 million BTS flight records from January 2010 and Janu
 the next data foundation. The full historical panel and new fare models remain
 outstanding; Flightradar24 is still unused.
 
+The [full-year 2010 panel](docs/findings/stage6_2010_report.md) now expands to 30
+airports selected using baseline passenger volume. It processes 6.45 million
+reported flights and 22.04 million Market records, yielding 3,191 primary fare
+route-quarters. Operations match 2,904; unmatched cells remain explicit. All 20
+inputs verify, two raw builds reproduce eight outputs byte-for-byte, and 100
+offline tests pass. This development-year panel adds no new model estimates.
+
 ## Reproduce
 
 Python 3.13 was used on Windows. Run from the repository root with curl installed.

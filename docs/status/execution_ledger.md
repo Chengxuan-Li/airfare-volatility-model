@@ -190,3 +190,36 @@ rows successfully and preserve the leading-zero fixture token `01`. The final
 implementation suite passes 100 tests (one existing Stage 5 reference warning);
 independent review accepts the annual provenance/publication fixes. The second
 real build attempt is running with the corrected parser.
+
+# Full-year 2010 final verification
+
+Two successful full raw annual builds now reproduce all eight derived files
+byte-for-byte; twenty consumed raw path/request/checksum identities verify.
+Together with the earlier parser failure, there were three full annual attempts.
+The targeted Q1 diagnostic read was separate and produced no research output.
+Environment pins match requirements exactly on Python 3.13.9. Full offline suite:
+100 passed, one known Stage 5 rank-deficient reference warning. Independent
+code/spec review of `cec3616...96e0c31` found no material issues.
+
+Real annual totals: 22,038,685 Market rows, 12,688,062 Ticket rows, 6,450,117
+national reported flights; 2,100,986 flights between selected airports. Baseline
+ranking selects 30 of 399 airports (all original seven included). Primary fare
+panel: 3,191 route-quarters, 2,904 matched and 287 fare-only. Matched cells represent
+99.8458% of primary sampled passenger weights. Broad-bound panel: 3,193 cells,
+2,904 matched and 289 fare-only. Neither sample has operations-only cells in this
+year. Twenty-six matched cells have fewer than three reported service months;
+all source months exist, and partial service/coverage is explicitly recorded.
+No national duplicate flight keys or missing eligible arrival delays were found;
+all scoped Market rows matched Ticket identities before exclusions. Fare and
+operations carrier populations remain independently aggregated, not crosswalked.
+
+See `docs/findings/stage6_2010_report.md` and
+`outputs/stage6/annual_2010/verification.json` for exclusions, support, exact hashes,
+reproduction and next-year scope. No new models or FR24 calls/credits. Earlier
+Stage 0-5 and bootstrap outputs are preserved.
+
+Independent final artifact review reconciled all reported numbers, identities and
+hashes. It caught a prematurely checked publication item; that item was separated
+and left pending until the push succeeds. No remaining numerical, interpretation,
+code/spec or local-link findings. Public staged inspection verifies all eight
+output hashes and excludes raw inputs, credentials and retained backup directories.

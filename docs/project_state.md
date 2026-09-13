@@ -1,14 +1,22 @@
 # Project state
 
 ## Current stage
-The full-year 2010 panel is now authorized and in progress on
-`codex/stage-6-2010-panel`; see [plan](methods/stage6_2010_plan.md). Airport selection
-uses baseline passenger volume; primary linkage is by stable route IDs across
-carriers with explicit source-coverage differences. No new fare models are planned
-in this milestone.
-All 20 declared 2010 inputs are now cached and checksum/CRC verified (811,733,928
-bytes). Seventeen new downloads and eleven successful HEAD probes are recorded in
-the execution ledger. The real full-year panel rebuild is in progress.
+The full-year 2010 panel is complete on `codex/stage-6-2010-panel`; see the
+[report](findings/stage6_2010_report.md) and [plan](methods/stage6_2010_plan.md).
+Thirty airports selected by baseline passenger volume; stable-ID route-quarter
+linkage aggregates each source independently across its reporting carriers.
+All twenty inputs are cached and checksum/CRC verified (811,733,928 bytes).
+Two successful raw builds reproduce eight outputs byte-for-byte; 100 offline
+tests pass. One earlier CSV-parser failure is preserved in the execution ledger.
+No new fare models were estimated. Full 2011-2025 Q2 expansion remains outstanding.
+
+The 2010 inputs contain 22,038,685 Market rows, 12,688,062 Ticket rows and 6,450,117
+reported flights nationally. The scoped primary panel retains 3,191 fare
+route-quarters: 2,904 matched to operations and 287 fare-only, covering 99.8458% of
+primary sampled passenger weights in matched cells. The broad-bound panel has
+3,193 cells. All 26 matched cells with only one or two observed service months are
+flagged; missing operations are not imputed to zero. Carrier populations differ
+(36 fare reporting codes, 18 operations DOT IDs); there is no carrier-level join.
 
 Stage 6 historical/operations bootstrap is complete on
 `codex/stage-6-operations`; see [execution plan](methods/stage6_execution_plan.md).
@@ -46,6 +54,10 @@ quote-time H1/H2 and flexibility premiums remain unidentifiable from these sourc
 - Independent code/methodology and final report reviews completed; findings addressed.
 
 ## In progress
+The next implementation milestone is an audited 2011 batch using the frozen 2010
+airport IDs. The current annual runner intentionally targets 2010 only. Its full
+coverage, exclusions, safe acquisition/publication and reproducibility are verified.
+
 The prior pass's identification-argument stopping criterion remains met; it did not
 exhaust DOT data. The user authorized the broader historical and operations-data
 direction on 2026-09-12; the bounded Stage 6 bootstrap is now verified.
@@ -102,10 +114,12 @@ and checksum before promotion. Changed candidates stay in `.part`; previous
 manifests are preserved. Original historical raw inputs have not all been rebuilt
 on this machine, so the fixes' test coverage is not a fresh full-pilot rebuild.
 See the review for reproductions and the Stage 5 guide for its separate workflow.
-The four Stage 6 inputs total 163,801,228 compressed bytes: January 2010/2024
-reporting on-time and 2010 Q1 DB1B Market/Ticket. The 124-archive access inventory
-advertises about 9.93 GB; only the bootstrap fare quarter was downloaded in this
-milestone. Original recipe 404s and successful corrected probes are both preserved.
+The earlier bootstrap used four inputs totaling 163,801,228 compressed bytes:
+January 2010/2024 reporting on-time and 2010 Q1 DB1B Market/Ticket. The annual
+milestone now has all eight 2010 fare files and twelve operations months, with
+three bootstrap inputs reused. The 124-fare-archive access inventory advertises
+about 9.93 GB; later-year bulk acquisition is still outstanding. Original recipe
+404s and successful corrected probes are both preserved.
 
 ## Known limitations and open questions
 Endogenous quantity; prorated fares and product composition; quarterly timing;
@@ -113,11 +127,11 @@ retrospective ERA5 vintage; sparse joint support; few clusters; no external dema
 shifter or full capacity model. See report for competing explanations and all fits.
 
 ## Next actions
-1. Declare expanded airports from preperiod coverage/traffic, stable airport and
-   carrier identities, and temporal/regime splits before broader estimation.
-2. Expand 2010-2025 Q2 fares and monthly operations in audited year batches; access
-   is verified but full acquisition, comparability checks and panel construction
-   remain outstanding. Only ten fare quarters have been analyzed for fare effects.
+1. Parameterize audited 2011 batches using the frozen 2010 airport IDs; check
+   carrier identities and reporting coverage before broadening later years.
+2. Expand 2011-2025 Q2 fares and monthly operations in audited year batches; fare
+   endpoint access is verified but full acquisition and comparability remain
+   outstanding. The 2010 development panel is built without new model fits.
 3. Add compatible capacity and forecast-vintage risk; predeclare departure/supply
    outcome models and CR2/bootstrap sensitivity before expanded fare estimation.
 4. Keep the aligned information/identification design separate from descriptive
@@ -130,6 +144,9 @@ The Stage 5 branch is published through `2968268`. Stage 6 uses the separate
 milestone `4ae39ec`, including the plan and provenance fixes. Final independent
 code/report review found no remaining material issues. Raw inputs and the pinned
 environment remain ignored; no tracked user changes were left outside the work.
+The annual 2010 work uses `codex/stage-6-2010-panel`. Plan, acquisition and
+implementation milestones are committed locally; final results/publication checks
+are being completed. See Git remote state for the final publication result.
 
 ## Relevant commits
 - `bcb1b47` — Stage 0 research specification.
@@ -145,6 +162,9 @@ environment remain ignored; no tracked user changes were left outside the work.
 - `6461da8` — authorized Stage 6 execution plan, committed before implementation.
 - `631e56e` — provenance preservation and original-pipeline input verification.
 - `4ae39ec` — verified historical access, operations bootstrap, report and outputs.
+- `af1544c` — declared full-year 2010 sampling and linkage rules.
+- `6a64b7c` — verified acquisition of twenty full-year source archives.
+- `96e0c31` — tested annual pipeline, parser fix and safe output publication.
 
 ## Intentionally uncommitted local files
 - The review began with a clean working tree; `.env.example` is tracked and has
@@ -153,3 +173,5 @@ environment remain ignored; no tracked user changes were left outside the work.
   on Python 3.13.9. Earlier review tests used the available system environment.
 - Credential files remain ignored; no credentials were read. Review calculations
   used temporary storage and left the tracked research outputs unchanged.
+- Previous annual derived output sets are retained in ignored sibling backup
+  directories for rollback/provenance. Current compact annual outputs are published.
