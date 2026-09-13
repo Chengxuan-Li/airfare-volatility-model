@@ -1,0 +1,19 @@
+{
+  "year": 2023,
+  "attempts": [
+    {
+      "started_at_utc": "20260913T073529321860Z",
+      "implementation_commit": "8a1f06fdc26f4cf670937bf3da43a9930bffa98f",
+      "comparison_pass": 1,
+      "status": "success",
+      "exit_code": 0
+    },
+    {
+      "started_at_utc": "20260913T073916414773Z",
+      "implementation_commit": "8a1f06fdc26f4cf670937bf3da43a9930bffa98f",
+      "comparison_pass": 2,
+      "status": "success",
+      "exit_code": 0
+    }
+  ]
+}

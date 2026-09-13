@@ -497,3 +497,20 @@ eleven derived files byte-for-byte from its full declared raw input set. Per-yea
 verification records and build-attempt ledgers preserve input/baseline/source hashes
 and any preceding failed attempts. Report progress table reconciles against those
 verified artifacts. Publication follows staged inspection.
+
+2024 first raw build stopped in August on a missing flight number. Whole-month
+inspection finds 619,025 rows and exactly one genuinely empty field, confirmed
+with keep_default_na=False: 2024-08-25, F9/DOT20436, MIA13303-ATL10397, scheduled
+0600, ArrDelay -5, Cancelled0, Diverted0, Flights1. The remaining exact key occurs
+once in the entire source. September-December 2024 and January-June 2025 contain
+no missing identities under the former required-column check. No raw bytes changed.
+The failed build is preserved. A bounded extension retains a unique missing-number
+record only with known scheduled time; cross-partial-key ambiguity and all other
+missing identities remain errors. Its implementation is prepared separately while
+the unchanged 2023/2025 queue completes, avoiding source changes during builds.
+
+Verified year milestone: 2023. Each year reproduces all
+eleven derived files byte-for-byte from its full declared raw input set. Per-year
+verification records and build-attempt ledgers preserve input/baseline/source hashes
+and any preceding failed attempts. Report progress table reconciles against those
+verified artifacts. Publication follows staged inspection.

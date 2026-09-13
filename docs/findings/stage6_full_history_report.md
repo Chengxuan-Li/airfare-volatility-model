@@ -58,6 +58,7 @@ failures or FR24 use. HEAD access alone does not establish complete data validit
 | 2020 | 4 | 4,688,354 | 1,474,864 | 3,059 | 2,914 | 99.9666% |
 | 2021 | 4 | 5,995,397 | 1,855,941 | 3,140 | 2,980 | 99.9549% |
 | 2022 | 4 | 6,729,125 | 2,171,867 | 3,169 | 3,019 | 99.9687% |
+| 2023 | 4 | 6,847,899 | 2,264,311 | 3,196 | 3,019 | 99.9607% |
 <!-- YEAR_PROGRESS_END -->
 
 The coordinator alone downloads in bounded pairs and verifies caches, request
@@ -72,7 +73,7 @@ scheduled departure time. Source inspection confirmed a genuine blank, not a CSV
 parsing substitution. The reader now retains such a row only if its remaining
 date/DOT-carrier/flight-number/endpoint key is unique across the complete month.
 The schedule stays missing; actual departure is never substituted. Both directions
-of cross-chunk ambiguity and all other missing identities still fail verification.
+of cross-chunk ambiguity and missing required grouping identities still fail verification.
 Affected national and selected-flight counts are explicit in the monthly audit.
 The July case is outside the selected network (one national, zero selected rows).
 The failed attempt remains in its build-attempt ledger alongside the two successful
@@ -106,6 +107,14 @@ plus equivalent removals plus ambiguity exclusions. Invalid source values and
 incomplete-key collisions still fail. Raw bytes and all failed attempts remain.
 These small exclusions may depend on disruptions; retained outcome rates are
 conditional on unambiguous records and do not resolve every irregular operation.
+
+The first 2024 build stopped in August on one genuinely blank flight number:
+F9/DOT20436, August 25, MIA-ATL, scheduled 0600. Its remaining exact key occurs
+once among 619,025 monthly rows. The annual workflow may retain this unique
+incomplete key without imputing a number, with explicit national/scoped counts.
+Scheduled time must be present; both optional fields missing, projected-key
+collisions, and potentially overlapping missing-time/missing-number rows fail.
+The original missing number and failed build remain part of the evidence.
 
 ## Reproduction contract
 
