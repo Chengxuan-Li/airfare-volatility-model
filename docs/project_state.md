@@ -1,12 +1,22 @@
 # Project state
 
 ## Current stage
-The 2011 extension is building on `codex/stage-6-2011-panel`;
-see [plan](methods/stage6_2011_plan.md). It reuses the frozen 2010 airport IDs,
-adds explicit cross-year coverage diagnostics, and estimates no new models.
-All twenty 2011 inputs are downloaded and verified (805,060,530 bytes); no source
-failures or FR24 calls. The implementation passes 118 offline tests. Real builds
-and final coverage/reproducibility review remain in progress.
+The 2011 extension is built and reproduced on `codex/stage-6-2011-panel`;
+see [report](findings/stage6_2011_report.md) and [plan](methods/stage6_2011_plan.md).
+It reuses the frozen thirty 2010 airport IDs and adds cross-year coverage audits.
+All twenty 2011 inputs verify (805,060,530 bytes); no source failures or FR24 calls.
+Two raw builds reproduce eleven derived files byte-for-byte; 118 offline tests
+pass on the pinned environment. All fifty earlier output files remain unchanged.
+Final artifact review found no material issues; publication remains pending.
+No new models are estimated.
+
+2011 scans 22,999,175 Market rows, 13,343,503 Ticket rows and 6,085,281 national
+reported flights (2,110,718 between selected airports). Primary has 3,198 fare
+route-quarters: 2,865 matched, 333 fare-only, plus one operations-only cell in the
+outer panel. Matched cells cover 99.8203% of sampled passenger weights. All thirty
+airports remain observed; reporting populations change from 36 to 34 fare codes
+and 18 to 16 operations DOT IDs. Absence is not a cancellation or a verified
+service closure. Fare and operations carriers remain separately aggregated.
 
 The full-year 2010 panel is complete on `codex/stage-6-2010-panel`; see the
 [report](findings/stage6_2010_report.md) and [plan](methods/stage6_2010_plan.md).
@@ -15,7 +25,7 @@ linkage aggregates each source independently across its reporting carriers.
 All twenty inputs are cached and checksum/CRC verified (811,733,928 bytes).
 Two successful raw builds reproduce eight outputs byte-for-byte; 100 offline
 tests pass. One earlier CSV-parser failure is preserved in the execution ledger.
-No new fare models were estimated. Full 2011-2025 Q2 expansion remains outstanding.
+No new fare models were estimated. Full 2012-2025 Q2 expansion remains outstanding.
 
 The 2010 inputs contain 22,038,685 Market rows, 12,688,062 Ticket rows and 6,450,117
 reported flights nationally. The scoped primary panel retains 3,191 fare
@@ -61,9 +71,10 @@ quote-time H1/H2 and flexibility premiums remain unidentifiable from these sourc
 - Independent code/methodology and final report reviews completed; findings addressed.
 
 ## In progress
-The audited 2011 batch uses the frozen 2010 airport IDs. The annual runner now
-accepts only 2010 and 2011, retaining the 2010 default. Real 2011 builds and
-cross-year coverage review are in progress; later-year acquisition is outstanding.
+The audited 2011 batch is reproduced and independently reviewed; publication is
+pending. The annual runner accepts only 2010 and 2011, retaining the 2010 default.
+The next data milestone is a declared 2012 batch; later-year acquisition remains
+outstanding.
 
 The prior pass's identification-argument stopping criterion remains met; it did not
 exhaust DOT data. The user authorized the broader historical and operations-data
@@ -123,8 +134,8 @@ on this machine, so the fixes' test coverage is not a fresh full-pilot rebuild.
 See the review for reproductions and the Stage 5 guide for its separate workflow.
 The earlier bootstrap used four inputs totaling 163,801,228 compressed bytes:
 January 2010/2024 reporting on-time and 2010 Q1 DB1B Market/Ticket. The annual
-milestone now has all eight 2010 fare files and twelve operations months, with
-three bootstrap inputs reused. The 124-fare-archive access inventory advertises
+milestones now have all eight fare files and twelve operations months in each of
+2010 and 2011, with three 2010 bootstrap inputs reused. The 124-fare-archive access inventory advertises
 about 9.93 GB; later-year bulk acquisition is still outstanding. Original recipe
 404s and successful corrected probes are both preserved.
 
@@ -134,9 +145,9 @@ retrospective ERA5 vintage; sparse joint support; few clusters; no external dema
 shifter or full capacity model. See report for competing explanations and all fits.
 
 ## Next actions
-1. Parameterize audited 2011 batches using the frozen 2010 airport IDs; check
+1. Declare and parameterize an audited 2012 batch using the frozen 2010 airport IDs; check
    carrier identities and reporting coverage before broadening later years.
-2. Expand 2011-2025 Q2 fares and monthly operations in audited year batches; fare
+2. Expand 2012-2025 Q2 fares and monthly operations in audited year batches; fare
    endpoint access is verified but full acquisition and comparability remain
    outstanding. The 2010 development panel is built without new model fits.
 3. Add compatible capacity and forecast-vintage risk; predeclare departure/supply
@@ -174,6 +185,9 @@ reconciled all counts and hashes. No unresolved code or scientific-report findin
 - `6a64b7c` — verified acquisition of twenty full-year source archives.
 - `96e0c31` — tested annual pipeline, parser fix and safe output publication.
 - `8a036a8` — verified 2010 outputs, coverage report and reproduction evidence.
+- `7190f84` — declared 2011 scope and pinned the frozen 2010 sample.
+- `2129ae3` — verified twenty 2011 source archives and acquisition provenance.
+- `b085a1a` — reviewed frozen-year runner and source-separated continuity audits.
 
 ## Intentionally uncommitted local files
 - The review began with a clean working tree; `.env.example` is tracked and has

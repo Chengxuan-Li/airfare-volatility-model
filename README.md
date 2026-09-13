@@ -35,6 +35,14 @@ route-quarters. Operations match 2,904; unmatched cells remain explicit. All 20
 inputs verify, two raw builds reproduce eight outputs byte-for-byte, and 100
 offline tests pass. This development-year panel adds no new model estimates.
 
+The [2011 extension](docs/findings/stage6_2011_report.md) retains the frozen thirty
+airport IDs and processes 6.09 million reported flights and 23.00 million Market
+records. Of 3,198 primary fare route-quarters, 2,865 match operations; 333 fare-only
+cells and one operations-only cell remain explicit. Cross-year diagnostics expose
+reporting-population changes. Twenty inputs verify, two raw builds reproduce
+eleven outputs byte-for-byte, and 118 offline tests pass. Full 2012-2025 Q2 expansion
+and new model estimates remain outstanding; FR24 is unused.
+
 ## Reproduce
 
 Python 3.13 was used on Windows. Run from the repository root with curl installed.

@@ -256,3 +256,43 @@ pass (27 annual/baseline/continuity cases); shuffled inputs confirm deterministi
 continuity results and nonmutation. The first real raw build completed successfully,
 producing eleven derived files; the second comparison build is running. Baseline
 selection, source separation and missing-outcome semantics are preserved.
+
+# Frozen-sample 2011 reproduction
+
+Implementation milestone `b085a1a` contains the independently reviewed runner,
+baseline pinning and continuity diagnostics. Two successful full raw builds now
+reproduce all eleven derived files byte-for-byte, with no failed 2011 raw attempts.
+Twenty raw request/path/checksum identities and ten frozen/baseline artifact hashes
+verify. Requirements pins match on Python 3.13.9; the full offline suite passes
+118 tests with one known Stage 5 rank-deficient reference warning. All fifty
+earlier output files are unchanged relative to `21ede00`.
+
+The 2011 scan includes 22,999,175 Market rows, 13,343,503 Ticket rows and 6,085,281
+national reported flights. The selected network has 2,110,718 reported flights.
+Primary fares have 3,198 route-quarters: 2,865 matched and 333 fare-only; one
+operations-only cell is retained in the outer panel. Matched cells cover 99.8203%
+of primary sampled passenger weights. Twenty-one matched route-quarters have fewer
+than three observed months; the operations-only cell also has one observed month.
+All twelve source months are complete, with no duplicate flight keys or missing
+eligible arrival delays. All 6,045,608 scoped Market rows match Ticket identities
+before exclusions. No source absence is imputed to zero.
+
+The thirty baseline airport IDs remain observed in both sources and all periods.
+2011 fare codes number 34 versus 36 in 2010; national operations DOT IDs number
+16 versus 18. Fare codes CS/F8 and operations identities 20363/9E and 20417/OH
+are absent in 2011 in their respective populations. These observations establish
+neither physical service closure nor a carrier crosswalk. The two latter codes
+remain present in fares. The alias/code-reuse audits find no conflicts across
+these two years. Continuity tables preserve observed entries/exits without a
+future-survival selection rule. See the 2011 report for sample-specific counts.
+
+Final artifact review and public staged inspection are in progress. No fare
+models, paid services or FR24 calls/credits were added. Raw archives, environments
+and previous derived-set backups remain ignored.
+
+Final independent artifact review reconciled all report counts, exclusions, source
+populations, continuity statuses and hashes, with no actionable findings. It also
+reran the full suite: 118 passed, one documented warning. Staged inspection verifies
+all eleven derived hashes, ten baseline artifact hashes and nine source hashes;
+local Markdown links resolve. Only compact text outputs and documentation are
+staged; the largest new aggregate is 5,460,764 bytes. Publication is still pending.

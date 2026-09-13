@@ -78,13 +78,13 @@ Commands:
 ```
 - [x] Inventory twenty endpoints, acquire/verify twenty inputs and preserve
   immutable request metadata with failure/cache outcomes and disk budget.
-- [ ] Rebuild the 2011 outputs twice from raw; compare every derived file byte.
+- [x] Rebuild the 2011 outputs twice from raw; compare every derived file byte.
   Save twenty raw hashes plus frozen/baseline artifact hashes, source hashes and
   environment/test evidence. The reused baseline is an explicit additional input.
-- [ ] Review source coverage, partial months, low-support cells, carrier changes,
+- [x] Review source coverage, partial months, low-support cells, carrier changes,
   ID/code aliases and every unmatched category. Keep descriptive comparisons
   separate from weather-risk, capacity and price-effect claims.
-- [ ] Final independent code/report review, full offline tests, source/output
+- [x] Final independent code/report review, full offline tests, source/output
   hashes and unchanged older outputs. Update report/index/state/ledger and inspect
   public staged contents.
 - [ ] Commit and push the verified 2011 milestone, then record publication.
