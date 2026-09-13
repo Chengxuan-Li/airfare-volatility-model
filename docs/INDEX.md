@@ -7,6 +7,7 @@ hypotheses remain unidentifiable from the quarterly sources. Recommendation C.
 - [Project state and next actions](project_state.md)
 - [Repository and documentation review, 2026-09-12](reviews/2026-09-12-repository-review.md)
 - [Proposed next research direction and unused DOT history](methods/next_research_direction.md)
+- [Authorized Stage 6 execution plan](methods/stage6_execution_plan.md)
 - [Irregular-operations source check](data/irregular_operations_source_check.md)
 - [Research specification and agreed execution addendum](20260912_airline_weather_pricing_research_task.md)
 - [Repository and agent rules](../AGENTS.md)

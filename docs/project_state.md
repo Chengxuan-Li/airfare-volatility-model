@@ -1,6 +1,11 @@
 # Project state
 
 ## Current stage
+Stage 6 historical/operations work is authorized and starting on
+`codex/stage-6-operations`; see [execution plan](methods/stage6_execution_plan.md).
+First milestone: provenance fixes, historical access inventory and a two-month
+flight-operations bootstrap. The full 2010-2025 Q2 expansion is not yet complete.
+
 Stage 5 assessment is complete on `codex/stage-5-robustness`; the repository review
 found two open acquisition/reproduction defects. The earlier execution recorded
 two full raw builds reproducing 15 derived outputs byte-for-byte. This review
@@ -29,8 +34,8 @@ quote-time H1/H2 and flexibility premiums remain unidentifiable from these sourc
 
 ## In progress
 The prior pass's identification-argument stopping criterion remains met; it did not
-exhaust DOT data. A broader historical and operations-data phase is now proposed
-in [next research direction](methods/next_research_direction.md), not yet executed.
+exhaust DOT data. The user authorized the broader historical and operations-data
+direction on 2026-09-12; execution begins with the bounded Stage 6 plan.
 Two reproduction defects require follow-up; see
 [repository review](reviews/2026-09-12-repository-review.md).
 The review also found two scope gaps between the broader identification note and
