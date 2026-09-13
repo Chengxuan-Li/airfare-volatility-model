@@ -297,6 +297,8 @@ EXCEPTION_FIELDS = (
     'ambiguous_complete_key_groups', 'ambiguity_policy',
     'missing_scheduled_departure_national', 'missing_scheduled_departure_selected',
     'incomplete_key_policy',
+    'missing_flight_number_national', 'missing_flight_number_selected',
+    'missing_flight_number_policy',
 )
 
 
@@ -413,12 +415,25 @@ def reconcile_operations(quality, national, scoped, year):
         month_raw = month.get('raw_rows')
         month_repeats = month.get('repeated_key_rows_removed_national', 0)
         month_ambiguous = month.get('ambiguous_key_rows_excluded_national', 0)
+        missing_flight_number = month.get('missing_flight_number_national', 0)
+        missing_flight_number_selected = month.get('missing_flight_number_selected', 0)
         _require(all(isinstance(value, int) and not isinstance(value, bool) and value >= 0
                      for value in (month_raw, month_repeats, month_ambiguous,
-                                   month.get('selected_rows'))),
+                                   month.get('selected_rows'), missing_flight_number,
+                                   missing_flight_number_selected)),
                  f'{year} operations audit has invalid row counts')
+        _require(missing_flight_number_selected <= missing_flight_number,
+                 f'{year} missing-flight-number scoped count exceeds national count')
+        if missing_flight_number:
+            _require(isinstance(month.get('missing_flight_number_policy'), str)
+                     and month['missing_flight_number_policy'].strip(),
+                     f'{year} missing-flight-number evidence lacks its policy')
         expected_retained = month_raw - month_repeats - month_ambiguous
         _require(expected_retained >= 0, f'{year} operations exclusions exceed raw rows')
+        _require(missing_flight_number <= expected_retained,
+                 f'{year} missing flight-number rows exceed retained national rows')
+        _require(missing_flight_number_selected <= month['selected_rows'],
+                 f'{year} missing flight-number rows exceed retained selected rows')
         if month_repeats or month_ambiguous:
             _require(month.get('retained_rows') == expected_retained,
                      f'{year} operations retained_rows does not reconcile')
@@ -437,7 +452,7 @@ def reconcile_operations(quality, national, scoped, year):
         ambiguous += month_ambiguous
         selected += month['selected_rows']
         if (month.get('missing_scheduled_departure_national', 0)
-                or month_repeats or month_ambiguous):
+                or missing_flight_number or month_repeats or month_ambiguous):
             exceptions.append({key: month[key] for key in EXCEPTION_FIELDS if key in month})
     def whole_flight_sum(frame, label):
         _require('flights' in frame, f'{year} {label} lacks flights')

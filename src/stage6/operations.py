@@ -22,6 +22,12 @@ NON_KEY_CONSUMED = [column for column in CONSUMED if column not in KEYS]
 _MISSING = object()
 
 
+FLIGHT_NUMBER = 'Flight_Number_Reporting_Airline'
+SCHEDULE = 'CRSDepTime'
+NUMBER_PROJECTION = [column for column in KEYS if column != FLIGHT_NUMBER]
+PARTIAL_BASE = [column for column in KEYS if column not in {FLIGHT_NUMBER, SCHEDULE}]
+
+
 def _exact_tuple(values):
     """Represent values exactly enough to distinguish missing from observed values."""
     return tuple(_MISSING if pd.isna(value) else value for value in values)
@@ -35,9 +41,16 @@ def _json_value(value):
     return int(value) if isinstance(value, float) and value.is_integer() else value
 
 
-def _validate_consumed_values(frame, year, month, *, require_flights):
-    if frame[GROUPS + CORE_KEYS].isna().any().any():
+def _validate_consumed_values(frame, year, month, *, require_flights,
+                              allow_missing_flight_number=False):
+    identity = GROUPS + CORE_KEYS
+    if allow_missing_flight_number:
+        identity = [column for column in identity if column != FLIGHT_NUMBER]
+    if frame[identity].isna().any().any():
         raise ValueError('Missing operations identity')
+    if allow_missing_flight_number and (
+            frame[SCHEDULE].isna() & frame[FLIGHT_NUMBER].isna()).any():
+        raise ValueError('Operations identity cannot omit both CRSDepTime and flight number')
     dates = pd.to_datetime(frame.FlightDate, errors='raise')
     if not (frame.Year.eq(year) & frame.Month.eq(month) & dates.dt.year.eq(year)
             & dates.dt.month.eq(month)).all():
@@ -61,20 +74,31 @@ def outcome_rates(cells):
     return result
 
 
-def summarize_operations(frame, year, month):
+def summarize_operations(frame, year, month, *, allow_missing_flight_number=False):
     df = frame.copy()
     required = set(GROUPS + KEYS + ['Cancelled', 'Diverted', 'ArrDelay'])
     if required - set(df.columns):
         raise ValueError(f'Missing operations columns: {sorted(required - set(df.columns))}')
-    _validate_consumed_values(df, year, month, require_flights=False)
-    missing_schedule = df.CRSDepTime.isna()
-    duplicates = int(df.loc[~missing_schedule].duplicated(KEYS, keep=False).sum())
+    _validate_consumed_values(
+        df, year, month, require_flights=False,
+        allow_missing_flight_number=allow_missing_flight_number)
+    missing_schedule = df[SCHEDULE].isna()
+    missing_number = df[FLIGHT_NUMBER].isna()
+    complete = ~(missing_schedule | missing_number)
+    duplicates = int(df.loc[complete].duplicated(KEYS, keep=False).sum())
     if duplicates:
         raise ValueError(f'Operations duplicate flight rows: {duplicates}')
-    core_collisions = df.duplicated(CORE_KEYS, keep=False)
-    if (missing_schedule & core_collisions).any():
-        raise ValueError(
-            f'Operations incomplete key collision: {int(core_collisions.sum())}')
+    schedule_collisions = df.duplicated(CORE_KEYS, keep=False)
+    number_collisions = df.duplicated(NUMBER_PROJECTION, keep=False)
+    if (missing_schedule & schedule_collisions).any() or (
+            missing_number & number_collisions).any():
+        raise ValueError('Operations incomplete key collision')
+    schedule_bases = set(df.loc[missing_schedule, PARTIAL_BASE]
+                         .itertuples(index=False, name=None))
+    number_bases = set(df.loc[missing_number, PARTIAL_BASE]
+                       .itertuples(index=False, name=None))
+    if schedule_bases.intersection(number_bases):
+        raise ValueError('Operations complementary partial key collision')
     eligible = df.Cancelled.eq(0) & df.Diverted.eq(0)
     observed = eligible & df.ArrDelay.notna()
     df['flights'] = 1
@@ -95,60 +119,77 @@ def summarize_operations(frame, year, month):
 
 def _quarantine_preflight(archive, member, required, year, month, chunksize):
     """Validate a complete month and return its conflicting complete-key groups."""
-    consumed_positions = {column: position for position, column in enumerate(CONSUMED)}
-    key_positions = [consumed_positions[column] for column in KEYS]
-    core_positions = [consumed_positions[column] for column in CORE_KEYS]
-    signature_positions = [consumed_positions[column] for column in NON_KEY_CONSUMED]
+    positions = {column: position for position, column in enumerate(CONSUMED)}
+    key_positions = [positions[column] for column in KEYS]
+    schedule_positions = [positions[column] for column in CORE_KEYS]
+    number_positions = [positions[column] for column in NUMBER_PROJECTION]
+    base_positions = [positions[column] for column in PARTIAL_BASE]
+    signature_positions = [positions[column] for column in NON_KEY_CONSUMED]
     variants_by_key = {}
-    seen_cores = set()
-    seen_missing_cores = set()
+    all_schedule_projections = set()
+    missing_schedule_projections = set()
+    all_number_projections = set()
+    missing_number_projections = set()
+    missing_schedule_bases = set()
+    missing_number_bases = set()
     with archive.open(member) as stream:
         for frame in pd.read_csv(stream, usecols=required, chunksize=chunksize):
-            _validate_consumed_values(frame, year, month, require_flights=True)
-            missing_schedule = frame.CRSDepTime.isna().to_numpy(copy=False)
+            _validate_consumed_values(
+                frame, year, month, require_flights=True,
+                allow_missing_flight_number=True)
+            missing_schedule = frame[SCHEDULE].isna().to_numpy(copy=False)
+            missing_number = frame[FLIGHT_NUMBER].isna().to_numpy(copy=False)
             for position, values in enumerate(
                     frame[CONSUMED].itertuples(index=False, name=None)):
-                core = _exact_tuple(values[index] for index in core_positions)
+                schedule_projection = _exact_tuple(
+                    values[index] for index in schedule_positions)
+                number_projection = _exact_tuple(
+                    values[index] for index in number_positions)
+                base = _exact_tuple(values[index] for index in base_positions)
                 if missing_schedule[position]:
-                    if core in seen_cores:
+                    if base in missing_number_bases:
+                        raise ValueError('Operations complementary partial key collision')
+                    if schedule_projection in all_schedule_projections:
                         raise ValueError('Operations incomplete key collision: 1')
-                    seen_missing_cores.add(core)
-                    seen_cores.add(core)
-                    continue
-                if core in seen_missing_cores:
+                    missing_schedule_bases.add(base)
+                    missing_schedule_projections.add(schedule_projection)
+                elif schedule_projection in missing_schedule_projections:
                     raise ValueError('Operations incomplete key collision: 1')
+                if missing_number[position]:
+                    if base in missing_schedule_bases:
+                        raise ValueError('Operations complementary partial key collision')
+                    if number_projection in all_number_projections:
+                        raise ValueError('Operations incomplete key collision: 1')
+                    missing_number_bases.add(base)
+                    missing_number_projections.add(number_projection)
+                elif number_projection in missing_number_projections:
+                    raise ValueError('Operations incomplete key collision: 1')
+                all_schedule_projections.add(schedule_projection)
+                all_number_projections.add(number_projection)
+                if missing_schedule[position] or missing_number[position]:
+                    continue
                 key = _exact_tuple(values[index] for index in key_positions)
                 signature = _exact_tuple(values[index]
                                          for index in signature_positions)
-                counts = variants_by_key.setdefault(key, {})
-                counts[signature] = counts.get(signature, 0) + 1
-                seen_cores.add(core)
+                variants = variants_by_key.setdefault(key, {})
+                variants[signature] = variants.get(signature, 0) + 1
 
-    ambiguous = {
-        key: variants for key, variants in variants_by_key.items()
-        if len(variants) > 1
-    }
-    del variants_by_key, seen_cores, seen_missing_cores
-
+    ambiguous = {key: variants for key, variants in variants_by_key.items()
+                 if len(variants) > 1}
+    del (variants_by_key, all_schedule_projections, missing_schedule_projections,
+         all_number_projections, missing_number_projections,
+         missing_schedule_bases, missing_number_bases)
     details = []
     for key, variants in ambiguous.items():
-        variant_rows = [
-            {
-                'values': {
-                    column: _json_value(value)
-                    for column, value in zip(NON_KEY_CONSUMED, signature)
-                },
-                'rows': count,
-            }
-            for signature, count in variants.items()
-        ]
+        variant_rows = [{
+            'values': {column: _json_value(value)
+                       for column, value in zip(NON_KEY_CONSUMED, signature)},
+            'rows': count,
+        } for signature, count in variants.items()]
         variant_rows.sort(key=lambda item: json.dumps(
             item['values'], sort_keys=True, separators=(',', ':')))
         details.append({
-            'key': {
-                column: _json_value(value)
-                for column, value in zip(KEYS, key)
-            },
+            'key': {column: _json_value(value) for column, value in zip(KEYS, key)},
             'rows': sum(variants.values()),
             'consumed_variant_count': len(variants),
             'consumed_variants': variant_rows,
@@ -175,15 +216,16 @@ def read_operations(path, year, month, *, airports=AIRPORTS, airport_ids=None,
     ambiguous_rows_national = ambiguous_rows_selected = 0
     ambiguous_groups_selected = set()
     missing_schedule_national = missing_schedule_selected = 0
+    missing_number_national = missing_number_selected = 0
     national_groups = ['Year', 'Month', 'DOT_ID_Reporting_Airline', 'Reporting_Airline']
     selected_airport_ids = None if airport_ids is None else set(airport_ids)
     national_airport_ids = set()
-    consumed_positions = {column: position for position, column in enumerate(CONSUMED)}
-    key_positions = [consumed_positions[column] for column in KEYS]
-    core_positions = [consumed_positions[column] for column in CORE_KEYS]
-    signature_positions = [consumed_positions[column] for column in NON_KEY_CONSUMED]
+    positions = {column: position for position, column in enumerate(CONSUMED)}
+    key_positions = [positions[column] for column in KEYS]
+    core_positions = [positions[column] for column in CORE_KEYS]
+    signature_positions = [positions[column] for column in NON_KEY_CONSUMED]
     with zipfile.ZipFile(path) as archive:
-        members = [n for n in archive.namelist() if n.lower().endswith('.csv')]
+        members = [name for name in archive.namelist() if name.lower().endswith('.csv')]
         if len(members) != 1:
             raise ValueError('Expected exactly one operations CSV member')
         member = members[0]
@@ -200,25 +242,28 @@ def read_operations(path, year, month, *, airports=AIRPORTS, airport_ids=None,
             for frame in pd.read_csv(stream, usecols=required, chunksize=chunksize):
                 if not frame.Flights.eq(1).all():
                     raise ValueError('Expected one reported flight per source row')
-                missing_schedule = frame.CRSDepTime.isna()
+                missing_schedule = frame[SCHEDULE].isna()
+                missing_number = frame[FLIGHT_NUMBER].isna()
                 if selected_airport_ids is None:
                     raw_in_scope = frame.Origin.isin(airports) & frame.Dest.isin(airports)
                 else:
                     raw_in_scope = (frame.OriginAirportID.isin(selected_airport_ids)
                                     & frame.DestAirportID.isin(selected_airport_ids))
-                raw_selected = (raw_in_scope
-                                & frame.OriginAirportID.ne(frame.DestAirportID))
+                raw_selected = raw_in_scope & frame.OriginAirportID.ne(frame.DestAirportID)
                 keep = np.ones(len(frame), dtype=bool)
-                consumed_rows = frame[CONSUMED].itertuples(index=False, name=None)
-                missing_values = missing_schedule.to_numpy(copy=False)
+                rows = frame[CONSUMED].itertuples(index=False, name=None)
+                schedule_values = missing_schedule.to_numpy(copy=False)
+                number_values = missing_number.to_numpy(copy=False)
                 selected_values = raw_selected.to_numpy(copy=False)
-                for position, values in enumerate(consumed_rows):
+                for position, values in enumerate(rows):
                     core = _exact_tuple(values[index] for index in core_positions)
-                    if missing_values[position]:
+                    if schedule_values[position]:
                         if core in seen_cores:
                             raise ValueError('Operations incomplete key collision: 1')
                         seen_missing_cores.add(core)
                         seen_cores.add(core)
+                        continue
+                    if number_values[position] and conflict_policy == 'quarantine':
                         continue
                     if core in seen_missing_cores:
                         raise ValueError('Operations incomplete key collision: 1')
@@ -230,8 +275,7 @@ def read_operations(path, year, month, *, airports=AIRPORTS, airport_ids=None,
                             ambiguous_rows_selected += 1
                             ambiguous_groups_selected.add(key)
                         continue
-                    signature = _exact_tuple(values[index]
-                                             for index in signature_positions)
+                    signature = _exact_tuple(values[index] for index in signature_positions)
                     previous = seen_complete.get(key)
                     if previous is not None:
                         if signature != previous:
@@ -247,29 +291,27 @@ def read_operations(path, year, month, *, airports=AIRPORTS, airport_ids=None,
                         seen_complete[key] = signature
                         seen_cores.add(core)
                 retained = frame.loc[keep]
+                raw_rows += len(frame)
+                missing_schedule_national += int(missing_schedule.sum())
+                missing_schedule_selected += int((missing_schedule & raw_selected).sum())
+                missing_number_national += int(missing_number.sum())
+                missing_number_selected += int((missing_number & raw_selected).sum())
+                national_airport_ids.update(frame.OriginAirportID.unique())
+                national_airport_ids.update(frame.DestAirportID.unique())
                 if retained.empty:
-                    raw_rows += len(frame)
-                    missing_schedule_national += int(missing_schedule.sum())
-                    missing_schedule_selected += int((missing_schedule & raw_selected).sum())
-                    national_airport_ids.update(frame.OriginAirportID.unique())
-                    national_airport_ids.update(frame.DestAirportID.unique())
                     continue
-                cells, _ = summarize_operations(retained, year, month)
+                cells, _ = summarize_operations(
+                    retained, year, month,
+                    allow_missing_flight_number=conflict_policy == 'quarantine')
                 national_parts.append(cells.groupby(national_groups, as_index=False)[COUNTS].sum())
                 if selected_airport_ids is None:
                     in_scope = cells.Origin.isin(airports) & cells.Dest.isin(airports)
                 else:
                     in_scope = (cells.OriginAirportID.isin(selected_airport_ids)
                                 & cells.DestAirportID.isin(selected_airport_ids))
-                selected = cells.loc[in_scope
-                                     & cells.OriginAirportID.ne(cells.DestAirportID)]
+                selected = cells.loc[in_scope & cells.OriginAirportID.ne(cells.DestAirportID)]
                 selected_parts.append(selected[GROUPS + COUNTS])
-                raw_rows += len(frame)
                 selected_rows += int(selected.flights.sum())
-                missing_schedule_national += int(missing_schedule.sum())
-                missing_schedule_selected += int((missing_schedule & raw_selected).sum())
-                national_airport_ids.update(frame.OriginAirportID.unique())
-                national_airport_ids.update(frame.DestAirportID.unique())
     if not raw_rows:
         raise ValueError('Operations archive contains no flight rows')
     if not national_parts:
@@ -288,31 +330,45 @@ def read_operations(path, year, month, *, airports=AIRPORTS, airport_ids=None,
         audit['selected_airport_ids'] = sorted(selected_airport_ids)
         audit['scope'] = 'both endpoint airport IDs in supplied stable-ID set; all reporting carriers'
     if repeated_rows_national or ambiguous_rows_national:
-        audit['retained_rows'] = (
-            raw_rows - repeated_rows_national - ambiguous_rows_national)
+        audit['retained_rows'] = raw_rows - repeated_rows_national - ambiguous_rows_national
     if repeated_rows_national:
-        audit['repeated_key_rows_removed_national'] = repeated_rows_national
-        audit['repeated_key_rows_removed_selected'] = repeated_rows_selected
-        audit['repeated_key_groups_national'] = len(repeated_keys)
-        audit['repeated_key_groups_selected'] = len(repeated_keys_selected)
-        audit['repeat_resolution_policy'] = (
-            'Repeated complete flight keys are counted once only when every consumed '
-            'identity and outcome field agrees, including missingness; this is '
-            'measurement equivalence, not full source row identity.')
+        audit.update({
+            'repeated_key_rows_removed_national': repeated_rows_national,
+            'repeated_key_rows_removed_selected': repeated_rows_selected,
+            'repeated_key_groups_national': len(repeated_keys),
+            'repeated_key_groups_selected': len(repeated_keys_selected),
+            'repeat_resolution_policy': (
+                'Repeated complete flight keys are counted once only when every consumed '
+                'identity and outcome field agrees, including missingness; this is '
+                'measurement equivalence, not full source row identity.'),
+        })
     if ambiguous_rows_national:
-        audit['ambiguous_key_rows_excluded_national'] = ambiguous_rows_national
-        audit['ambiguous_key_rows_excluded_selected'] = ambiguous_rows_selected
-        audit['ambiguous_key_groups_national'] = len(ambiguous_keys)
-        audit['ambiguous_key_groups_selected'] = len(ambiguous_groups_selected)
-        audit['ambiguous_complete_key_groups'] = ambiguous_details
-        audit['ambiguity_policy'] = (
-            'All rows in a conflicting complete flight-key group are quarantined; '
-            'no outcome is selected or imputed. Counts are retained reported analysis '
-            'units, not a census of unique physical flights.')
+        audit.update({
+            'ambiguous_key_rows_excluded_national': ambiguous_rows_national,
+            'ambiguous_key_rows_excluded_selected': ambiguous_rows_selected,
+            'ambiguous_key_groups_national': len(ambiguous_keys),
+            'ambiguous_key_groups_selected': len(ambiguous_groups_selected),
+            'ambiguous_complete_key_groups': ambiguous_details,
+            'ambiguity_policy': (
+                'All rows in a conflicting complete flight-key group are quarantined; '
+                'no outcome is selected or imputed. Counts are retained reported analysis '
+                'units, not a census of unique physical flights.'),
+        })
     if missing_schedule_national:
-        audit['missing_scheduled_departure_national'] = missing_schedule_national
-        audit['missing_scheduled_departure_selected'] = missing_schedule_selected
-        audit['incomplete_key_policy'] = (
-            'Missing CRSDepTime retained only when the remaining flight identity '
-            'is unique across the complete monthly source; no schedule imputation.')
+        audit.update({
+            'missing_scheduled_departure_national': missing_schedule_national,
+            'missing_scheduled_departure_selected': missing_schedule_selected,
+            'incomplete_key_policy': (
+                'Missing CRSDepTime retained only when the remaining flight identity '
+                'is unique across the complete monthly source; no schedule imputation.'),
+        })
+    if missing_number_national:
+        audit.update({
+            'missing_flight_number_national': missing_number_national,
+            'missing_flight_number_selected': missing_number_selected,
+            'missing_flight_number_policy': (
+                'Missing flight number retained only when CRSDepTime is present and the '
+                'remaining flight identity is unique across the complete monthly source; '
+                'no flight-number imputation.'),
+        })
     return outcome_rates(scoped), outcome_rates(national), audit

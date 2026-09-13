@@ -147,6 +147,9 @@ def test_month_without_missing_schedule_preserves_legacy_audit_shape(tmp_path):
     assert 'missing_scheduled_departure_national' not in audit
     assert 'missing_scheduled_departure_selected' not in audit
     assert 'incomplete_key_policy' not in audit
+    assert 'missing_flight_number_national' not in audit
+    assert 'missing_flight_number_selected' not in audit
+    assert 'missing_flight_number_policy' not in audit
     assert 'retained_rows' not in audit
     assert 'repeated_key_rows_removed_national' not in audit
     assert 'repeated_key_rows_removed_selected' not in audit
@@ -423,6 +426,129 @@ def test_unknown_conflict_policy_fails_before_reading(tmp_path):
     with pytest.raises(ValueError, match='conflict_policy'):
         read_operations(tmp_path/'missing.zip', 2024, 1,
                         conflict_policy='choose_first')
+
+
+def test_unique_missing_flight_number_is_retained_only_in_quarantine(tmp_path):
+    from src.stage6.operations import read_operations, summarize_operations
+    rows = flight_rows().iloc[[0, 1]].copy().reset_index(drop=True)
+    rows.loc[0, 'Flight_Number_Reporting_Airline'] = np.nan
+    rows.loc[1, 'CRSDepTime'] = 1100
+    path = tmp_path/'missing-flight-number.zip'
+    _write_operations_zip(path, rows)
+
+    with pytest.raises(ValueError, match='Missing operations identity'):
+        read_operations(path, 2024, 1, chunksize=1)
+    with pytest.raises(ValueError, match='Missing operations identity'):
+        summarize_operations(rows, 2024, 1)
+    assert summarize_operations(
+        rows, 2024, 1, allow_missing_flight_number=True)[1]['rows'] == 2
+
+    scoped, national, audit = read_operations(
+        path, 2024, 1, airports=['ORD', 'LAX'], chunksize=1,
+        conflict_policy='quarantine')
+
+    assert scoped.flights.sum() == 2
+    assert national.flights.sum() == 2
+    assert audit['missing_flight_number_national'] == 1
+    assert audit['missing_flight_number_selected'] == 1
+    assert 'unique across the complete monthly source' in audit['missing_flight_number_policy']
+    assert 'imputation' in audit['missing_flight_number_policy']
+
+
+@pytest.mark.parametrize('missing_first', [False, True])
+@pytest.mark.parametrize('chunksize', [1, 20])
+def test_missing_flight_number_projection_collision_fails_across_orders(
+        tmp_path, missing_first, chunksize):
+    from src.stage6.operations import read_operations
+    complete = flight_rows().iloc[[0]].copy()
+    missing = complete.copy()
+    missing['Flight_Number_Reporting_Airline'] = np.nan
+    rows = pd.concat([missing, complete] if missing_first else [complete, missing],
+                     ignore_index=True)
+    path = tmp_path/f'missing-number-collision-{missing_first}-{chunksize}.zip'
+    _write_operations_zip(path, rows)
+
+    with pytest.raises(ValueError, match='incomplete.*collision'):
+        read_operations(path, 2024, 1, chunksize=chunksize,
+                        conflict_policy='quarantine')
+
+
+@pytest.mark.parametrize('chunksize', [1, 20])
+def test_two_missing_flight_numbers_with_same_projection_fail(tmp_path, chunksize):
+    from src.stage6.operations import read_operations
+    rows = flight_rows().iloc[[0, 0]].copy()
+    rows['Flight_Number_Reporting_Airline'] = np.nan
+    path = tmp_path/f'two-missing-numbers-{chunksize}.zip'
+    _write_operations_zip(path, rows)
+
+    with pytest.raises(ValueError, match='incomplete.*collision'):
+        read_operations(path, 2024, 1, chunksize=chunksize,
+                        conflict_policy='quarantine')
+
+
+def test_both_schedule_and_flight_number_missing_always_fails(tmp_path):
+    from src.stage6.operations import read_operations
+    rows = flight_rows().iloc[[0]].copy()
+    rows[['CRSDepTime', 'Flight_Number_Reporting_Airline']] = np.nan
+    path = tmp_path/'both-partial-identities.zip'
+    _write_operations_zip(path, rows)
+
+    with pytest.raises(ValueError, match='both CRSDepTime and flight number'):
+        read_operations(path, 2024, 1, conflict_policy='quarantine')
+
+
+@pytest.mark.parametrize('missing_schedule_first', [False, True])
+@pytest.mark.parametrize('chunksize', [1, 20])
+def test_complementary_partial_keys_on_same_base_fail_regardless_known_values(
+        tmp_path, missing_schedule_first, chunksize):
+    from src.stage6.operations import read_operations
+    missing_schedule = flight_rows().iloc[[0]].copy()
+    missing_schedule['CRSDepTime'] = np.nan
+    missing_schedule['Flight_Number_Reporting_Airline'] = 700
+    missing_number = flight_rows().iloc[[0]].copy()
+    missing_number['CRSDepTime'] = 1234
+    missing_number['Flight_Number_Reporting_Airline'] = np.nan
+    parts = ([missing_schedule, missing_number] if missing_schedule_first
+             else [missing_number, missing_schedule])
+    path = tmp_path/f'complementary-{missing_schedule_first}-{chunksize}.zip'
+    _write_operations_zip(path, pd.concat(parts, ignore_index=True))
+
+    with pytest.raises(ValueError, match='partial.*collision'):
+        read_operations(path, 2024, 1, chunksize=chunksize,
+                        conflict_policy='quarantine')
+
+
+def test_unrelated_missing_schedule_and_flight_number_are_both_retained(tmp_path):
+    from src.stage6.operations import read_operations
+    missing_schedule = flight_rows().iloc[[0]].copy()
+    missing_schedule['CRSDepTime'] = np.nan
+    missing_number = flight_rows().iloc[[1]].copy()
+    missing_number['Flight_Number_Reporting_Airline'] = np.nan
+    missing_number['FlightDate'] = '2024-01-02'
+    path = tmp_path/'unrelated-partial-identities.zip'
+    _write_operations_zip(path, pd.concat(
+        [missing_schedule, missing_number], ignore_index=True))
+
+    scoped, national, audit = read_operations(
+        path, 2024, 1, airports=['ORD', 'LAX'], chunksize=1,
+        conflict_policy='quarantine')
+
+    assert scoped.flights.sum() == 2
+    assert national.flights.sum() == 2
+    assert audit['missing_scheduled_departure_national'] == 1
+    assert audit['missing_flight_number_national'] == 1
+
+
+def test_invalid_flag_on_missing_flight_number_still_fails_preflight(tmp_path):
+    from src.stage6.operations import read_operations
+    rows = flight_rows().iloc[[0]].copy()
+    rows['Flight_Number_Reporting_Airline'] = np.nan
+    rows['Cancelled'] = 3
+    path = tmp_path/'invalid-missing-number.zip'
+    _write_operations_zip(path, rows)
+
+    with pytest.raises(ValueError, match='flag'):
+        read_operations(path, 2024, 1, conflict_policy='quarantine')
 
 
 def test_quarantine_serialized_details_ignore_chunk_numeric_inference(tmp_path):

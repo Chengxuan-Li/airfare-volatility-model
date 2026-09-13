@@ -14,7 +14,9 @@ The user explicitly requested all remaining years without further commands.
 The 2017/2018 source conflicts are resolved by explicit whole-key quarantine
 in the annual workflow; raw variants and failed attempts remain documented.
 The reviewed implementation and certification script pass 232 offline tests.
-Acquisition is complete for all 310 declared archives; 2017-2025 builds continue.
+Acquisition is complete for all 310 declared archives. All years except 2024 are
+reproduced and published; the reviewed unique-missing-flight-number fix passes
+250 tests and the final 2024 two-build reproduction is resuming.
 
 The 2011 extension is complete and published on `codex/stage-6-2011-panel`;
 see [report](findings/stage6_2011_report.md) and [plan](methods/stage6_2011_plan.md).

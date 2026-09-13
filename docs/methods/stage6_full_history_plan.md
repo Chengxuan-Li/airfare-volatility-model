@@ -97,3 +97,12 @@ these as retained reported analysis units, not a census of physical flights.
 Ambiguity exclusions can depend on disruption and limit outcome representativeness.
 Incomplete-key collisions and invalid source values still fail. The strict reader
 default remains available; only the declared annual workflow opts into quarantine.
+
+August 2024 additionally contains one genuinely blank flight number on an otherwise
+unique date/carrier/route/scheduled-time key. The annual workflow may retain a
+missing flight number without imputation only when scheduled time is present and
+the remaining exact key is unique across the full month. Its national/scoped counts
+and policy must be explicit. Both flight number and scheduled time missing remains
+an error. A missing-time row and a missing-number row sharing date/carrier/route
+are potentially the same unit and must fail, in either order or chunk placement.
+All other missing grouping identities and projected-key collisions still fail.

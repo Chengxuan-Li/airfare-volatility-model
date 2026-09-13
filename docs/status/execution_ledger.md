@@ -520,3 +520,11 @@ eleven derived files byte-for-byte from its full declared raw input set. Per-yea
 verification records and build-attempt ledgers preserve input/baseline/source hashes
 and any preceding failed attempts. Report progress table reconciles against those
 verified artifacts. Publication follows staged inspection.
+
+The 2023/2025 queue exited successfully before the missing-number implementation
+was applied. Candidate TDD and independent review passed; final full suite has
+250 passing tests and the known Stage 5 warning. Coordinator August2024 validation
+retains all619,025 national records and195,844 scoped records, with exactly one
+missing-flight-number record nationally/in scope and no number imputation.
+The final2024 two-build reproduction now resumes on the reviewed code. All other
+fifteen annual/partial-year panels are verified and published.

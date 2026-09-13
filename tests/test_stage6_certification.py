@@ -253,6 +253,48 @@ def test_operations_reconciliation_rejects_malformed_ambiguity_evidence(mutation
             pd.DataFrame({'flights': [5]}), 2018)
 
 
+def test_missing_flight_number_exception_survives_consumed_input_manifest():
+    from scripts.verify_stage6_history import reconcile_operations
+    quality = {
+        'operations': [{
+            'year': 2024, 'month': 8, 'raw_rows': 10, 'selected_rows': 5,
+            'missing_flight_number_national': 1,
+            'missing_flight_number_selected': 0,
+            'missing_flight_number_policy': (
+                'Retain only when the remaining scheduled-flight identity is unique.'),
+        }]
+    }
+    _, exceptions = reconcile_operations(
+        quality, pd.DataFrame({'flights': [10]}),
+        pd.DataFrame({'flights': [5]}), 2024)
+    consumed_input_manifest = json.loads(json.dumps({
+        'operations_source_exceptions': exceptions,
+    }))
+
+    assert consumed_input_manifest['operations_source_exceptions'] == [{
+        'year': 2024, 'month': 8, 'raw_rows': 10, 'selected_rows': 5,
+        'missing_flight_number_national': 1,
+        'missing_flight_number_selected': 0,
+        'missing_flight_number_policy': (
+            'Retain only when the remaining scheduled-flight identity is unique.'),
+    }]
+
+
+@pytest.mark.parametrize('national_missing,selected_missing', [(11, 0), (6, 6)])
+def test_missing_flight_number_counts_cannot_exceed_retained_populations(
+        national_missing, selected_missing):
+    from scripts.verify_stage6_history import CertificationError, reconcile_operations
+    quality = {'operations': [{
+        'year': 2024, 'month': 8, 'raw_rows': 10, 'selected_rows': 5,
+        'missing_flight_number_national': national_missing,
+        'missing_flight_number_selected': selected_missing,
+        'missing_flight_number_policy': 'Unique remaining key; no imputation.',
+    }]}
+    with pytest.raises(CertificationError, match='exceed.*retained'):
+        reconcile_operations(quality, pd.DataFrame({'flights': [10]}),
+                             pd.DataFrame({'flights': [5]}), 2024)
+
+
 def test_fr24_zero_requires_summary_and_every_annual_acquisition_ledger(tmp_path):
     from scripts.verify_stage6_history import CertificationError, verify_fr24_zero
     manifests = tmp_path/'manifests'
