@@ -306,3 +306,23 @@ contents. The coordinator verified its workspace path and SHA-256
 `e7cd6b3458e3e6fe92b87aa3e09ee064f6d77a9cd318e7380ba464e0465ab3fc`, then removed
 only that generated file. No raw data, credentials or user edits were affected.
 Use stdout for read-only inspection; do not redirect to reserved device names.
+
+# Continuous full-history execution — 2026-09-13
+
+The user authorized continuing through all remaining years without another
+command. Plan `b61f563` fixes 2012-2024 full years and 2025 Q1-Q2/January-June,
+retaining the original frozen sample and all scientific measurement constraints.
+The coordinator owns live requests and Git, with two bounded implementation workers.
+No paid services or FR24 calls/credits are added.
+
+All 270 remaining HEAD probes succeeded, advertising 13,165,882,016 bytes against
+121,456,566,272 free bytes before acquisition. Fourteen per-year access inventories
+and a horizon summary preserve exact endpoints, response metadata and disk checks.
+The coordinator has begun year-ordered acquisition with two bounded GETs at a time.
+Any failed pair stops acquisition for diagnosis and a documented bounded resume.
+The full horizon is 310 identities: 124 DB1B Market/Ticket archives and 186 monthly
+operations archives. Endpoint access is not yet schema or complete data validation.
+
+Ruling: use matching Q1-Q2/January-June baseline periods for 2025 continuity —
+unrequested later periods cannot establish exits — full-year totals are not directly
+comparable to the partial final year. Keep original ranking/selection metadata.

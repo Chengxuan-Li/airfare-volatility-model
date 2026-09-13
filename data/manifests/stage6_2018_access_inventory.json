@@ -1,0 +1,449 @@
+{
+  "generated_at_utc": "2026-09-13T06:07:34.513453Z",
+  "method": "HEAD",
+  "schema_verified": false,
+  "requests": [
+    {
+      "kind": "operations",
+      "table": "On_Time_Reporting_Carrier_On_Time_Performance_(1987_present)",
+      "year": 2018,
+      "month": 1,
+      "url": "https://transtats.bts.gov/PREZIP/On_Time_Reporting_Carrier_On_Time_Performance_1987_present_2018_1.zip",
+      "recipe_probe": true
+    },
+    {
+      "kind": "operations",
+      "table": "On_Time_Reporting_Carrier_On_Time_Performance_(1987_present)",
+      "year": 2018,
+      "month": 2,
+      "url": "https://transtats.bts.gov/PREZIP/On_Time_Reporting_Carrier_On_Time_Performance_1987_present_2018_2.zip",
+      "recipe_probe": true
+    },
+    {
+      "kind": "operations",
+      "table": "On_Time_Reporting_Carrier_On_Time_Performance_(1987_present)",
+      "year": 2018,
+      "month": 3,
+      "url": "https://transtats.bts.gov/PREZIP/On_Time_Reporting_Carrier_On_Time_Performance_1987_present_2018_3.zip",
+      "recipe_probe": true
+    },
+    {
+      "kind": "operations",
+      "table": "On_Time_Reporting_Carrier_On_Time_Performance_(1987_present)",
+      "year": 2018,
+      "month": 4,
+      "url": "https://transtats.bts.gov/PREZIP/On_Time_Reporting_Carrier_On_Time_Performance_1987_present_2018_4.zip",
+      "recipe_probe": true
+    },
+    {
+      "kind": "operations",
+      "table": "On_Time_Reporting_Carrier_On_Time_Performance_(1987_present)",
+      "year": 2018,
+      "month": 5,
+      "url": "https://transtats.bts.gov/PREZIP/On_Time_Reporting_Carrier_On_Time_Performance_1987_present_2018_5.zip",
+      "recipe_probe": true
+    },
+    {
+      "kind": "operations",
+      "table": "On_Time_Reporting_Carrier_On_Time_Performance_(1987_present)",
+      "year": 2018,
+      "month": 6,
+      "url": "https://transtats.bts.gov/PREZIP/On_Time_Reporting_Carrier_On_Time_Performance_1987_present_2018_6.zip",
+      "recipe_probe": true
+    },
+    {
+      "kind": "operations",
+      "table": "On_Time_Reporting_Carrier_On_Time_Performance_(1987_present)",
+      "year": 2018,
+      "month": 7,
+      "url": "https://transtats.bts.gov/PREZIP/On_Time_Reporting_Carrier_On_Time_Performance_1987_present_2018_7.zip",
+      "recipe_probe": true
+    },
+    {
+      "kind": "operations",
+      "table": "On_Time_Reporting_Carrier_On_Time_Performance_(1987_present)",
+      "year": 2018,
+      "month": 8,
+      "url": "https://transtats.bts.gov/PREZIP/On_Time_Reporting_Carrier_On_Time_Performance_1987_present_2018_8.zip",
+      "recipe_probe": true
+    },
+    {
+      "kind": "operations",
+      "table": "On_Time_Reporting_Carrier_On_Time_Performance_(1987_present)",
+      "year": 2018,
+      "month": 9,
+      "url": "https://transtats.bts.gov/PREZIP/On_Time_Reporting_Carrier_On_Time_Performance_1987_present_2018_9.zip",
+      "recipe_probe": true
+    },
+    {
+      "kind": "operations",
+      "table": "On_Time_Reporting_Carrier_On_Time_Performance_(1987_present)",
+      "year": 2018,
+      "month": 10,
+      "url": "https://transtats.bts.gov/PREZIP/On_Time_Reporting_Carrier_On_Time_Performance_1987_present_2018_10.zip",
+      "recipe_probe": true
+    },
+    {
+      "kind": "operations",
+      "table": "On_Time_Reporting_Carrier_On_Time_Performance_(1987_present)",
+      "year": 2018,
+      "month": 11,
+      "url": "https://transtats.bts.gov/PREZIP/On_Time_Reporting_Carrier_On_Time_Performance_1987_present_2018_11.zip",
+      "recipe_probe": true
+    },
+    {
+      "kind": "operations",
+      "table": "On_Time_Reporting_Carrier_On_Time_Performance_(1987_present)",
+      "year": 2018,
+      "month": 12,
+      "url": "https://transtats.bts.gov/PREZIP/On_Time_Reporting_Carrier_On_Time_Performance_1987_present_2018_12.zip",
+      "recipe_probe": true
+    },
+    {
+      "kind": "fare",
+      "table": "DB1BMarket",
+      "year": 2018,
+      "quarter": 1,
+      "url": "https://transtats.bts.gov/PREZIP/Origin_and_Destination_Survey_DB1BMarket_2018_1.zip"
+    },
+    {
+      "kind": "fare",
+      "table": "DB1BTicket",
+      "year": 2018,
+      "quarter": 1,
+      "url": "https://transtats.bts.gov/PREZIP/Origin_and_Destination_Survey_DB1BTicket_2018_1.zip"
+    },
+    {
+      "kind": "fare",
+      "table": "DB1BMarket",
+      "year": 2018,
+      "quarter": 2,
+      "url": "https://transtats.bts.gov/PREZIP/Origin_and_Destination_Survey_DB1BMarket_2018_2.zip"
+    },
+    {
+      "kind": "fare",
+      "table": "DB1BTicket",
+      "year": 2018,
+      "quarter": 2,
+      "url": "https://transtats.bts.gov/PREZIP/Origin_and_Destination_Survey_DB1BTicket_2018_2.zip"
+    },
+    {
+      "kind": "fare",
+      "table": "DB1BMarket",
+      "year": 2018,
+      "quarter": 3,
+      "url": "https://transtats.bts.gov/PREZIP/Origin_and_Destination_Survey_DB1BMarket_2018_3.zip"
+    },
+    {
+      "kind": "fare",
+      "table": "DB1BTicket",
+      "year": 2018,
+      "quarter": 3,
+      "url": "https://transtats.bts.gov/PREZIP/Origin_and_Destination_Survey_DB1BTicket_2018_3.zip"
+    },
+    {
+      "kind": "fare",
+      "table": "DB1BMarket",
+      "year": 2018,
+      "quarter": 4,
+      "url": "https://transtats.bts.gov/PREZIP/Origin_and_Destination_Survey_DB1BMarket_2018_4.zip"
+    },
+    {
+      "kind": "fare",
+      "table": "DB1BTicket",
+      "year": 2018,
+      "quarter": 4,
+      "url": "https://transtats.bts.gov/PREZIP/Origin_and_Destination_Survey_DB1BTicket_2018_4.zip"
+    }
+  ],
+  "results": [
+    {
+      "request_index": 0,
+      "requested_at_utc": "2026-09-13T06:07:32.140355Z",
+      "status": 200,
+      "final_url": "https://transtats.bts.gov/PREZIP/On_Time_Reporting_Carrier_On_Time_Performance_1987_present_2018_1.zip",
+      "headers": {
+        "content_length": 29202589,
+        "content_type": "application/x-zip-compressed",
+        "last_modified": "Thu, 13 Apr 2023 11:51:40 GMT",
+        "etag": "\"06e144ffe6dd91:0\""
+      },
+      "error": null,
+      "success": true
+    },
+    {
+      "request_index": 1,
+      "requested_at_utc": "2026-09-13T06:07:32.140837Z",
+      "status": 200,
+      "final_url": "https://transtats.bts.gov/PREZIP/On_Time_Reporting_Carrier_On_Time_Performance_1987_present_2018_2.zip",
+      "headers": {
+        "content_length": 26783225,
+        "content_type": "application/x-zip-compressed",
+        "last_modified": "Thu, 13 Apr 2023 11:51:47 GMT",
+        "etag": "\"808b4053fe6dd91:0\""
+      },
+      "error": null,
+      "success": true
+    },
+    {
+      "request_index": 2,
+      "requested_at_utc": "2026-09-13T06:07:32.373465Z",
+      "status": 200,
+      "final_url": "https://transtats.bts.gov/PREZIP/On_Time_Reporting_Carrier_On_Time_Performance_1987_present_2018_3.zip",
+      "headers": {
+        "content_length": 30193999,
+        "content_type": "application/x-zip-compressed",
+        "last_modified": "Thu, 13 Apr 2023 11:51:56 GMT",
+        "etag": "\"0d69d58fe6dd91:0\""
+      },
+      "error": null,
+      "success": true
+    },
+    {
+      "request_index": 3,
+      "requested_at_utc": "2026-09-13T06:07:32.374672Z",
+      "status": 200,
+      "final_url": "https://transtats.bts.gov/PREZIP/On_Time_Reporting_Carrier_On_Time_Performance_1987_present_2018_4.zip",
+      "headers": {
+        "content_length": 30781043,
+        "content_type": "application/x-zip-compressed",
+        "last_modified": "Thu, 13 Apr 2023 11:52:05 GMT",
+        "etag": "\"8020fb5dfe6dd91:0\""
+      },
+      "error": null,
+      "success": true
+    },
+    {
+      "request_index": 4,
+      "requested_at_utc": "2026-09-13T06:07:32.603536Z",
+      "status": 200,
+      "final_url": "https://transtats.bts.gov/PREZIP/On_Time_Reporting_Carrier_On_Time_Performance_1987_present_2018_5.zip",
+      "headers": {
+        "content_length": 31736637,
+        "content_type": "application/x-zip-compressed",
+        "last_modified": "Thu, 13 Apr 2023 11:52:14 GMT",
+        "etag": "\"06b5863fe6dd91:0\""
+      },
+      "error": null,
+      "success": true
+    },
+    {
+      "request_index": 5,
+      "requested_at_utc": "2026-09-13T06:07:32.608689Z",
+      "status": 200,
+      "final_url": "https://transtats.bts.gov/PREZIP/On_Time_Reporting_Carrier_On_Time_Performance_1987_present_2018_6.zip",
+      "headers": {
+        "content_length": 32226333,
+        "content_type": "application/x-zip-compressed",
+        "last_modified": "Thu, 13 Apr 2023 11:52:23 GMT",
+        "etag": "\"80b5b568fe6dd91:0\""
+      },
+      "error": null,
+      "success": true
+    },
+    {
+      "request_index": 6,
+      "requested_at_utc": "2026-09-13T06:07:32.845457Z",
+      "status": 200,
+      "final_url": "https://transtats.bts.gov/PREZIP/On_Time_Reporting_Carrier_On_Time_Performance_1987_present_2018_7.zip",
+      "headers": {
+        "content_length": 32887569,
+        "content_type": "application/x-zip-compressed",
+        "last_modified": "Thu, 13 Apr 2023 11:52:33 GMT",
+        "etag": "\"8096ab6efe6dd91:0\""
+      },
+      "error": null,
+      "success": true
+    },
+    {
+      "request_index": 7,
+      "requested_at_utc": "2026-09-13T06:07:32.864568Z",
+      "status": 200,
+      "final_url": "https://transtats.bts.gov/PREZIP/On_Time_Reporting_Carrier_On_Time_Performance_1987_present_2018_8.zip",
+      "headers": {
+        "content_length": 33006511,
+        "content_type": "application/x-zip-compressed",
+        "last_modified": "Thu, 13 Apr 2023 11:52:42 GMT",
+        "etag": "\"0e1874fe6dd91:0\""
+      },
+      "error": null,
+      "success": true
+    },
+    {
+      "request_index": 8,
+      "requested_at_utc": "2026-09-13T06:07:33.101225Z",
+      "status": 200,
+      "final_url": "https://transtats.bts.gov/PREZIP/On_Time_Reporting_Carrier_On_Time_Performance_1987_present_2018_9.zip",
+      "headers": {
+        "content_length": 29882599,
+        "content_type": "application/x-zip-compressed",
+        "last_modified": "Thu, 13 Apr 2023 11:52:51 GMT",
+        "etag": "\"802b6679fe6dd91:0\""
+      },
+      "error": null,
+      "success": true
+    },
+    {
+      "request_index": 9,
+      "requested_at_utc": "2026-09-13T06:07:33.106937Z",
+      "status": 200,
+      "final_url": "https://transtats.bts.gov/PREZIP/On_Time_Reporting_Carrier_On_Time_Performance_1987_present_2018_10.zip",
+      "headers": {
+        "content_length": 31418901,
+        "content_type": "application/x-zip-compressed",
+        "last_modified": "Thu, 13 Apr 2023 11:53:00 GMT",
+        "etag": "\"076c37efe6dd91:0\""
+      },
+      "error": null,
+      "success": true
+    },
+    {
+      "request_index": 10,
+      "requested_at_utc": "2026-09-13T06:07:33.322006Z",
+      "status": 200,
+      "final_url": "https://transtats.bts.gov/PREZIP/On_Time_Reporting_Carrier_On_Time_Performance_1987_present_2018_11.zip",
+      "headers": {
+        "content_length": 29969446,
+        "content_type": "application/x-zip-compressed",
+        "last_modified": "Thu, 13 Apr 2023 11:53:08 GMT",
+        "etag": "\"02a8883fe6dd91:0\""
+      },
+      "error": null,
+      "success": true
+    },
+    {
+      "request_index": 11,
+      "requested_at_utc": "2026-09-13T06:07:33.353034Z",
+      "status": 200,
+      "final_url": "https://transtats.bts.gov/PREZIP/On_Time_Reporting_Carrier_On_Time_Performance_1987_present_2018_12.zip",
+      "headers": {
+        "content_length": 30387123,
+        "content_type": "application/x-zip-compressed",
+        "last_modified": "Thu, 13 Apr 2023 11:53:17 GMT",
+        "etag": "\"8074e588fe6dd91:0\""
+      },
+      "error": null,
+      "success": true
+    },
+    {
+      "request_index": 12,
+      "requested_at_utc": "2026-09-13T06:07:33.554362Z",
+      "status": 200,
+      "final_url": "https://transtats.bts.gov/PREZIP/Origin_and_Destination_Survey_DB1BMarket_2018_1.zip",
+      "headers": {
+        "content_length": 84267033,
+        "content_type": "application/x-zip-compressed",
+        "last_modified": "Thu, 05 Jul 2018 18:03:48 GMT",
+        "etag": "\"09a98858a14d41:0\""
+      },
+      "error": null,
+      "success": true
+    },
+    {
+      "request_index": 13,
+      "requested_at_utc": "2026-09-13T06:07:33.585619Z",
+      "status": 200,
+      "final_url": "https://transtats.bts.gov/PREZIP/Origin_and_Destination_Survey_DB1BTicket_2018_1.zip",
+      "headers": {
+        "content_length": 74324313,
+        "content_type": "application/x-zip-compressed",
+        "last_modified": "Thu, 05 Jul 2018 18:04:49 GMT",
+        "etag": "\"8076f4a98a14d41:0\""
+      },
+      "error": null,
+      "success": true
+    },
+    {
+      "request_index": 14,
+      "requested_at_utc": "2026-09-13T06:07:33.785214Z",
+      "status": 200,
+      "final_url": "https://transtats.bts.gov/PREZIP/Origin_and_Destination_Survey_DB1BMarket_2018_2.zip",
+      "headers": {
+        "content_length": 98558791,
+        "content_type": "application/x-zip-compressed",
+        "last_modified": "Fri, 05 Oct 2018 17:44:49 GMT",
+        "etag": "\"80feb31cd35cd41:0\""
+      },
+      "error": null,
+      "success": true
+    },
+    {
+      "request_index": 15,
+      "requested_at_utc": "2026-09-13T06:07:33.818155Z",
+      "status": 200,
+      "final_url": "https://transtats.bts.gov/PREZIP/Origin_and_Destination_Survey_DB1BTicket_2018_2.zip",
+      "headers": {
+        "content_length": 87040438,
+        "content_type": "application/x-zip-compressed",
+        "last_modified": "Fri, 05 Oct 2018 18:04:19 GMT",
+        "etag": "\"80d313d6d55cd41:0\""
+      },
+      "error": null,
+      "success": true
+    },
+    {
+      "request_index": 16,
+      "requested_at_utc": "2026-09-13T06:07:34.009150Z",
+      "status": 200,
+      "final_url": "https://transtats.bts.gov/PREZIP/Origin_and_Destination_Survey_DB1BMarket_2018_3.zip",
+      "headers": {
+        "content_length": 95319543,
+        "content_type": "application/x-zip-compressed",
+        "last_modified": "Mon, 04 Feb 2019 17:12:32 GMT",
+        "etag": "\"0c08ed0acbcd41:0\""
+      },
+      "error": null,
+      "success": true
+    },
+    {
+      "request_index": 17,
+      "requested_at_utc": "2026-09-13T06:07:34.045673Z",
+      "status": 200,
+      "final_url": "https://transtats.bts.gov/PREZIP/Origin_and_Destination_Survey_DB1BTicket_2018_3.zip",
+      "headers": {
+        "content_length": 83310128,
+        "content_type": "application/x-zip-compressed",
+        "last_modified": "Mon, 04 Feb 2019 17:23:45 GMT",
+        "etag": "\"8066b261aebcd41:0\""
+      },
+      "error": null,
+      "success": true
+    },
+    {
+      "request_index": 18,
+      "requested_at_utc": "2026-09-13T06:07:34.259371Z",
+      "status": 200,
+      "final_url": "https://transtats.bts.gov/PREZIP/Origin_and_Destination_Survey_DB1BMarket_2018_4.zip",
+      "headers": {
+        "content_length": 97407239,
+        "content_type": "application/x-zip-compressed",
+        "last_modified": "Wed, 03 Apr 2019 14:46:19 GMT",
+        "etag": "\"80af66ff2bead41:0\""
+      },
+      "error": null,
+      "success": true
+    },
+    {
+      "request_index": 19,
+      "requested_at_utc": "2026-09-13T06:07:34.267574Z",
+      "status": 200,
+      "final_url": "https://transtats.bts.gov/PREZIP/Origin_and_Destination_Survey_DB1BTicket_2018_4.zip",
+      "headers": {
+        "content_length": 86306959,
+        "content_type": "application/x-zip-compressed",
+        "last_modified": "Wed, 03 Apr 2019 14:53:28 GMT",
+        "etag": "\"0e41aff2cead41:0\""
+      },
+      "error": null,
+      "success": true
+    }
+  ],
+  "summary": {
+    "request_count": 20,
+    "success_count": 20,
+    "failure_count": 0,
+    "advertised_bytes_total": 1075010419,
+    "free_bytes_at_inventory": 121456979968,
+    "advertised_bytes_fit_free_disk": true
+  }
+}
