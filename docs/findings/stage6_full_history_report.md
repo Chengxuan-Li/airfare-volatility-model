@@ -65,6 +65,17 @@ The July case is outside the selected network (one national, zero selected rows)
 The failed attempt remains in its build-attempt ledger alongside the two successful
 reproduction passes. No input bytes were changed.
 
+The first 2017 build stopped in May on two records sharing a complete scheduled
+flight key. Every identity and outcome field consumed here agrees, including a
+cancellation, no diversion and missing arrival delay. Tail/departure/ground-return
+metadata outside this analysis differ, so these are not identical full source
+rows. The reviewed rule counts a repeated complete key once only when all consumed
+fields agree, including missingness. Conflicting fields and ambiguous incomplete
+keys still fail. Raw rows, retained flights and removed repeats are audited
+separately; national flight totals above count retained scheduled-flight units.
+The original raw variants remain available for any future aircraft or departure
+analysis, which would need its own resolution rule.
+
 ## Reproduction contract
 
 Each new year is built twice from raw. Its `verification.json` records all derived

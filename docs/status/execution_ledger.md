@@ -413,3 +413,11 @@ eleven derived files byte-for-byte from its full declared raw input set. Per-yea
 verification records and build-attempt ledgers preserve input/baseline/source hashes
 and any preceding failed attempts. Report progress table reconciles against those
 verified artifacts. Publication follows staged inspection.
+
+2017 repeat-resolution fix passed independent review and the full offline suite
+(206 tests; one known Stage 5 rank-deficiency warning). Coordinator validation
+of May against all thirty frozen IDs records 486,483 raw rows, 486,482 retained
+national flights, 191,108 retained scoped flights and one removed repeat both
+nationally and in scope. Multiple chunk sizes produce identical results. The
+optimized exact-tuple implementation keeps all consumed fields without hash-only
+equality. Both raw-build queues resume from 2017/2018 after this code milestone.
