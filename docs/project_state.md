@@ -117,8 +117,10 @@ shifter or full capacity model. See report for competing explanations and all fi
 
 ## Blockers / Git publication
 The Stage 5 branch is published through `2968268`. Stage 6 uses the separate
-`codex/stage-6-operations` branch. The bootstrap milestone is ready for verified
-commit and publication; check Git remote state for the final publication result.
+`codex/stage-6-operations` branch. Noninteractive push succeeded for bootstrap
+milestone `4ae39ec`, including the plan and provenance fixes. Final independent
+code/report review found no remaining material issues. Raw inputs and the pinned
+environment remain ignored; no tracked user changes were left outside the work.
 
 ## Relevant commits
 - `bcb1b47` — Stage 0 research specification.
@@ -133,6 +135,7 @@ commit and publication; check Git remote state for the final publication result.
 - `0738495` — expanded results, reviewed methods and durable outputs.
 - `6461da8` — authorized Stage 6 execution plan, committed before implementation.
 - `631e56e` — provenance preservation and original-pipeline input verification.
+- `4ae39ec` — verified historical access, operations bootstrap, report and outputs.
 
 ## Intentionally uncommitted local files
 - The review began with a clean working tree; `.env.example` is tracked and has
