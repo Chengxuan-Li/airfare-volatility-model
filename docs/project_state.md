@@ -2,7 +2,7 @@
 
 ## Current stage
 <!-- HISTORY_PROGRESS_START -->
-Verified annual outputs: 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023. Each new year has
+Verified annual outputs: 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2025. Each new year has
 two byte-identical raw builds; outstanding years remain queued for continuous
 execution through 2025 Q2. See the full-history report and per-year verification.
 <!-- HISTORY_PROGRESS_END -->
