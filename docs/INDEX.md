@@ -5,6 +5,7 @@ Current phase: verified Stage 6 history through 2025 Q2 on the frozen 2010 sampl
 hypotheses remain unidentifiable from the quarterly sources. Recommendation C.
 
 - [Project state and next actions](project_state.md)
+- [Full-history handoff for another desktop](handoffs/2026-09-13-full-history-next-desktop.md)
 - [Repository and documentation review, 2026-09-12](reviews/2026-09-12-repository-review.md)
 - [Proposed next research direction and unused DOT history](methods/next_research_direction.md)
 - [Authorized Stage 6 execution plan](methods/stage6_execution_plan.md)

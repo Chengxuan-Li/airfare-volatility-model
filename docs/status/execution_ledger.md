@@ -567,3 +567,11 @@ OID 16b1c529bc8f6c7126911f33734223fa1e724bbe. Independent final review found no
 remaining material issues. All plan items for the declared 2010 Q1-2025 Q2 data
 horizon are complete. This documentation record closes publication; remaining
 capacity/quote/forecast/model research is separately identified in project state.
+
+Next-desktop handoff (2026-09-13): added the user-requested Git-controlled
+handoff at docs/handoffs/2026-09-13-full-history-next-desktop.md and linked it from
+the index and project state. It distinguishes committed descriptive panels from
+local raw inputs and completed coverage analysis from future expanded models.
+Verified its relative links and ran its offline summary smoke command; all four
+outputs match published SHA-256 values. No code or canonical data changed.
+A fresh installation on another desktop remains untested.

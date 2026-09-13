@@ -90,6 +90,10 @@ record follows the verified result milestone; no declared work remains pending.
 
 ## Local state and reproduction
 
+The [next-desktop handoff](handoffs/2026-09-13-full-history-next-desktop.md) records
+branch selection, portable startup checks, committed analysis inputs and the
+boundary between completed coverage analysis and future expanded-panel models.
+
 Raw inputs, previous output backups, intermediate files and coordinator scratch
 recipes remain ignored. The local Python 3.13.9 environment matches requirements
 pins; credentials remain ignored and were not read. Compact outputs, acquisition
