@@ -2,9 +2,10 @@
 
 ## Current stage
 <!-- HISTORY_PROGRESS_START -->
-Verified annual outputs: 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2025. Each new year has
-two byte-identical raw builds; outstanding years remain queued for continuous
-execution through 2025 Q2. See the full-history report and per-year verification.
+Verified annual outputs: 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025.
+All declared years now have two byte-identical raw builds; final horizon
+certification and summary publication are in progress.
+See the full-history report and per-year verification.
 <!-- HISTORY_PROGRESS_END -->
 
 Continuous completion of 2012-2025 Q2 is authorized and in progress on
@@ -14,9 +15,9 @@ The user explicitly requested all remaining years without further commands.
 The 2017/2018 source conflicts are resolved by explicit whole-key quarantine
 in the annual workflow; raw variants and failed attempts remain documented.
 The reviewed implementation and certification script pass 232 offline tests.
-Acquisition is complete for all 310 declared archives. All years except 2024 are
-reproduced and published; the reviewed unique-missing-flight-number fix passes
-250 tests and the final 2024 two-build reproduction is resuming.
+Acquisition is complete for all 310 declared archives. All sixteen annual/partial
+years now have two verified byte-identical builds; full-horizon certification and
+summary publication are in progress. The reviewed implementation passes250 tests.
 
 The 2011 extension is complete and published on `codex/stage-6-2011-panel`;
 see [report](findings/stage6_2011_report.md) and [plan](methods/stage6_2011_plan.md).

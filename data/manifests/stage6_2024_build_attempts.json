@@ -8,6 +8,20 @@
       "status": "failed",
       "exit_code": 1,
       "failure_tail": "Selected 30 baseline airports\nFare 2024Q1: 8,116 carrier cells across samples\nFare 2024Q2: 8,213 carrier cells across samples\nFare 2024Q3: 7,829 carrier cells across samples\nFare 2024Q4: 8,178 carrier cells across samples\nOperations 2024-01: 547,271 retained national records\nOperations 2024-02: 519,221 retained national records\nOperations 2024-03: 591,767 retained national records\nOperations 2024-04: 582,185 retained national records\nOperations 2024-05: 609,743 retained national records\nOperations 2024-06: 611,132 retained national records\nOperations 2024-07: 634,613 retained national records\nTraceback (most recent call last):\n  File \"<frozen runpy>\", line 198, in _run_module_as_main\n  File \"<frozen runpy>\", line 88, in _run_code\n  File \"C:\\github\\airfare-volatility-model\\src\\stage6\\annual.py\", line 304, in <module>\n    main()\n    ~~~~^^\n  File \"C:\\github\\airfare-volatility-model\\src\\stage6\\annual.py\", line 233, in main\n    cells, national, audit = read_operations(record['target'], year, month,\n                             ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n                                             airport_ids=airport_ids,\n                                             ^^^^^^^^^^^^^^^^^^^^^^^^\n                                             conflict_policy='quarantine')\n                                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\github\\airfare-volatility-model\\src\\stage6\\operations.py\", line 195, in read_operations\n    ambiguous_keys, ambiguous_details = _quarantine_preflight(\n                                        ~~~~~~~~~~~~~~~~~~~~~^\n        archive, member, required, year, month, chunksize)\n        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\github\\airfare-volatility-model\\src\\stage6\\operations.py\", line 107, in _quarantine_preflight\n    _validate_consumed_values(frame, year, month, require_flights=True)\n    ~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\github\\airfare-volatility-model\\src\\stage6\\operations.py\", line 40, in _validate_consumed_values\n    raise ValueError('Missing operations identity')\nValueError: Missing operations identity\n"
+    },
+    {
+      "started_at_utc": "20260913T075033975834Z",
+      "implementation_commit": "5b44de4c5c1d8b54ccc4c7921f07cf45d552a4e6",
+      "comparison_pass": 1,
+      "status": "success",
+      "exit_code": 0
+    },
+    {
+      "started_at_utc": "20260913T075504540800Z",
+      "implementation_commit": "5b44de4c5c1d8b54ccc4c7921f07cf45d552a4e6",
+      "comparison_pass": 2,
+      "status": "success",
+      "exit_code": 0
     }
   ]
 }

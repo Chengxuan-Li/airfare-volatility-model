@@ -528,3 +528,9 @@ retains all619,025 national records and195,844 scoped records, with exactly one
 missing-flight-number record nationally/in scope and no number imputation.
 The final2024 two-build reproduction now resumes on the reviewed code. All other
 fifteen annual/partial-year panels are verified and published.
+
+Verified year milestone: 2024. Each year reproduces all
+eleven derived files byte-for-byte from its full declared raw input set. Per-year
+verification records and build-attempt ledgers preserve input/baseline/source hashes
+and any preceding failed attempts. Report progress table reconciles against those
+verified artifacts. Publication follows staged inspection.
