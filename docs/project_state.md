@@ -6,6 +6,9 @@ The full-year 2010 panel is now authorized and in progress on
 uses baseline passenger volume; primary linkage is by stable route IDs across
 carriers with explicit source-coverage differences. No new fare models are planned
 in this milestone.
+All 20 declared 2010 inputs are now cached and checksum/CRC verified (811,733,928
+bytes). Seventeen new downloads and eleven successful HEAD probes are recorded in
+the execution ledger. The real full-year panel rebuild is in progress.
 
 Stage 6 historical/operations bootstrap is complete on
 `codex/stage-6-operations`; see [execution plan](methods/stage6_execution_plan.md).

@@ -142,3 +142,30 @@ reconciled every reported count and hash to artifacts. Staged public-hygiene and
 local-link checks passed. Bootstrap milestone `4ae39ec` was committed and pushed
 successfully to `origin/codex/stage-6-operations`, including plan `6461da8` and
 provenance fixes `631e56e`. No historical output changes or raw files were included.
+
+# Full-year 2010 execution — 2026-09-12 local / 2026-09-13 UTC
+
+User authorized the proposed 2010 milestone with "go on". Plan `af1544c` fixes
+baseline passenger-volume airport selection, stable-ID scope, independent
+carrier aggregation and outer route-quarter linkage before new acquisition.
+Ruling: 2010 Q1 supplies selection volume and 2010 remains a development year;
+future temporal evaluation begins after the selection year. This avoids treating
+sample selection as independent of the evaluated year. No fare models are fitted.
+
+Coordinator issued 11 HEAD requests for February-December 2010 reporting on-time;
+all returned 200. The original verified fare inventory and January operations
+correction cover the other nine identities. New metadata is preserved in
+`stage6_2010_access_inventory.json`; 124,744,589,312 free bytes were recorded.
+All 20 advertised archives total 811,733,928 bytes. Three 2010 archives were cached;
+17 new GET downloads passed CRC and SHA-256 validation, totaling 675,505,965 bytes.
+No failures, automatic retries, credentials or FR24 calls/credits. Pairwise bounded
+acquisition and exact hashes/statuses are recorded in
+`stage6_2010_acquisition_20260913T011738492971Z.json`.
+
+Implementation workers used offline fixtures only. Review caught misleading
+default airport labels in the new ID scope, omission of entirely empty fare
+samples from outer linkage, and unnecessary retention of national selection rows
+in memory. Fixes retain old bootstrap behavior, preserve operations-only cells in
+both declared fare samples, and aggregate baseline volumes by chunk. A complete
+20-archive fixture runs through verification, selection, fares, operations and
+linkage successfully. The real annual raw build is now in progress.
