@@ -1,0 +1,25 @@
+{
+  "source": "BTS Reporting Carrier On-Time Performance",
+  "url": "https://transtats.bts.gov/PREZIP/On_Time_Reporting_Carrier_On_Time_Performance_1987_present_2020_5.zip",
+  "query_parameters": {
+    "year": 2020,
+    "month": 5
+  },
+  "retrieved_at_utc": "2026-09-13T06:49:00.331701+00:00",
+  "local_path": "data/raw/bts_ontime/On_Time_Reporting_Carrier_On_Time_Performance_1987_present_2020_5.zip",
+  "bytes": 8640843,
+  "sha256": "7ea09b2420fcdc3106292c396019c7992072844674e069080d9d2b2bf293c899",
+  "transformations": "None; original response retained.",
+  "license_notes": "See docs/data/09_data_legal_technical_constraints.md; raw files not committed.",
+  "members": [
+    {
+      "name": "On_Time_Reporting_Carrier_On_Time_Performance_(1987_present)_2020_5.csv",
+      "uncompressed_bytes": 80358920
+    },
+    {
+      "name": "readme.html",
+      "uncompressed_bytes": 12152
+    }
+  ],
+  "zip_crc_valid": true
+}
