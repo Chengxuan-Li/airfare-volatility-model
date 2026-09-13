@@ -52,15 +52,15 @@ Files: `src/stage6/periods.py`, `src/stage6/annual.py`, relevant tests.
 
 Files: `src/stage6/history.py`, `tests/test_stage6_history.py`.
 
-- [ ] Test small real DataFrames for primary/broad coverage, passenger-weighted
+- [x] Test small real DataFrames for primary/broad coverage, passenger-weighted
   matching, partial months, carrier source separation, missing outcomes and 2025
   partial-year labels. No HTTP or full raw worker builds.
-- [ ] Build deterministic annual and quarterly summary CSVs, source-specific
+- [x] Build deterministic annual and quarterly summary CSVs, source-specific
   carrier presence and a horizon quality/verification audit from per-year outputs.
   Require all declared periods and verified per-year files before final publication.
   No duplicated operations counts across fare samples. Do not sum nominal fares
   or label traffic exogenous demand. Reconcile full-horizon counts to annual outputs.
-- [ ] Test, independently review and integrate. Keep per-year panels the canonical
+- [x] Test, independently review and integrate. Keep per-year panels the canonical
   data; do not duplicate large joined CSVs just to create a single file.
 
 ## Task 3 — Continuous coordinator execution
