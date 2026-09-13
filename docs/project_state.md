@@ -1,9 +1,12 @@
 # Project state
 
 ## Current stage
-The 2011 extension is authorized and starting on `codex/stage-6-2011-panel`;
+The 2011 extension is building on `codex/stage-6-2011-panel`;
 see [plan](methods/stage6_2011_plan.md). It reuses the frozen 2010 airport IDs,
 adds explicit cross-year coverage diagnostics, and estimates no new models.
+All twenty 2011 inputs are downloaded and verified (805,060,530 bytes); no source
+failures or FR24 calls. The implementation passes 118 offline tests. Real builds
+and final coverage/reproducibility review remain in progress.
 
 The full-year 2010 panel is complete on `codex/stage-6-2010-panel`; see the
 [report](findings/stage6_2010_report.md) and [plan](methods/stage6_2010_plan.md).
@@ -58,9 +61,9 @@ quote-time H1/H2 and flexibility premiums remain unidentifiable from these sourc
 - Independent code/methodology and final report reviews completed; findings addressed.
 
 ## In progress
-The next implementation milestone is an audited 2011 batch using the frozen 2010
-airport IDs. The current annual runner intentionally targets 2010 only. Its full
-coverage, exclusions, safe acquisition/publication and reproducibility are verified.
+The audited 2011 batch uses the frozen 2010 airport IDs. The annual runner now
+accepts only 2010 and 2011, retaining the 2010 default. Real 2011 builds and
+cross-year coverage review are in progress; later-year acquisition is outstanding.
 
 The prior pass's identification-argument stopping criterion remains met; it did not
 exhaust DOT data. The user authorized the broader historical and operations-data

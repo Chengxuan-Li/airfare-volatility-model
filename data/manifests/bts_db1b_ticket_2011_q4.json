@@ -1,0 +1,25 @@
+{
+  "source": "BTS DB1BTicket",
+  "url": "https://transtats.bts.gov/PREZIP/Origin_and_Destination_Survey_DB1BTicket_2011_4.zip",
+  "query_parameters": {
+    "year": 2011,
+    "quarter": 4
+  },
+  "retrieved_at_utc": "2026-09-13T05:48:48.770494+00:00",
+  "local_path": "data/raw/bts_db1b/Origin_and_Destination_Survey_DB1BTicket_2011_4.zip",
+  "bytes": 38911043,
+  "sha256": "701ed8ff3c8f7d94cee2385d64ba95973be263d332676810ace4c06f735a9016",
+  "transformations": "None; original response retained.",
+  "license_notes": "See docs/data/09_data_legal_technical_constraints.md; raw files not committed.",
+  "members": [
+    {
+      "name": "Origin_and_Destination_Survey_DB1BTicket_2011_4.csv",
+      "uncompressed_bytes": 457091321
+    },
+    {
+      "name": "readme.html",
+      "uncompressed_bytes": 2891
+    }
+  ],
+  "zip_crc_valid": true
+}

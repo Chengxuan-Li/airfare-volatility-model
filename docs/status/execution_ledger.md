@@ -228,3 +228,25 @@ Publication succeeded: `8a036a8` and all preceding annual milestones pushed to
 `origin/codex/stage-6-2010-panel`. The publication checklist is now complete.
 Only source, tests, documentation, manifests and compact aggregates are published;
 raw inputs, the pinned environment and one previous derived-set backup stay ignored.
+
+# Frozen-sample 2011 acquisition — 2026-09-13
+
+The user's next-step authorization starts the bounded 2011 extension on
+`codex/stage-6-2011-panel`. Plan and frozen-baseline manifest were committed as
+`7190f84` before acquisition. The manifest pins the published 2010 verification
+and ranking; baseline loading verifies all eight derived artifacts before use.
+The thirty selected IDs are retained without 2011 reranking or survival filtering.
+
+Twenty HEAD probes returned 200 and advertised 805,060,530 compressed bytes.
+Acquisition preflight recorded 122,350,710,784 free bytes. The coordinator made
+twenty new bounded GET requests in pairs, downloading exactly eight fare archives
+and twelve operations months. All twenty passed request/path, SHA-256 and ZIP CRC
+checks; there were no failed downloads or cache substitutions. Exact request
+outcomes and hashes are preserved in
+`data/manifests/stage6_2011_acquisition_20260913T054410170520Z.json` and the
+corresponding access inventory. No paid services, FR24 calls or credits.
+
+The frozen-baseline/year-parameter regressions and continuity fixtures pass in
+the full offline suite: 118 tests, one existing Stage 5 reference warning.
+Independent Task 1 review found no material issues. Continuity review and the
+first real 2011 raw build are in progress; no new model estimates are planned.
