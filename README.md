@@ -21,6 +21,13 @@ The firm conclusion is an identification boundary: quarterly transaction data do
 not determine the original quote-time interaction without additional assumptions
 and aligned information. See the [extension reproduction guide](docs/methods/stage5_reproduction.md).
 
+The [Stage 6 bootstrap](docs/findings/stage6_bootstrap_report.md) verifies endpoint
+access for 124 fare archives spanning 2010 Q1-2025 Q2, audits the 2010 Q1 fare
+schema, and processes 1.07 million BTS flight records from January 2010 and January
+2024. Its four downloaded inputs and reproducible operations aggregates establish
+the next data foundation. The full historical panel and new fare models remain
+outstanding; Flightradar24 is still unused.
+
 ## Reproduce
 
 Python 3.13 was used on Windows. Run from the repository root with curl installed.

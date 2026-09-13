@@ -68,38 +68,39 @@ Files: `src/stage6/inventory.py`, `tests/test_stage6_inventory.py`,
 Interface: deterministic `fare_requests(start_year=2010, end_year=2025,
 end_quarter=2)` yields Market/Ticket identities; CLI records bounded HEAD results.
 
-- [ ] Test 124 unique URLs, inclusive boundary periods, and rejection of invalid
+- [x] Test 124 unique URLs, inclusive boundary periods, and rejection of invalid
   ranges. Test response/error capture with controlled external transport.
-- [ ] Probe all intended fare archives with finite per-request timeouts, two
+- [x] Probe all intended fare archives with finite per-request timeouts, two
   concurrent requests maximum, zero automatic retry. Save status, timestamp,
   content length/type, last-modified/ETag when present, and exceptions. HEAD success
   verifies endpoint access, not CSV schema or data quality.
-- [ ] Probe reporting-carrier on-time archives for January 2010 and January 2024
+- [x] Probe reporting-carrier on-time archives for January 2010 and January 2024
   using the documented PREZIP naming recipe. Preserve unavailable paths as failures.
-- [ ] Compare total advertised download bytes against free disk space before batches.
+- [x] Compare total advertised download bytes against free disk space before batches.
   Full historical download is a later batch after bootstrap schema checks pass.
 
 ## Task 4 — Acquire and validate the operations bootstrap
 
-Files: `src/stage6/operations.py`, `tests/test_stage6_operations.py`,
+Files: `src/stage6/operations.py`, `src/stage6/bootstrap.py`,
+`tests/test_stage6_operations.py`, `tests/test_stage6_bootstrap.py`,
 `outputs/stage6/operations_bootstrap_*`, associated raw manifests.
 Bootstrap months January 2010 and January 2024 are chosen before seeing outcomes,
 to test schema continuity and a winter month at two horizon points.
 
-- [ ] Download/CRC/hash the two available official on-time archives and DB1B
+- [x] Download/CRC/hash the two available official on-time archives and DB1B
   Market/Ticket 2010 Q1 as the historical fare-schema bootstrap. Inspect actual
   members/headers before fixing the reader's mapping; never guess column aliases.
-- [ ] Define tested operations aggregates with flight counts, cancellations,
+- [x] Define tested operations aggregates with flight counts, cancellations,
   diversions, valid noncancelled/nondiverted arrival-delay observations, counts
   delayed >=15 and >=60 minutes, missing eligible delay counts, and delay sums.
   Cancellation/diversion rates use all reported flights; delay rates use valid
   eligible observations. Flags and dates must validate; duplicate flight keys must
   be audited and never silently dropped. No synthetic historical data.
-- [ ] Stream national rows; initial compact outputs retain the original seven
+- [x] Stream national rows; initial compact outputs retain the original seven
   airports for compatibility and a national coverage summary. This is a reader
   bootstrap, not the full geographic expansion. Preserve all eligible reporting
   carriers in operations data and do not equate them to DB1B carrier roles.
-- [ ] Rebuild the compact bootstrap twice; compare outputs and inspect audits.
+- [x] Rebuild the compact bootstrap twice; compare outputs and inspect audits.
   Document downloads, schema findings, data exclusions and next batch commands.
 
 ## Subsequent research milestones
@@ -120,10 +121,15 @@ more quarterly history cannot recover missing quote-time information.
 
 ## Verification and completion accounting
 
-- [ ] Tests pass with the actual environment recorded; distinguish available-system
+- [x] Tests pass with the actual environment recorded; distinguish available-system
   verification from a fresh install of the pinned environment.
-- [ ] Record attempted/failed endpoints and consumed input checksums. Inspect all
+- [x] Record attempted/failed endpoints and consumed input checksums. Inspect all
   output/model claims; bootstrap completion is not full Stage 6 completion.
-- [ ] Update project state, index and execution ledger at each milestone. Inspect
+- [x] Update project state, index and execution ledger at each milestone. Inspect
   staged files, commit conventional milestones and push safely. Preserve clean
   historical outputs and report outstanding work without claiming it ran.
+
+Completion evidence: [bootstrap report](../findings/stage6_bootstrap_report.md) and
+[verification record](../../outputs/stage6/bootstrap_verification.json). Tasks 1-4
+are complete; subsequent research milestones remain outstanding. The final
+publication check is recorded in Git remote state, not inferred from this checklist.

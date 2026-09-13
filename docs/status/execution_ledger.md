@@ -92,3 +92,47 @@ and matching reacquisition, request identity, legacy records and local POST
 registration. Thirty-four relevant original/fix tests pass in the pinned
 environment; its intentional redundant-dummy reference emits one known warning.
 Historical outputs remain untouched. Full original raw rebuild is not claimed.
+
+# Stage 6 bootstrap verification — 2026-09-12 local / 2026-09-13 UTC
+
+Coordinator performed 126 initial HEAD requests: all 124 DB1B Market/Ticket
+endpoints for 2010 Q1-2025 Q2 returned 200, advertising 9,925,278,201 bytes against
+125,151,219,712 free bytes. The two operations recipes with parenthesized
+`1987_present` returned 404. Preserve `stage6_access_inventory.json` unchanged.
+Two corrected official filenames without parentheses returned 200, recorded in
+`stage6_operations_access_correction.json`. Total coordinator HEAD requests: 128.
+No automatic probe retries. Future inventory writes require a new destination.
+
+Four coordinator GET downloads succeeded and passed ZIP CRC/SHA-256 validation:
+January 2010 and January 2024 reporting on-time, and 2010 Q1 Market/Ticket. Total
+compressed raw bytes: 163,801,228. No paid API calls or FR24 credits. Exact request
+identities and consumed checksums are in the four acquisition manifests.
+
+Worker-test incident: while adding invalid-timeout regressions, a worker invoked
+`requests.head` 252 times through an insufficiently mocked CLI test before the
+validation fix. Worker-reported diagnostics show 126 NaN-timeout ValueErrors
+(`Invalid value NaN (not a number)`) and 126 infinite-timeout OverflowErrors
+(`timestamp out of range for platform time_t`), all with null HTTP status and zero
+successful responses. NaN attempt timestamps were 00:46:45.312654-00:46:57.504381Z;
+infinite-timeout attempts were 00:46:57.646907-00:47:06.121759Z on 2026-09-13.
+These invocation counts do not establish that HTTP requests reached BTS. No raw
+downloads, paid calls, credentials or repository acquisition manifests were
+involved. Pytest retention removed the temporary diagnostic JSONs before the
+coordinator could preserve them; this entry records the worker report, not a
+reconstructed raw log. Nonfinite timeouts now reject before probing; tests inject
+transport, and an autouse fixture blocks unmocked requests HTTP suite-wide.
+
+The operations reader checked 1,069,080 national flight records; no duplicate keys
+or missing eligible arrival delays in these two months. The seven-airport subset
+contains 33,648 flights in 265 carrier-route-month cells. Full national fare-period
+checks read 4,906,864 Market and 2,835,075 Ticket rows. This is a schema/operations
+bootstrap, not an expanded fare panel or new model fit.
+
+Two full raw bootstrap builds reproduce four derived files byte-for-byte. All 71
+offline tests pass in the exact pinned Python 3.13.9 environment; one known
+Stage 5 reference warning remains. Independent review passed operations logic and
+identified inventory-overwrite risk. A failing regression reproduced that issue;
+the fix rejects existing outputs before probes and uses exclusive file creation.
+The inventory-only change leaves bootstrap recipes/aggregations unchanged.
+Original Stage 0-5 outputs remain unchanged. See the indexed bootstrap report and
+`outputs/stage6/bootstrap_verification.json` for scope, hashes and next work.

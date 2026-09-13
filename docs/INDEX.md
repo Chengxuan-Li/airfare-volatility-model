@@ -1,13 +1,17 @@
 # Documentation index
 
 Purpose: investigate operational/weather risk and demand-to-fare transmission.
-Current phase: Stage 5 extension and identification assessment; original quote-time
+Current phase: Stage 6 historical access and operations bootstrap; original quote-time
 hypotheses remain unidentifiable from the quarterly sources. Recommendation C.
 
 - [Project state and next actions](project_state.md)
 - [Repository and documentation review, 2026-09-12](reviews/2026-09-12-repository-review.md)
 - [Proposed next research direction and unused DOT history](methods/next_research_direction.md)
 - [Authorized Stage 6 execution plan](methods/stage6_execution_plan.md)
+- [Stage 6 bootstrap results, limitations and reproduction](findings/stage6_bootstrap_report.md)
+- [Stage 6 access inventory, including original failures](../data/manifests/stage6_access_inventory.json)
+- [Stage 6 corrected operations recipe probes](../data/manifests/stage6_operations_access_correction.json)
+- [Stage 6 compact outputs](../outputs/stage6/) and [verification](../outputs/stage6/bootstrap_verification.json)
 - [Irregular-operations source check](data/irregular_operations_source_check.md)
 - [Research specification and agreed execution addendum](20260912_airline_weather_pricing_research_task.md)
 - [Repository and agent rules](../AGENTS.md)

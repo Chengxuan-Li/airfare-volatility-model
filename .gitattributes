@@ -1,0 +1,3 @@
+# Keep Stage 6 verification bytes stable across Windows and Unix checkouts.
+outputs/stage6/*.csv text eol=lf
+outputs/stage6/*.json text eol=lf

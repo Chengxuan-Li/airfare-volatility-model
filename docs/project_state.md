@@ -1,18 +1,20 @@
 # Project state
 
 ## Current stage
-Stage 6 historical/operations work is authorized and starting on
+Stage 6 historical/operations bootstrap is complete on
 `codex/stage-6-operations`; see [execution plan](methods/stage6_execution_plan.md).
-First milestone: provenance fixes, historical access inventory and a two-month
-flight-operations bootstrap. The full 2010-2025 Q2 expansion is not yet complete.
-The two acquisition/reproduction fixes now pass 34 relevant tests in a newly
-installed pinned environment. Live historical HEAD inventory is in progress.
+The [bootstrap report](findings/stage6_bootstrap_report.md) records provenance fixes,
+124 successful historical fare HEAD checks, four downloaded archives and 1,069,080
+flight records checked. Two raw builds reproduce four compact outputs byte-for-byte;
+71 offline tests pass in the freshly installed pinned environment. The full
+2010-2025 Q2 expansion is not yet complete; no new fare models were estimated.
 
 Stage 5 assessment is complete on `codex/stage-5-robustness`; the repository review
-found two open acquisition/reproduction defects. The earlier execution recorded
+found two acquisition/reproduction defects, now fixed. The earlier execution recorded
 two full raw builds reproducing 15 derived outputs byte-for-byte. This review
 reran 21 passing tests and reproduced the Stage 5 estimates from the saved panel;
-raw inputs are absent in this checkout, so a full raw build was not repeated.
+original Stage 5 raw inputs were absent in this checkout, so its full raw build
+was not repeated. Four Stage 6 bootstrap inputs are now present.
 Stage 0-4 results remain preserved. Original
 quote-time H1/H2 and flexibility premiums remain unidentifiable from these sources.
 
@@ -37,14 +39,16 @@ quote-time H1/H2 and flexibility premiums remain unidentifiable from these sourc
 ## In progress
 The prior pass's identification-argument stopping criterion remains met; it did not
 exhaust DOT data. The user authorized the broader historical and operations-data
-direction on 2026-09-12; execution begins with the bounded Stage 6 plan.
+direction on 2026-09-12; the bounded Stage 6 bootstrap is now verified.
 The two reproduction defects in the
 [repository review](reviews/2026-09-12-repository-review.md) are fixed with regression
 tests: original-stage verification is explicit, and reacquisition preserves
-recorded provenance or rejects changed content. Further bootstrap work is ongoing.
+recorded provenance or rejects changed content. Inventory files also refuse
+replacement, preserving earlier source failures.
 The review also found two scope gaps between the broader identification note and
 the narrower executed plan: departure/supply-channel models and CR2/bootstrap
-inference need explicit deferred status or a separately declared follow-up.
+inference are explicitly deferred in the Stage 6 plan and bootstrap report.
+The following Stage 5 counts and verification statements describe the earlier run.
 The extension has 905 primary cells across 42 directions and 94 route/carrier groups,
 plus 873 one-way product cells. Four new fare archives, three annual capacity
 extracts and seven extended weather responses were acquired. All 1,778 product
@@ -75,7 +79,10 @@ are byte-identical, with all 30 consumed input identities/checksums/payloads ver
 No additional paid services. Flightradar24: zero calls, zero credits used; initial
 cap remains 6,000 within a reported 60,000 monthly allocation. Reset date and live
 remaining balance remain unknown. At most two worker agents were active; the
-coordinator controlled acquisition. No prospective collection was scheduled.
+coordinator controlled raw acquisition. An unintended worker-test HTTP invocation
+incident and its prevention are documented in the execution ledger; all such
+attempts returned client exceptions without HTTP status. No prospective collection
+was scheduled.
 
 ## Data status
 Raw sources are ignored under `data/raw/`; intermediate quarterly aggregates are
@@ -86,6 +93,10 @@ and checksum before promotion. Changed candidates stay in `.part`; previous
 manifests are preserved. Original historical raw inputs have not all been rebuilt
 on this machine, so the fixes' test coverage is not a fresh full-pilot rebuild.
 See the review for reproductions and the Stage 5 guide for its separate workflow.
+The four Stage 6 inputs total 163,801,228 compressed bytes: January 2010/2024
+reporting on-time and 2010 Q1 DB1B Market/Ticket. The 124-archive access inventory
+advertises about 9.93 GB; only the bootstrap fare quarter was downloaded in this
+milestone. Original recipe 404s and successful corrected probes are both preserved.
 
 ## Known limitations and open questions
 Endogenous quantity; prorated fares and product composition; quarterly timing;
@@ -93,23 +104,21 @@ retrospective ERA5 vintage; sparse joint support; few clusters; no external dema
 shifter or full capacity model. See report for competing explanations and all fits.
 
 ## Next actions
-1. Complete the Stage 6 historical inventory and operations bootstrap; the two P1
-   reproduction fixes now have passing regression checks.
-2. Reconcile the two P2 method-scope gaps. Read docs/findings/stage5_report.md and
-   docs/methods/stage5_reproduction.md alongside the broader identification note.
-3. Future research needs an
-   aligned information/identification design. Do not spend FR24 credits to inflate
-   sample size or relabel descriptive estimates as identified effects.
-4. Consider the proposed 2010-2025 Q2 aggregate extension and BTS flight-level
-   irregular-operations measurement. Only ten fare quarters have been analyzed;
-   FR24 remains unused. Verify access and declare scope before new acquisition.
+1. Declare expanded airports from preperiod coverage/traffic, stable airport and
+   carrier identities, and temporal/regime splits before broader estimation.
+2. Expand 2010-2025 Q2 fares and monthly operations in audited year batches; access
+   is verified but full acquisition, comparability checks and panel construction
+   remain outstanding. Only ten fare quarters have been analyzed for fare effects.
+3. Add compatible capacity and forecast-vintage risk; predeclare departure/supply
+   outcome models and CR2/bootstrap sensitivity before expanded fare estimation.
+4. Keep the aligned information/identification design separate from descriptive
+   sample expansion. FR24 remains unused and supplemental, subject to verified
+   balance/cost and coverage; missing tracks cannot alone establish cancellations.
 
 ## Blockers / Git publication
-The earlier execution's failed push is historical. During this review,
-`git ls-remote --heads origin codex/stage-5-robustness` returned
-`08b00603d46272e182b9c7c5636c150d535b43cb`, matching the reviewed HEAD.
-The research branch is published, including prior Stage 0-4 history. That read-only
-check establishes publication, not write authentication on this machine.
+The Stage 5 branch is published through `2968268`. Stage 6 uses the separate
+`codex/stage-6-operations` branch. The bootstrap milestone is ready for verified
+commit and publication; check Git remote state for the final publication result.
 
 ## Relevant commits
 - `bcb1b47` — Stage 0 research specification.
@@ -122,6 +131,8 @@ check establishes publication, not write authentication on this machine.
 - `e8c99f4` — predeclared Stage5 design.
 - `5201a91` — tested acquisition, products, capacity and identification.
 - `0738495` — expanded results, reviewed methods and durable outputs.
+- `6461da8` — authorized Stage 6 execution plan, committed before implementation.
+- `631e56e` — provenance preservation and original-pipeline input verification.
 
 ## Intentionally uncommitted local files
 - The review began with a clean working tree; `.env.example` is tracked and has

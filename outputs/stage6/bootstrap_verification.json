@@ -1,0 +1,27 @@
+{
+  "stage": "Stage6 access and operations bootstrap only",
+  "full_bootstrap_raw_builds": 2,
+  "compared_output_files": 4,
+  "byte_identical": true,
+  "output_sha256": {
+    "fare_schema_audit.json": "532c3c656a294c69d4543dc9f2f5cd1425a6a8b481e115e3aaf92c3ab0ca9d4f",
+    "operations_bootstrap_audit.json": "223bb6b7d7024e535a842e30f4cf0c370c0d65878ce9b673bf4303109c674b63",
+    "operations_bootstrap_cells.csv": "e82dcb63f3a3d9efe59ca4f7235807456eb08396276dfc5b9cf6ed15d0fee848",
+    "operations_bootstrap_national.csv": "09914258ae137d7d44a46ba4789cd884523ed644a403c841a771cb8201c5fd60"
+  },
+  "source_sha256_lf_normalized": {
+    "src/stage6/__init__.py": "90c3d16d99100e2b62aac634dc1e142b82e53892512ee98b30ff653865090c6c",
+    "src/stage6/bootstrap.py": "94df1f3bbae572f231dff250b9c0f4ea36e10c09a29bb06fdb227e004cf6d8b1",
+    "src/stage6/inventory.py": "3ec0ee39608b429253d0ffb48ded19122ba03752560fe2891d2e25aa571cd76e",
+    "src/stage6/operations.py": "61de62c2f4ddd62552a62e261423e6f13b69605657b25af01d368767d2b416a1"
+  },
+  "python": "3.13.9",
+  "environment_matches_requirements": true,
+  "offline_tests_passed": 71,
+  "verified_bootstrap_raw_inputs": 4,
+  "fare_models_estimated": 0,
+  "fr24_calls": 0,
+  "fr24_credits": 0,
+  "newline_convention": "LF; .gitattributes pins Stage6 CSV/JSON outputs",
+  "post_build_change": "Inventory CLI now refuses existing output before probing and uses exclusive creation; bootstrap input recipes and aggregation source are unchanged. Final full offline suite: 71 passed."
+}
