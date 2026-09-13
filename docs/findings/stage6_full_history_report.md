@@ -42,12 +42,27 @@ HEAD access does not establish schema or complete data validity.
 | 2011 | 4 | 6,085,281 | 2,110,718 | 3,198 | 2,865 | 99.8203% |
 | 2012 | 4 | 6,096,762 | 2,139,724 | 3,203 | 2,882 | 99.8648% |
 | 2013 | 4 | 6,369,482 | 2,156,616 | 3,206 | 2,896 | 99.8103% |
+| 2014 | 4 | 5,819,811 | 2,084,233 | 3,219 | 2,899 | 99.7376% |
+| 2015 | 4 | 5,819,079 | 2,191,225 | 3,216 | 2,937 | 99.8852% |
 <!-- YEAR_PROGRESS_END -->
 
 The coordinator alone downloads in bounded pairs and verifies caches, request
 identities, checksums and ZIP CRCs. Existing manifests are preserved, including
 two legacy 2024 fare manifests with top-level year/quarter fields. No paid
 services, FR24 calls or credits are used. Raw files and environment remain ignored.
+
+## Observed data-quality exceptions
+
+The first 2012 build stopped before publication on one July flight with a blank
+scheduled departure time. Source inspection confirmed a genuine blank, not a CSV
+parsing substitution. The reader now retains such a row only if its remaining
+date/DOT-carrier/flight-number/endpoint key is unique across the complete month.
+The schedule stays missing; actual departure is never substituted. Both directions
+of cross-chunk ambiguity and all other missing identities still fail verification.
+Affected national and selected-flight counts are explicit in the monthly audit.
+The July case is outside the selected network (one national, zero selected rows).
+The failed attempt remains in its build-attempt ledger alongside the two successful
+reproduction passes. No input bytes were changed.
 
 ## Reproduction contract
 
