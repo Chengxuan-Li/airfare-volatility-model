@@ -1,8 +1,8 @@
 # Historical fare and operations panel: 2010 Q1-2025 Q2
 
 Execution started 2026-09-13 under the [continuous plan](../methods/stage6_full_history_plan.md).
-This is a living report; completion is recorded only after all declared years
-are built, verified and published.
+All sixteen declared annual/partial-year panels are built and verified.
+Final publication is recorded in project state after the remote push.
 
 ## Scope and interpretation
 
@@ -30,14 +30,14 @@ descriptive periods. They are not instruments, causal controls or an estimated
 regime model. Quarterly nominal prorated fares remain distinct from timestamped
 quotes; observed passenger traffic remains jointly determined with prices.
 
-## Acquisition and progress
+## Acquisition and annual coverage
 
 All 270 remaining endpoints passed HEAD checks, advertising 13,165,882,016 bytes;
 121,456,566,272 bytes were free before acquisition. See the
 [access summary](../../data/manifests/stage6_full_history_access_summary.json),
 per-year access inventories and [execution ledger](../status/execution_ledger.md).
 The 2010/2011 panels were already published. All remaining 270 archives are
-acquired and verified; annual builds remain in progress. The
+acquired and verified; all annual builds are now reproduced and certified. The
 [acquisition summary](../../data/manifests/stage6_full_history_acquisition_summary.json)
 records 269 downloads/reacquisitions and one verified cache, with no transfer
 failures or FR24 use. HEAD access alone does not establish complete data validity.
@@ -119,6 +119,7 @@ The first 2024 build stopped in August on one genuinely blank flight number:
 F9/DOT20436, August 25, MIA-ATL, scheduled 0600. Its remaining exact key occurs
 once among 619,025 monthly rows. The annual workflow may retain this unique
 incomplete key without imputing a number, with explicit national/scoped counts.
+It contributes one retained national row and one retained selected row.
 Scheduled time must be present; both optional fields missing, projected-key
 collisions, and potentially overlapping missing-time/missing-number rows fail.
 The original missing number and failed build remain part of the evidence.
@@ -145,14 +146,13 @@ consumed-input manifest and Stage 6 outputs have Git-enforced LF line endings.
 From the repository root with the pinned environment:
 
 ```powershell
-.\.venv\Scripts\python.exe -m src.stage6.annual --year 2012 --acquire
-.\.venv\Scripts\python.exe -m src.stage6.annual --year 2012
-.\.venv\Scripts\python.exe -m src.stage6.annual --year 2025
+.\.venv\Scripts\python.exe -m src.stage6.annual --year 2024 --acquire --output data/processed/replay_2024_a
+.\.venv\Scripts\python.exe -m src.stage6.annual --year 2024 --output data/processed/replay_2024_b
 .\.venv\Scripts\python.exe -m pytest -q
 ```
 
 After all annual proof files are available, run
-`python -m scripts.verify_stage6_history --tests-passed COUNT`, replacing COUNT
+`.\.venv\Scripts\python.exe -m scripts.verify_stage6_history --tests-passed COUNT`, replacing COUNT
 with the freshly observed full offline test count. This public certification
 recipe verifies raw archives, historical source commits, frozen artifacts and
 the two summary builds.
@@ -160,9 +160,56 @@ the two summary builds.
 Use each declared year in the annual command. `--year 2025` automatically requests
 only Q1-Q2/January-June, not a full year. The published frozen 2010 artifacts and
 manifest are required; later years do not rescan or rerank 2010 raw data.
-Per-year files remain the canonical panels; compact horizon summaries will verify
-all annual artifacts before publication. A rebuild moves an old verification record
+The two separate replay directories preserve the published annual evidence.
+Compare each file in `output_sha256` from the corresponding published annual
+`verification.json` against both replay directories using SHA-256. For exact
+historical replay, use that proof's `implementation_commit` and pinned environment:
+source versions changed during this expansion, and current-code replay alone is
+not evidence of an earlier implementation's byte identity. The annual command
+writes aggregates and quality audits; it does not automatically issue a new
+two-build verification record. Published proofs remain tied to their recorded
+inputs, implementation and outputs; a changed result requires fresh verification.
+Per-year files remain the canonical panels; the compact horizon summaries verify
+all annual artifacts and reconcile annual/quarterly totals. A rebuild moves an old verification record
 to the backup rather than attaching it to newly unverified outputs.
+
+## Verified horizon findings
+
+All 310 consumed archives pass exact request-identity, SHA-256 and ZIP CRC
+checks, totaling 14,782,676,474 compressed bytes.
+
+The inputs contain 387,251,539 Market rows, 232,355,006 Ticket rows and 97,347,555
+reported operations rows. The operations rule retains 97,347,548 reported
+analysis units nationally (1 equivalent repeat and 6 ambiguous
+source rows excluded), including 33,159,834
+retained records between the frozen airports. These are source-reporting populations,
+not a census of every airline or an exogenous measure of demand.
+
+The primary sample has 49,236 fare route-quarters: 45,798
+matched and 3,438 fare-only; the outer panel also retains
+30 operations-only cells. Matched cells account for
+99.9108% of primary sampled passenger weights. High passenger-weight coverage
+does not make unmatched routes ignorable or establish comparable carrier reporting.
+The primary panel flags 718 operations
+cells with only one or two observed months and
+25 with eligible missing delay outcomes.
+Absence stays distinct from zero activity and observed cancellation.
+
+The [annual summary](../../outputs/stage6/history/annual_summary.csv),
+[quarterly summary](../../outputs/stage6/history/quarterly_summary.csv) and
+[carrier presence](../../outputs/stage6/history/carrier_presence.csv) expose coverage,
+support and source-population changes. The
+[quality audit](../../outputs/stage6/history/quality_audit.json) reconciles the
+62 quarterly rows to sixteen annual/partial-year rows. The final
+[consumed-input manifest](../../data/manifests/stage6_full_history_consumed_inputs.json)
+records all 310 identities and every observed operations source exception.
+
+Every year has two successful byte-identical raw builds. Two summary builds
+reproduce all four derived summary files; their
+[verification](../../outputs/stage6/history/verification.json) links all sixteen
+annual proofs and the final raw-input verification. All 62 output files from
+the pre-extension reference `db0cd7b` remain unchanged. The final offline suite
+has 251 passing tests, with the known Stage 5 rank-deficient design warning.
 
 ## Remaining research
 

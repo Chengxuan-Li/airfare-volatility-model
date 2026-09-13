@@ -5,6 +5,15 @@ between airline fares and demand. The Stage 0-4 assessment uses a real quarterly
 BTS DB1B pilot. Original flight/quote-time hypotheses are **not estimable** from
 these data; all aggregate results are descriptive.
 
+The [full-history panel](docs/findings/stage6_full_history_report.md) completes
+2010 Q1-2025 Q2 on the same frozen thirty airports: 310 verified archives,
+62 fare quarters and 186 operations months. It contains 97,347,548 retained national
+reported analysis units and 49,236 primary fare route-quarters. Every year
+reproduces twice from raw; the annual/quarterly coverage summaries also reproduce
+byte-for-byte. All 251 offline tests pass. 2025 covers January-June only.
+This completes the declared descriptive data horizon; new fare models, capacity
+expansion and aligned quote/forecast information remain separate research work.
+
 The pilot contains 222 route/carrier/quarter cells on twelve routes in 2023-2024.
 The aggregate risk coefficient is negative and the interaction positive, opposite
 the proposed signs. Recommendation: **C — interesting empirical observation,
@@ -25,8 +34,8 @@ The [Stage 6 bootstrap](docs/findings/stage6_bootstrap_report.md) verifies endpo
 access for 124 fare archives spanning 2010 Q1-2025 Q2, audits the 2010 Q1 fare
 schema, and processes 1.07 million BTS flight records from January 2010 and January
 2024. Its four downloaded inputs and reproducible operations aggregates establish
-the next data foundation. The full historical panel and new fare models remain
-outstanding; Flightradar24 is still unused.
+the next data foundation. This bootstrap was subsequently extended to the full
+declared historical panel summarized above. Flightradar24 is still unused.
 
 The [full-year 2010 panel](docs/findings/stage6_2010_report.md) now expands to 30
 airports selected using baseline passenger volume. It processes 6.45 million
@@ -40,8 +49,8 @@ airport IDs and processes 6.09 million reported flights and 23.00 million Market
 records. Of 3,198 primary fare route-quarters, 2,865 match operations; 333 fare-only
 cells and one operations-only cell remain explicit. Cross-year diagnostics expose
 reporting-population changes. Twenty inputs verify, two raw builds reproduce
-eleven outputs byte-for-byte, and 118 offline tests pass. Full 2012-2025 Q2 expansion
-and new model estimates remain outstanding; FR24 is unused.
+eleven outputs byte-for-byte, and 118 offline tests pass. The full historical
+expansion is now verified as described above; FR24 is unused.
 
 ## Reproduce
 
@@ -75,6 +84,11 @@ do not require downloading unrelated raw files. Reacquisition must match an
 existing manifest's request and checksum; a changed response stays in `.part`
 and raises an error. Preserve that evidence and the original manifest for source
 revision review. A matching reacquisition preserves the original provenance.
+
+For the full historical panel, follow the separate-output annual replay commands
+and final certification command in the reproduction contract below.
+The [historical reproduction contract](docs/findings/stage6_full_history_report.md)
+describes the frozen baseline, two-pass evidence and partial-year limits.
 
 ## Contents and interpretation
 

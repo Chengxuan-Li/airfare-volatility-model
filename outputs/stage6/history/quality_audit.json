@@ -1,0 +1,354 @@
+{
+  "declared_horizon": "2010_Q1_through_2025_Q2",
+  "full_horizon_complete": true,
+  "verified_years": [
+    2010,
+    2011,
+    2012,
+    2013,
+    2014,
+    2015,
+    2016,
+    2017,
+    2018,
+    2019,
+    2020,
+    2021,
+    2022,
+    2023,
+    2024,
+    2025
+  ],
+  "year_count": 16,
+  "quarter_count": 62,
+  "partial_2025": true,
+  "verification_sha256": {
+    "2010": "fac12655ac8a908d9f83b411ce0dd31b980ec5955ca02727853caf92c5ee766a",
+    "2011": "c2dfdd9a54d2c1fb3a359c62a6e6f0787e5432233b70091a54c1d8b3cb022104",
+    "2012": "a22c8f2faeca04c3d9e42b6d8ede9e63bfaa3c053875695fbd7c367408b46d85",
+    "2013": "79d4e072bf66ecb177c43bca382e9d1aa635179870148653c640c48587951560",
+    "2014": "88f4b0274c2d380de2e1bf89f0bacd68c0beb8b617f65fdc28705f8a7828b24b",
+    "2015": "222fee9e4e48b590dc2947fe0dc07cff4474e4f7030d8e46760b68d4189331fe",
+    "2016": "af472d6069990d056ef4271e076c13b2e35a4e4c4be8b3fd138245460cd8839f",
+    "2017": "79d024c017cc2e66c6ba783c4e6cdb03d1be6ea01d65cd493249303292c36474",
+    "2018": "b083a075d44a3ed83594c8102b41c5819917f79eb8966a184fe1a2a70e310290",
+    "2019": "f4610b5ef89ddc7f96b726feb00313306f138369fb9275643e960d13586dd024",
+    "2020": "3b279e8ad70a3f20bc2f2356ed67d1d6a56153df78746310da2e31e1ac11607d",
+    "2021": "d84b808c0f023cd14301b2fd89fbaeca7b3cc533131238b464b9fd3caced268e",
+    "2022": "21af9f092c668aa8c49ade38f937e68ffcfd0db45753ca66dc8f5cb8df8de62a",
+    "2023": "41536bdf89c59605eface3aa2bee42e80cd7c2ceb72c0903193d5fca82374e87",
+    "2024": "8e2cc63517ad88bc7b30899fba76ad425bb632ab969c3898cfb3af2aae2d8d04",
+    "2025": "d3d8bda2eebeb6157898b9a5b847d1bdbbd1d7f3f46d908a29b231c786d39ed3"
+  },
+  "reconciliation": {
+    "annual_equals_quarterly": true,
+    "annual_equals_per_year_quality_panel": true,
+    "additive_metrics_checked": [
+      "national_flights",
+      "scoped_flights",
+      "primary_cells",
+      "primary_matched",
+      "primary_fare_only",
+      "primary_operations_only",
+      "primary_fare_passengers",
+      "primary_matched_passengers",
+      "primary_low_support_fare_cells",
+      "primary_partial_month_operations_cells",
+      "primary_missing_outcome_operations_cells",
+      "broad_cells",
+      "broad_matched",
+      "broad_fare_only",
+      "broad_operations_only",
+      "broad_fare_passengers",
+      "broad_matched_passengers",
+      "broad_low_support_fare_cells",
+      "broad_partial_month_operations_cells",
+      "broad_missing_outcome_operations_cells"
+    ]
+  },
+  "horizon_totals": {
+    "national_flights": 97347548,
+    "scoped_flights": 33159834,
+    "primary_cells": 49266,
+    "primary_matched": 45798,
+    "primary_fare_only": 3438,
+    "primary_operations_only": 30,
+    "primary_fare_passengers": 226325265.0,
+    "primary_matched_passengers": 226123478.0,
+    "primary_low_support_fare_cells": 2200,
+    "primary_partial_month_operations_cells": 718,
+    "primary_missing_outcome_operations_cells": 25,
+    "broad_cells": 49277,
+    "broad_matched": 45800,
+    "broad_fare_only": 3449,
+    "broad_operations_only": 28,
+    "broad_fare_passengers": 229045412.0,
+    "broad_matched_passengers": 228839125.0,
+    "broad_low_support_fare_cells": 2205,
+    "broad_partial_month_operations_cells": 718,
+    "broad_missing_outcome_operations_cells": 25
+  },
+  "regime_interpretation": "Pre-2020, pandemic 2020-2021, and recovery 2022 onward are descriptive calendar groupings, not causal controls or effects.",
+  "operations_counting": "National and scoped flights come from source-specific monthly operations tables and are counted once, outside fare samples.",
+  "fare_interpretation": "Passenger weights measure sampled DB1B coverage; fares are not summed and quarterly records are not timestamped quotes.",
+  "traffic_interpretation": "Observed operations are descriptive traffic, not exogenous demand.",
+  "carrier_interpretation": "DB1B reporting codes and BTS DOT reporting airline IDs remain source-separated; no carrier crosswalk is applied.",
+  "year_audits": [
+    {
+      "year": 2010,
+      "regime_interpretation": "Descriptive calendar grouping only; not a causal control or effect.",
+      "operations_counts_source": {
+        "national_flights": "operations_national_month.csv",
+        "scoped_flights": "operations_carrier_month.csv",
+        "fare_sample_panels_used": false
+      },
+      "fare_carrier_identity": "DB1B reporting carrier code",
+      "operations_carrier_identity": "BTS national DOT reporting airline ID with source-reported code",
+      "operations_carrier_counts_scope": {
+        "operations_reporting_dot_ids": "national reporting population",
+        "scoped_operations_reporting_dot_ids": "retained routes between frozen selected airports; reconciles to annual quality panel operations_reporting_carriers"
+      },
+      "carrier_crosswalk_performed": false
+    },
+    {
+      "year": 2011,
+      "regime_interpretation": "Descriptive calendar grouping only; not a causal control or effect.",
+      "operations_counts_source": {
+        "national_flights": "operations_national_month.csv",
+        "scoped_flights": "operations_carrier_month.csv",
+        "fare_sample_panels_used": false
+      },
+      "fare_carrier_identity": "DB1B reporting carrier code",
+      "operations_carrier_identity": "BTS national DOT reporting airline ID with source-reported code",
+      "operations_carrier_counts_scope": {
+        "operations_reporting_dot_ids": "national reporting population",
+        "scoped_operations_reporting_dot_ids": "retained routes between frozen selected airports; reconciles to annual quality panel operations_reporting_carriers"
+      },
+      "carrier_crosswalk_performed": false
+    },
+    {
+      "year": 2012,
+      "regime_interpretation": "Descriptive calendar grouping only; not a causal control or effect.",
+      "operations_counts_source": {
+        "national_flights": "operations_national_month.csv",
+        "scoped_flights": "operations_carrier_month.csv",
+        "fare_sample_panels_used": false
+      },
+      "fare_carrier_identity": "DB1B reporting carrier code",
+      "operations_carrier_identity": "BTS national DOT reporting airline ID with source-reported code",
+      "operations_carrier_counts_scope": {
+        "operations_reporting_dot_ids": "national reporting population",
+        "scoped_operations_reporting_dot_ids": "retained routes between frozen selected airports; reconciles to annual quality panel operations_reporting_carriers"
+      },
+      "carrier_crosswalk_performed": false
+    },
+    {
+      "year": 2013,
+      "regime_interpretation": "Descriptive calendar grouping only; not a causal control or effect.",
+      "operations_counts_source": {
+        "national_flights": "operations_national_month.csv",
+        "scoped_flights": "operations_carrier_month.csv",
+        "fare_sample_panels_used": false
+      },
+      "fare_carrier_identity": "DB1B reporting carrier code",
+      "operations_carrier_identity": "BTS national DOT reporting airline ID with source-reported code",
+      "operations_carrier_counts_scope": {
+        "operations_reporting_dot_ids": "national reporting population",
+        "scoped_operations_reporting_dot_ids": "retained routes between frozen selected airports; reconciles to annual quality panel operations_reporting_carriers"
+      },
+      "carrier_crosswalk_performed": false
+    },
+    {
+      "year": 2014,
+      "regime_interpretation": "Descriptive calendar grouping only; not a causal control or effect.",
+      "operations_counts_source": {
+        "national_flights": "operations_national_month.csv",
+        "scoped_flights": "operations_carrier_month.csv",
+        "fare_sample_panels_used": false
+      },
+      "fare_carrier_identity": "DB1B reporting carrier code",
+      "operations_carrier_identity": "BTS national DOT reporting airline ID with source-reported code",
+      "operations_carrier_counts_scope": {
+        "operations_reporting_dot_ids": "national reporting population",
+        "scoped_operations_reporting_dot_ids": "retained routes between frozen selected airports; reconciles to annual quality panel operations_reporting_carriers"
+      },
+      "carrier_crosswalk_performed": false
+    },
+    {
+      "year": 2015,
+      "regime_interpretation": "Descriptive calendar grouping only; not a causal control or effect.",
+      "operations_counts_source": {
+        "national_flights": "operations_national_month.csv",
+        "scoped_flights": "operations_carrier_month.csv",
+        "fare_sample_panels_used": false
+      },
+      "fare_carrier_identity": "DB1B reporting carrier code",
+      "operations_carrier_identity": "BTS national DOT reporting airline ID with source-reported code",
+      "operations_carrier_counts_scope": {
+        "operations_reporting_dot_ids": "national reporting population",
+        "scoped_operations_reporting_dot_ids": "retained routes between frozen selected airports; reconciles to annual quality panel operations_reporting_carriers"
+      },
+      "carrier_crosswalk_performed": false
+    },
+    {
+      "year": 2016,
+      "regime_interpretation": "Descriptive calendar grouping only; not a causal control or effect.",
+      "operations_counts_source": {
+        "national_flights": "operations_national_month.csv",
+        "scoped_flights": "operations_carrier_month.csv",
+        "fare_sample_panels_used": false
+      },
+      "fare_carrier_identity": "DB1B reporting carrier code",
+      "operations_carrier_identity": "BTS national DOT reporting airline ID with source-reported code",
+      "operations_carrier_counts_scope": {
+        "operations_reporting_dot_ids": "national reporting population",
+        "scoped_operations_reporting_dot_ids": "retained routes between frozen selected airports; reconciles to annual quality panel operations_reporting_carriers"
+      },
+      "carrier_crosswalk_performed": false
+    },
+    {
+      "year": 2017,
+      "regime_interpretation": "Descriptive calendar grouping only; not a causal control or effect.",
+      "operations_counts_source": {
+        "national_flights": "operations_national_month.csv",
+        "scoped_flights": "operations_carrier_month.csv",
+        "fare_sample_panels_used": false
+      },
+      "fare_carrier_identity": "DB1B reporting carrier code",
+      "operations_carrier_identity": "BTS national DOT reporting airline ID with source-reported code",
+      "operations_carrier_counts_scope": {
+        "operations_reporting_dot_ids": "national reporting population",
+        "scoped_operations_reporting_dot_ids": "retained routes between frozen selected airports; reconciles to annual quality panel operations_reporting_carriers"
+      },
+      "carrier_crosswalk_performed": false
+    },
+    {
+      "year": 2018,
+      "regime_interpretation": "Descriptive calendar grouping only; not a causal control or effect.",
+      "operations_counts_source": {
+        "national_flights": "operations_national_month.csv",
+        "scoped_flights": "operations_carrier_month.csv",
+        "fare_sample_panels_used": false
+      },
+      "fare_carrier_identity": "DB1B reporting carrier code",
+      "operations_carrier_identity": "BTS national DOT reporting airline ID with source-reported code",
+      "operations_carrier_counts_scope": {
+        "operations_reporting_dot_ids": "national reporting population",
+        "scoped_operations_reporting_dot_ids": "retained routes between frozen selected airports; reconciles to annual quality panel operations_reporting_carriers"
+      },
+      "carrier_crosswalk_performed": false
+    },
+    {
+      "year": 2019,
+      "regime_interpretation": "Descriptive calendar grouping only; not a causal control or effect.",
+      "operations_counts_source": {
+        "national_flights": "operations_national_month.csv",
+        "scoped_flights": "operations_carrier_month.csv",
+        "fare_sample_panels_used": false
+      },
+      "fare_carrier_identity": "DB1B reporting carrier code",
+      "operations_carrier_identity": "BTS national DOT reporting airline ID with source-reported code",
+      "operations_carrier_counts_scope": {
+        "operations_reporting_dot_ids": "national reporting population",
+        "scoped_operations_reporting_dot_ids": "retained routes between frozen selected airports; reconciles to annual quality panel operations_reporting_carriers"
+      },
+      "carrier_crosswalk_performed": false
+    },
+    {
+      "year": 2020,
+      "regime_interpretation": "Descriptive calendar grouping only; not a causal control or effect.",
+      "operations_counts_source": {
+        "national_flights": "operations_national_month.csv",
+        "scoped_flights": "operations_carrier_month.csv",
+        "fare_sample_panels_used": false
+      },
+      "fare_carrier_identity": "DB1B reporting carrier code",
+      "operations_carrier_identity": "BTS national DOT reporting airline ID with source-reported code",
+      "operations_carrier_counts_scope": {
+        "operations_reporting_dot_ids": "national reporting population",
+        "scoped_operations_reporting_dot_ids": "retained routes between frozen selected airports; reconciles to annual quality panel operations_reporting_carriers"
+      },
+      "carrier_crosswalk_performed": false
+    },
+    {
+      "year": 2021,
+      "regime_interpretation": "Descriptive calendar grouping only; not a causal control or effect.",
+      "operations_counts_source": {
+        "national_flights": "operations_national_month.csv",
+        "scoped_flights": "operations_carrier_month.csv",
+        "fare_sample_panels_used": false
+      },
+      "fare_carrier_identity": "DB1B reporting carrier code",
+      "operations_carrier_identity": "BTS national DOT reporting airline ID with source-reported code",
+      "operations_carrier_counts_scope": {
+        "operations_reporting_dot_ids": "national reporting population",
+        "scoped_operations_reporting_dot_ids": "retained routes between frozen selected airports; reconciles to annual quality panel operations_reporting_carriers"
+      },
+      "carrier_crosswalk_performed": false
+    },
+    {
+      "year": 2022,
+      "regime_interpretation": "Descriptive calendar grouping only; not a causal control or effect.",
+      "operations_counts_source": {
+        "national_flights": "operations_national_month.csv",
+        "scoped_flights": "operations_carrier_month.csv",
+        "fare_sample_panels_used": false
+      },
+      "fare_carrier_identity": "DB1B reporting carrier code",
+      "operations_carrier_identity": "BTS national DOT reporting airline ID with source-reported code",
+      "operations_carrier_counts_scope": {
+        "operations_reporting_dot_ids": "national reporting population",
+        "scoped_operations_reporting_dot_ids": "retained routes between frozen selected airports; reconciles to annual quality panel operations_reporting_carriers"
+      },
+      "carrier_crosswalk_performed": false
+    },
+    {
+      "year": 2023,
+      "regime_interpretation": "Descriptive calendar grouping only; not a causal control or effect.",
+      "operations_counts_source": {
+        "national_flights": "operations_national_month.csv",
+        "scoped_flights": "operations_carrier_month.csv",
+        "fare_sample_panels_used": false
+      },
+      "fare_carrier_identity": "DB1B reporting carrier code",
+      "operations_carrier_identity": "BTS national DOT reporting airline ID with source-reported code",
+      "operations_carrier_counts_scope": {
+        "operations_reporting_dot_ids": "national reporting population",
+        "scoped_operations_reporting_dot_ids": "retained routes between frozen selected airports; reconciles to annual quality panel operations_reporting_carriers"
+      },
+      "carrier_crosswalk_performed": false
+    },
+    {
+      "year": 2024,
+      "regime_interpretation": "Descriptive calendar grouping only; not a causal control or effect.",
+      "operations_counts_source": {
+        "national_flights": "operations_national_month.csv",
+        "scoped_flights": "operations_carrier_month.csv",
+        "fare_sample_panels_used": false
+      },
+      "fare_carrier_identity": "DB1B reporting carrier code",
+      "operations_carrier_identity": "BTS national DOT reporting airline ID with source-reported code",
+      "operations_carrier_counts_scope": {
+        "operations_reporting_dot_ids": "national reporting population",
+        "scoped_operations_reporting_dot_ids": "retained routes between frozen selected airports; reconciles to annual quality panel operations_reporting_carriers"
+      },
+      "carrier_crosswalk_performed": false
+    },
+    {
+      "year": 2025,
+      "regime_interpretation": "Descriptive calendar grouping only; not a causal control or effect.",
+      "operations_counts_source": {
+        "national_flights": "operations_national_month.csv",
+        "scoped_flights": "operations_carrier_month.csv",
+        "fare_sample_panels_used": false
+      },
+      "fare_carrier_identity": "DB1B reporting carrier code",
+      "operations_carrier_identity": "BTS national DOT reporting airline ID with source-reported code",
+      "operations_carrier_counts_scope": {
+        "operations_reporting_dot_ids": "national reporting population",
+        "scoped_operations_reporting_dot_ids": "retained routes between frozen selected airports; reconciles to annual quality panel operations_reporting_carriers"
+      },
+      "carrier_crosswalk_performed": false
+    }
+  ]
+}

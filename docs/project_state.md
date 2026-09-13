@@ -1,229 +1,101 @@
 # Project state
 
 ## Current stage
+
+The declared 2010 Q1-2025 Q2 descriptive fare/operations history is complete and
+verified on `codex/stage-6-full-history`. The user authorized continuous completion
+of all remaining years without further commands. See the
+[full-history report](findings/stage6_full_history_report.md) and
+[completed plan](methods/stage6_full_history_plan.md).
+
 <!-- HISTORY_PROGRESS_START -->
-Verified annual outputs: 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025.
-All declared years now have two byte-identical raw builds; final horizon
-certification and summary publication are in progress.
-See the full-history report and per-year verification.
+Verified years: 2010-2024 in full; 2025 Q1-Q2/January-June only. Every year has
+two successful byte-identical raw builds. No declared year or source period remains
+outstanding. Final remote publication is recorded below after the push.
 <!-- HISTORY_PROGRESS_END -->
 
-Continuous completion of 2012-2025 Q2 is authorized and in progress on
-`codex/stage-6-full-history`; see the [plan](methods/stage6_full_history_plan.md).
-The user explicitly requested all remaining years without further commands.
-2025 is limited to Q1-Q2/January-June and must use matching baseline periods.
-The 2017/2018 source conflicts are resolved by explicit whole-key quarantine
-in the annual workflow; raw variants and failed attempts remain documented.
-The reviewed implementation and certification script pass 232 offline tests.
-Acquisition is complete for all 310 declared archives. All sixteen annual/partial
-years now have two verified byte-identical builds; full-horizon certification and
-summary publication are in progress. The implementation passes 251 tests.
-The final certification checked all 310 raw archives, then caught a national/scoped
-carrier-count mismatch in the 2025 summary. The summary now distinguishes the
-14 national DOT IDs from 13 scoped IDs and reconciles the appropriate population.
-Annual artifacts remain unchanged; full certification is being repeated.
+All 310 source archives pass exact request, SHA-256 and ZIP CRC checks: 124 DB1B
+Market/Ticket files for 62 quarters and 186 monthly operations archives, totaling
+14,782,676,474 compressed bytes. The sample retains the thirty
+airport IDs selected using 2010 Q1 volume; later years never rerank or condition
+on survival. 2025 continuity uses matching Q1-Q2/January-June baseline periods.
 
-The 2011 extension is complete and published on `codex/stage-6-2011-panel`;
-see [report](findings/stage6_2011_report.md) and [plan](methods/stage6_2011_plan.md).
-It reuses the frozen thirty 2010 airport IDs and adds cross-year coverage audits.
-All twenty 2011 inputs verify (805,060,530 bytes); no source failures or FR24 calls.
-Two raw builds reproduce eleven derived files byte-for-byte; 118 offline tests
-pass on the pinned environment. All fifty earlier output files remain unchanged.
-Final artifact review found no material issues; result milestone `804a3b7` is published.
-No new models are estimated.
+The inputs contain 387,251,539 Market rows, 232,355,006 Ticket rows and 97,347,555
+operations rows. After audited equivalent-repeat and ambiguity exclusions, operations
+retain 97,347,548 national analysis units and 33,159,834 scoped units. Primary fare
+coverage contains 49,236 fare route-quarters, of which 45,798
+match operations (99.9108% of sampled passenger weights). Missing coverage,
+partial months, missing eligible outcomes, aliases and reporting populations
+remain explicit. Fare codes and operations DOT IDs are aggregated separately.
 
-2011 scans 22,999,175 Market rows, 13,343,503 Ticket rows and 6,085,281 national
-reported flights (2,110,718 between selected airports). Primary has 3,198 fare
-route-quarters: 2,865 matched, 333 fare-only, plus one operations-only cell in the
-outer panel. Matched cells cover 99.8203% of sampled passenger weights. All thirty
-airports remain observed; reporting populations change from 36 to 34 fare codes
-and 18 to 16 operations DOT IDs. Absence is not a cancellation or a verified
-service closure. Fare and operations carriers remain separately aggregated.
+## Verification and source exceptions
 
-The full-year 2010 panel is complete on `codex/stage-6-2010-panel`; see the
-[report](findings/stage6_2010_report.md) and [plan](methods/stage6_2010_plan.md).
-Thirty airports selected by baseline passenger volume; stable-ID route-quarter
-linkage aggregates each source independently across its reporting carriers.
-All twenty inputs are cached and checksum/CRC verified (811,733,928 bytes).
-Two successful raw builds reproduce eight outputs byte-for-byte; 100 offline
-tests pass. One earlier CSV-parser failure is preserved in the execution ledger.
-No new fare models were estimated. Full 2012-2025 Q2 expansion remains outstanding.
+The [horizon proof](../outputs/stage6/history/verification.json) links sixteen annual
+verification files. Two summary builds reproduce all four derived files exactly;
+annual/quarterly counts reconcile. The final offline suite passes 251 tests,
+with one known Stage 5 rank-deficiency warning. All 62 earlier output files remain
+unchanged against `db0cd7b`. The [consumed-input manifest](../data/manifests/stage6_full_history_consumed_inputs.json)
+records final raw checks and per-year source row/retained-flight totals.
 
-The 2010 inputs contain 22,038,685 Market rows, 12,688,062 Ticket rows and 6,450,117
-reported flights nationally. The scoped primary panel retains 3,191 fare
-route-quarters: 2,904 matched to operations and 287 fare-only, covering 99.8458% of
-primary sampled passenger weights in matched cells. The broad-bound panel has
-3,193 cells. All 26 matched cells with only one or two observed service months are
-flagged; missing operations are not imputed to zero. Carrier populations differ
-(36 fare reporting codes, 18 operations DOT IDs); there is no carrier-level join.
+Failed raw attempts remain in build-attempt ledgers. A unique missing scheduled
+departure or flight number can be retained without imputation only when the other
+field is observed and its remaining flight key is unique across the complete month;
+potentially overlapping incomplete keys still fail. Repeated complete keys count once only if
+all consumed identity/outcome fields agree, including missingness; raw metadata
+variants remain preserved. All rows of conflicting complete keys are quarantined
+with explicit counts and variants; ambiguous incomplete keys and invalid values
+still fail. Outcome rates are conditional on retained unambiguous records. Exact exception counts appear in the report and input manifest.
 
-Stage 6 historical/operations bootstrap is complete on
-`codex/stage-6-operations`; see [execution plan](methods/stage6_execution_plan.md).
-The [bootstrap report](findings/stage6_bootstrap_report.md) records provenance fixes,
-124 successful historical fare HEAD checks, four downloaded archives and 1,069,080
-flight records checked. Two raw builds reproduce four compact outputs byte-for-byte;
-71 offline tests pass in the freshly installed pinned environment. The full
-2010-2025 Q2 expansion is not yet complete; no new fare models were estimated.
+## Earlier research and interpretation
 
-Stage 5 assessment is complete on `codex/stage-5-robustness`; the repository review
-found two acquisition/reproduction defects, now fixed. The earlier execution recorded
-two full raw builds reproducing 15 derived outputs byte-for-byte. This review
-reran 21 passing tests and reproduced the Stage 5 estimates from the saved panel;
-original Stage 5 raw inputs were absent in this checkout, so its full raw build
-was not repeated. Four Stage 6 bootstrap inputs are now present.
-Stage 0-4 results remain preserved. Original
-quote-time H1/H2 and flexibility premiums remain unidentifiable from these sources.
+Stage 0-4 and Stage 5 outputs remain preserved. Their recommendation remains C:
+interesting empirical observation, weak paper. The original quote-time H1/H2 and
+flexibility premium remain unidentifiable from quarterly purchases and retrospectively
+retrieved weather. Observed passenger traffic is jointly determined with fares.
+No new historical fare models, causal effects or forecast-risk calibration ran.
+Pandemic/recovery labels are descriptive; 2025 half-year totals require matching
+periods before comparison with full years.
 
-## Last updated
-2026-09-13
+Historical details and results remain in the [Stage 0-4 report](findings/stage_0_to_4_report.md),
+[Stage 5 report](findings/stage5_report.md), [bootstrap report](findings/stage6_bootstrap_report.md),
+[2010 report](findings/stage6_2010_report.md), [2011 report](findings/stage6_2011_report.md),
+and append-only [execution ledger](status/execution_ledger.md).
 
-## Completed
-- Stage 0 charter, original hypotheses, aggregate redesign, and falsification rules.
-- Stage 1 primary-source map: 22 studies, fifteen required areas, cautious novelty B
-  for the original aligned design and substantially weaker aggregate novelty.
-- Stage 2 fare/demand/weather/outcome feasibility and public-data access matrix.
-- Stage 3: sixteen DB1B Market/Ticket ZIPs (2023-24), seven ERA5 responses,
-  OurAirports registry and BTS Delay Causes; 25 provenance manifests, ~1.59 GB raw.
-- 222 primary route/carrier/quarter cells on twelve routes; 618,324 sampled passenger
-  weights, 211,651 Market records. No synthetic research data.
-- Stage 4: thirteen fare specifications, external airport-quarter validation,
-  marginal-effect intervals, support/quality audits, four figures, consolidated report.
-- Sixteen offline tests pass. Final full raw rebuild reproduces 19 table/figure
-  outputs byte-for-byte after canonical float parsing; three raw builds total.
-- Independent code/methodology and final report reviews completed; findings addressed.
+## Next research actions
 
-## In progress
-The audited 2011 batch is reproduced, independently reviewed and published.
-The annual runner accepts only 2010 and 2011, retaining the 2010 default.
-The next data milestone is a declared 2012 batch; later-year acquisition remains
-outstanding.
+1. Predeclare analysis of the expanded descriptive panel, including reporting
+   population breaks, pandemic periods, product composition and common support.
+2. Extend compatible route capacity and define departure/supply outcomes before
+   estimating those channels; specify robust inference and sensitivity checks.
+3. For the original mechanism, obtain aligned quote timestamps and forecast
+   vintages or state explicit additional identifying assumptions. Quarterly
+   transaction expansion alone does not identify the quote-time interaction.
+4. Treat FR24 as optional supplementary movement evidence, subject to verified
+   balance, prices and coverage; missing tracks alone cannot establish cancellation.
 
-The prior pass's identification-argument stopping criterion remains met; it did not
-exhaust DOT data. The user authorized the broader historical and operations-data
-direction on 2026-09-12; the bounded Stage 6 bootstrap is now verified.
-The two reproduction defects in the
-[repository review](reviews/2026-09-12-repository-review.md) are fixed with regression
-tests: original-stage verification is explicit, and reacquisition preserves
-recorded provenance or rejects changed content. Inventory files also refuse
-replacement, preserving earlier source failures.
-The review also found two scope gaps between the broader identification note and
-the narrower executed plan: departure/supply-channel models and CR2/bootstrap
-inference are explicitly deferred in the Stage 6 plan and bootstrap report.
-The following Stage 5 counts and verification statements describe the earlier run.
-The extension has 905 primary cells across 42 directions and 94 route/carrier groups,
-plus 873 one-way product cells. Four new fare archives, three annual capacity
-extracts and seven extended weather responses were acquired. All 1,778 product
-cells match risk and capacity. Of 62 declared fits, 54 estimate and eight seasonal
-holdout fits are saturated. Twenty-one offline tests pass; the second full raw
-rebuild and independent code/report reviews are complete. The 15 compared outputs
-are byte-identical, with all 30 consumed input identities/checksums/payloads verified.
+## Budget and publication
 
-## Key conclusions
-- Stage 5 expanded training interaction+50.58, approximate interval[-38.02,139.19];
-  holdout+33.88[-112.42,180.18]. Standard-effect leave-ORD-out estimate is-1.19.
-  Seasonal controls reduce residual weather-risk SD by 75% and fixed climatology
-  is exactly absorbed. No baseline primary/one-way interaction interval excludes 0.
-- Strong stopping argument: quarterly purchases and marginal proxies lack the
-  quote-time joint demand/risk moment. This is non-identification, not a causal null
-  or a claim that all possible datasets/methods have been exhausted.
-- Decision C: interesting empirical observation, weak paper.
-- Aggregate risk effect at reference log traffic: -20.52 USD per 10pp exposure;
-  interaction +227.55 USD per log-traffic point per unit risk fraction. Both point
-  signs oppose the proposed aggregate signs; interaction interval crosses zero.
-- Original mechanism remains untested: DB1B has no quote timestamps or aligned
-  forecast/inventory information. Traffic and fares are jointly determined.
-- Only eight of 29 route/carrier groups cover both reference risk quartiles.
-  Twelve route clusters and seven validation clusters yield fragile inference.
-- Historical weather exposure is not a calibrated cancellation probability.
+No paid services were added. Flightradar24 remains at zero calls and zero credits;
+its live balance and reset date remain unverified. The initial ceiling is 6,000
+credits within a reported 60,000 monthly allocation. One coordinator controlled
+live acquisition and Git; at most two worker agents reviewed independent tasks.
 
-## Important assumptions and budget
-No additional paid services. Flightradar24: zero calls, zero credits used; initial
-cap remains 6,000 within a reported 60,000 monthly allocation. Reset date and live
-remaining balance remain unknown. At most two worker agents were active; the
-coordinator controlled raw acquisition. An unintended worker-test HTTP invocation
-incident and its prevention are documented in the execution ledger; all such
-attempts returned client exceptions without HTTP status. No prospective collection
-was scheduled.
+Verified annual milestones are committed and pushed throughout execution.
+Final full-horizon publication follows final artifact review and staged inspection;
+the actual result commit and remote confirmation will be recorded here.
 
-## Data status
-Raw sources are ignored under `data/raw/`; intermediate quarterly aggregates are
-ignored under `data/processed/`. Compact outputs and manifests are Git-controlled.
-The Stage 0-4 runner now checks its 25 required paths and checksums, regardless of
-other manifests. Reacquisition checks existing request identity before transfer
-and checksum before promotion. Changed candidates stay in `.part`; previous
-manifests are preserved. Original historical raw inputs have not all been rebuilt
-on this machine, so the fixes' test coverage is not a fresh full-pilot rebuild.
-See the review for reproductions and the Stage 5 guide for its separate workflow.
-The earlier bootstrap used four inputs totaling 163,801,228 compressed bytes:
-January 2010/2024 reporting on-time and 2010 Q1 DB1B Market/Ticket. The annual
-milestones now have all eight fare files and twelve operations months in each of
-2010 and 2011, with three 2010 bootstrap inputs reused. The 124-fare-archive access inventory advertises
-about 9.93 GB; later-year bulk acquisition is still outstanding. Original recipe
-404s and successful corrected probes are both preserved.
+## Local state and reproduction
 
-## Known limitations and open questions
-Endogenous quantity; prorated fares and product composition; quarterly timing;
-retrospective ERA5 vintage; sparse joint support; few clusters; no external demand
-shifter or full capacity model. See report for competing explanations and all fits.
+Raw inputs, previous output backups, intermediate files and coordinator scratch
+recipes remain ignored. The local Python 3.13.9 environment matches requirements
+pins; credentials remain ignored and were not read. Compact outputs, acquisition
+recipes, source hashes and provenance are public Git artifacts. Existing source
+manifests are preserved on matching reacquisition; changed candidates fail and
+remain available for source-revision review.
 
-## Next actions
-1. Declare and parameterize an audited 2012 batch using the frozen 2010 airport IDs; check
-   carrier identities and reporting coverage before broadening later years.
-2. Expand 2012-2025 Q2 fares and monthly operations in audited year batches; fare
-   endpoint access is verified but full acquisition and comparability remain
-   outstanding. The 2010 development panel is built without new model fits.
-3. Add compatible capacity and forecast-vintage risk; predeclare departure/supply
-   outcome models and CR2/bootstrap sensitivity before expanded fare estimation.
-4. Keep the aligned information/identification design separate from descriptive
-   sample expansion. FR24 remains unused and supplemental, subject to verified
-   balance/cost and coverage; missing tracks cannot alone establish cancellations.
-
-## Blockers / Git publication
-The Stage 5 branch is published through `2968268`. Stage 6 uses the separate
-`codex/stage-6-operations` branch. Noninteractive push succeeded for bootstrap
-milestone `4ae39ec`, including the plan and provenance fixes. Final independent
-code/report review found no remaining material issues. Raw inputs and the pinned
-environment remain ignored; no tracked user changes were left outside the work.
-The annual 2010 work is published on `codex/stage-6-2010-panel`. Noninteractive
-push succeeded for result milestone `8a036a8`, including the declared plan,
-acquisition and reviewed implementation. Independent final artifact review
-reconciled all counts and hashes. No unresolved code or scientific-report findings.
-The 2011 result milestone `804a3b7` and all preceding plan/acquisition/implementation
-commits are published on `origin/codex/stage-6-2011-panel`. Independent code and
-artifact reviews found no material issues. Raw data and previous output backups
-remain ignored. A review command accidentally wrote a flattened source copy to
-an untracked `CON` file; the coordinator verified its exact source-only hash and
-removed that generated artifact before final handoff. No user work was discarded.
-
-## Relevant commits
-- `bcb1b47` — Stage 0 research specification.
-- `9e594d1` — verified literature and novelty.
-- `0641787` — source feasibility and data constraints.
-- `6e48581` — tested acquisition/analysis implementation.
-- `6465419` — real pilot, provenance, and quality audits.
-- `65420ec` — final analysis, reports, and reproducibility verification.
-- See subsequent history for final handoff and Git publication status.
-- `e8c99f4` — predeclared Stage5 design.
-- `5201a91` — tested acquisition, products, capacity and identification.
-- `0738495` — expanded results, reviewed methods and durable outputs.
-- `6461da8` — authorized Stage 6 execution plan, committed before implementation.
-- `631e56e` — provenance preservation and original-pipeline input verification.
-- `4ae39ec` — verified historical access, operations bootstrap, report and outputs.
-- `af1544c` — declared full-year 2010 sampling and linkage rules.
-- `6a64b7c` — verified acquisition of twenty full-year source archives.
-- `96e0c31` — tested annual pipeline, parser fix and safe output publication.
-- `8a036a8` — verified 2010 outputs, coverage report and reproduction evidence.
-- `7190f84` — declared 2011 scope and pinned the frozen 2010 sample.
-- `2129ae3` — verified twenty 2011 source archives and acquisition provenance.
-- `b085a1a` — reviewed frozen-year runner and source-separated continuity audits.
-- `804a3b7` — published reproduced 2011 panel, coverage report and verification.
-
-## Intentionally uncommitted local files
-- The review began with a clean working tree; `.env.example` is tracked and has
-  no uncommitted edit here. Earlier handoffs describe a different local state.
-- A local ignored `.venv` with the exact requirements pins has now been installed
-  on Python 3.13.9. Earlier review tests used the available system environment.
-- Credential files remain ignored; no credentials were read. Review calculations
-  used temporary storage and left the tracked research outputs unchanged.
-- Previous annual derived output sets are retained in ignored sibling backup
-  directories for rollback/provenance. Current compact annual outputs are published.
+Use the [full-history reproduction contract](findings/stage6_full_history_report.md)
+for annual commands and verification, including the public final certification
+command `.\.venv\Scripts\python.exe -m scripts.verify_stage6_history --tests-passed COUNT`.
+The original Stage 0-4/Stage 5 runners retain
+their separate input requirements; their earlier raw analyses were not rerun as
+part of this historical expansion. Last updated: 2026-09-13.

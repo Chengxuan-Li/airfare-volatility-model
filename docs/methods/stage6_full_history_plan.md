@@ -67,11 +67,11 @@ Files: `src/stage6/history.py`, `tests/test_stage6_history.py`.
 
 - [x] Inventory and acquire 2012-2025 Q2 in audited batches. Keep exact ledgers,
   cache outcomes, failure evidence and disk checks; no workers make live requests.
-- [ ] Build each remaining year twice, verify input/output hashes, source coverage,
+- [x] Build each remaining year twice, verify input/output hashes, source coverage,
   schema/key checks, support and identities. Commit/push verified year milestones.
-- [ ] Verify all 310 consumed identities across 62 fare quarters and 186 operations
+- [x] Verify all 310 consumed identities across 62 fare quarters and 186 operations
   months, retaining source revisions/failures rather than claiming missing data ran.
-- [ ] Build full-horizon summaries twice and reconcile them against verified annual
+- [x] Build full-horizon summaries twice and reconcile them against verified annual
   outputs. Preserve old outputs; run relevant/full offline tests and independent
   final artifact review. Update report/index/state/ledger and inspect public files.
 - [ ] Push final results and record actual publication and remaining research scope.

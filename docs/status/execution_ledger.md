@@ -545,3 +545,18 @@ summaries and reconciled like populations, preserving national carrier presence
 and every annual artifact. Regression reproduced the failure before the fix;
 full offline suite now passes 251 tests (one known Stage 5 rank warning).
 The failed attempt published no final summary proof. Fresh certification follows.
+
+Final horizon verification: all 310 consumed identities, SHA-256 checks and ZIP
+CRCs pass; 16 annual proofs each record two byte-identical raw builds. All four
+summary files reproduce twice and annual/quarterly counts reconcile. All 62
+pre-extension outputs remain unchanged. 251 offline tests pass. Documentation
+now records complete 2010 Q1-2025 Q2 coverage and separate remaining research.
+Final independent review and publication evidence follow.
+
+Final independent artifact review (2026-09-13): no material data or proof defects.
+All annual and combined counts, carrier scopes, frozen IDs, partial-year limits,
+output hashes and 310 unique consumed identities reconcile. Clarified the August
+2024 exception as one national and one selected retained row, and made the final
+certification command explicitly use the pinned virtual-environment executable.
+Staged public files pass JSON parsing, local-link checks, sensitive-pattern/size
+inspection and byte-exact summary/consumed-manifest comparison to the final proof.

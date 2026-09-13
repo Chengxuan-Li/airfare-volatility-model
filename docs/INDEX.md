@@ -1,7 +1,7 @@
 # Documentation index
 
 Purpose: investigate operational/weather risk and demand-to-fare transmission.
-Current phase: verified Stage 6 full-year 2011 frozen-sample panel; original quote-time
+Current phase: verified Stage 6 history through 2025 Q2 on the frozen 2010 sample; original quote-time
 hypotheses remain unidentifiable from the quarterly sources. Recommendation C.
 
 - [Project state and next actions](project_state.md)
@@ -11,8 +11,10 @@ hypotheses remain unidentifiable from the quarterly sources. Recommendation C.
 - [Full-year 2010 panel execution plan](methods/stage6_2010_plan.md)
 - [Frozen-sample 2011 execution plan](methods/stage6_2011_plan.md)
 - [Continuous full-history execution plan](methods/stage6_full_history_plan.md)
-- [Full-history coverage, progress and reproduction report](findings/stage6_full_history_report.md)
+- [Full-history findings, coverage and reproduction report](findings/stage6_full_history_report.md)
 - [Completed historical acquisition batches](../data/manifests/stage6_full_history_acquisition_summary.json)
+- [Full-history summaries and verification](../outputs/stage6/history/)
+- [All 310 consumed-input identities and checks](../data/manifests/stage6_full_history_consumed_inputs.json)
 - [2011 coverage, continuity and reproduction report](findings/stage6_2011_report.md)
 - [2011 panel outputs](../outputs/stage6/annual_2011/) and [verification](../outputs/stage6/annual_2011/verification.json)
 - [Frozen 2010 sample manifest](../data/manifests/stage6_frozen_sample_2010.json)
@@ -33,8 +35,8 @@ hypotheses remain unidentifiable from the quarterly sources. Recommendation C.
 - [Acquisition provenance manifests](../data/manifests/)
 
 Handoff: read the root rules, README, this index, and project state; inspect Git
-status/history; read the consolidated findings and follow the documented Stage 5
-recommendation. Preserve the distinction between aggregate and quote-time tests.
+status/history; read the current full-history report and project state for next
+research actions. Preserve the distinction between aggregate and quote-time tests.
 
 - [Stage 0 charter](research/00_research_charter.md)
 - [Hypotheses and estimands](research/01_hypotheses.md)
