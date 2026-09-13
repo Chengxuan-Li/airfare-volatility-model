@@ -17,6 +17,10 @@ Missing coverage stays missing. Retained/entered/exited in continuity tables mea
 observed source presence, not physical service opening/closure or cancellation.
 Numeric reporting codes and stable DOT IDs remain distinct. Airport aliases and
 carrier reporting populations are audited each year against the frozen baseline.
+For example, observed operations DOT IDs increase from twelve in 2017 to eighteen
+in 2018, while fare reporting codes decrease from twenty-four to twenty-two. This
+population break limits interpretation of changes in national record totals as
+traffic growth; the sources do not share a common carrier reporting universe.
 For 2025, baseline comparisons are restricted to Q1-Q2 and January-June; later
 unrequested periods cannot establish exits. Full-year and half-year totals should
 not be compared without matching periods.
@@ -50,6 +54,7 @@ failures or FR24 use. HEAD access alone does not establish complete data validit
 | 2016 | 4 | 5,617,658 | 2,216,189 | 3,201 | 2,943 | 99.9004% |
 | 2017 | 4 | 5,674,616 | 2,220,493 | 3,192 | 2,971 | 99.9336% |
 | 2018 | 4 | 7,206,193 | 2,388,143 | 3,177 | 3,027 | 99.9624% |
+| 2020 | 4 | 4,688,354 | 1,474,864 | 3,059 | 2,914 | 99.9666% |
 <!-- YEAR_PROGRESS_END -->
 
 The coordinator alone downloads in bounded pairs and verifies caches, request
