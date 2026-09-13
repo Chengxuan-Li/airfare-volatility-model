@@ -342,3 +342,38 @@ wrong or incomplete periods. Independent review accepted the fix; bootstrap and
 download tests pass (11). This was found before the 2024 raw build, not a failed
 historical source request. The 2012 acquisition completed all twenty inputs and
 2013 is underway. Repeated raw builds are starting with the reviewed annual code.
+
+The first 2012 raw attempt stopped in July operations before publishing results:
+one source row has a genuinely blank scheduled departure time (CRSDepTime), with
+all other flight and outcome fields present. It is 2012-07-12, DOT carrier 19393,
+flight 935, AUS-HOU; this route is outside the selected network. National outcome
+counts would otherwise include it. The failed attempt and traceback are retained
+in `stage6_2012_build_attempts.json`; input bytes were not changed.
+
+Ruling: retain a flight with missing scheduled departure only when its remaining
+date/carrier/flight-number/endpoint key is unique across the entire monthly source.
+Keep the schedule value missing; never substitute actual departure time. Reject
+any collision involving such an incomplete key, including across chunks. All other
+identity requirements and exact full-key duplicate checks remain. Report affected
+national/scoped counts explicitly. This preserves reported outcome denominators
+without inventing schedule data; it does not validate the missing schedule itself.
+
+The missing-schedule regression began red (five failures); the bounded fix passes
+same-chunk and both cross-chunk collision orders while retaining valid distinct
+scheduled departures. Root's real July reader check now processes all 545,131
+reported flights, with one missing scheduled departure nationally and zero within
+the selected network. A separate identity-only scan of all 2012/2013 monthly files
+found no other missing identity fields. These diagnostic reads are not full annual
+build attempts and created no research outputs.
+
+The full current offline suite passes 191 tests, one known Stage 5 warning. Task 2
+independent review caught subset summaries claiming the full horizon; the fix
+labels their actual consecutive span and marks full_horizon_complete only for
+all sixteen declared years. Default CLI still requires all years. The new
+regressions began red; fourteen history tests now pass and re-review is clean.
+
+Ruling: resume two independent alternating-year raw-build queues (2012/2014/etc.
+and 2013/2015/etc.), each with two sequential reproduction passes. Per-year paths
+are disjoint; acquisition remains one coordinator with at most two transfers.
+Source hashes must remain stable across each build. This reduces elapsed time
+without sharing mutable output state; any failure is preserved before diagnosis.

@@ -98,3 +98,100 @@ def test_streaming_detects_duplicate_across_chunk_boundaries(tmp_path):
         archive.writestr('flights.csv', pd.concat([rows, rows.iloc[[0]]]).to_csv(index=False))
     with pytest.raises(ValueError, match='duplicate'):
         read_operations(path, 2024, 1, airports=['ORD', 'LAX'], chunksize=2)
+
+
+def _write_operations_zip(path, rows):
+    with zipfile.ZipFile(path, 'w') as archive:
+        archive.writestr('flights.csv', rows.to_csv(index=False))
+
+
+def test_unique_missing_scheduled_departure_preserves_national_and_scoped_outcomes(tmp_path):
+    from src.stage6.operations import read_operations, summarize_operations
+    rows = flight_rows().iloc[[0, 1, 2]].copy()
+    rows.loc[0, 'CRSDepTime'] = np.nan
+    rows.loc[0, 'DepTime'] = 908
+    rows.loc[2, ['Origin', 'Dest']] = ['AUS', 'HOU']
+    rows.loc[2, ['OriginAirportID', 'DestAirportID']] = [10423, 12191]
+    rows.loc[2, 'CRSDepTime'] = np.nan
+    original = rows.copy(deep=True)
+    summarized, _ = summarize_operations(rows, 2024, 1)
+    assert summarized.flights.sum() == 3
+    pd.testing.assert_frame_equal(rows, original)
+    path = tmp_path/'missing-schedule.zip'
+    _write_operations_zip(path, rows)
+
+    scoped, national, audit = read_operations(
+        path, 2024, 1, airports=['ORD', 'LAX'], chunksize=1)
+
+    assert scoped.flights.sum() == 2
+    assert scoped.delay_observed.sum() == 2
+    assert scoped.delayed_15.sum() == 1
+    assert national.flights.sum() == 3
+    assert national.delay_observed.sum() == 3
+    assert national.delayed_15.sum() == 2
+    assert audit['missing_scheduled_departure_national'] == 2
+    assert audit['missing_scheduled_departure_selected'] == 1
+    assert 'unique' in audit['incomplete_key_policy']
+    pd.testing.assert_frame_equal(rows, original)
+
+
+def test_month_without_missing_schedule_preserves_legacy_audit_shape(tmp_path):
+    from src.stage6.operations import read_operations
+    path = tmp_path/'complete-schedule.zip'
+    _write_operations_zip(path, flight_rows())
+
+    _, _, audit = read_operations(path, 2024, 1, chunksize=2)
+
+    assert 'missing_scheduled_departure_national' not in audit
+    assert 'missing_scheduled_departure_selected' not in audit
+    assert 'incomplete_key_policy' not in audit
+
+
+@pytest.mark.parametrize('missing_first', [True, False])
+def test_missing_schedule_collision_with_complete_key_fails_in_both_chunk_orders(
+        tmp_path, missing_first):
+    from src.stage6.operations import read_operations
+    rows = flight_rows().iloc[[0, 0]].copy()
+    rows['CRSDepTime'] = [np.nan, 1100] if missing_first else [1100, np.nan]
+    path = tmp_path/'missing-complete-collision.zip'
+    _write_operations_zip(path, rows)
+
+    with pytest.raises(ValueError, match='incomplete.*collision'):
+        read_operations(path, 2024, 1, chunksize=1)
+
+
+@pytest.mark.parametrize('chunksize', [1, 2])
+def test_two_missing_schedules_with_same_core_fail_within_or_across_chunks(
+        tmp_path, chunksize):
+    from src.stage6.operations import read_operations
+    rows = flight_rows().iloc[[0, 0]].copy()
+    rows['CRSDepTime'] = np.nan
+    path = tmp_path/'missing-missing-collision.zip'
+    _write_operations_zip(path, rows)
+
+    with pytest.raises(ValueError, match='incomplete.*collision'):
+        read_operations(path, 2024, 1, chunksize=chunksize)
+
+
+def test_complete_rows_may_share_core_when_scheduled_departures_differ(tmp_path):
+    from src.stage6.operations import read_operations
+    rows = flight_rows().iloc[[0, 0]].copy()
+    rows['CRSDepTime'] = [1000, 1100]
+    path = tmp_path/'valid-same-core.zip'
+    _write_operations_zip(path, rows)
+
+    _, national, audit = read_operations(path, 2024, 1, chunksize=1)
+
+    assert national.flights.sum() == 2
+    assert audit['duplicate_rows'] == 0
+
+
+def test_missing_non_schedule_identity_still_fails(tmp_path):
+    from src.stage6.operations import read_operations
+    rows = flight_rows().iloc[[0]].copy()
+    rows.loc[0, 'OriginAirportID'] = np.nan
+    path = tmp_path/'missing-other-identity.zip'
+    _write_operations_zip(path, rows)
+
+    with pytest.raises(ValueError, match='Missing operations identity'):
+        read_operations(path, 2024, 1, chunksize=1)
